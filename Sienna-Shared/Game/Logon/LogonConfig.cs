@@ -10,7 +10,7 @@ namespace Sienna.Game
     public class DatabaseInformations
     {
         public string Address = "127.0.0.1";
-        public int Port = 3309;
+        public int Port = 3306;
         public string DatabaseName = "Sienna-Logon";
         public string Username = "Sienna";
         public string Password = "Sienna";
