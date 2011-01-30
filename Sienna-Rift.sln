@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sienna-Shared", "Sienna-Shared\Sienna-Shared.csproj", "{D02108E9-1421-427B-B7FB-41A3963D69AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sienna-LogonServer", "Sienna-LogonServer\Sienna-LogonServer.csproj", "{F3D61585-8660-4C14-B3B9-30E0EE3F66E1}"
