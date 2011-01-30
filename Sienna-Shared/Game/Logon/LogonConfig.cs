@@ -35,9 +35,13 @@ namespace Sienna.Game
         public DatabaseInformations LoginDatabase = new DatabaseInformations();
 
         public string LogFile = "Logon.log";
+
         public Log.LogLevel ConsoleLogLevel = Log.LogLevel.Info;
         public Log.LogLevel FileLogLevel = Log.LogLevel.Info;
 
         public int DatabaseThreads = 4;
+
+        public int IntercomPort = 8859;
+        public string IntercomKey = "Important-Change-Me";
     }
 }

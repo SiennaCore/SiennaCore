@@ -39,6 +39,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -56,6 +57,7 @@
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Database\DatabaseWorker.cs" />
     <Compile Include="Database\Database.cs" />
+    <Compile Include="Game\Logon\Account.cs" />
     <Compile Include="Game\Logon\ClientAuthCertificate.cs" />
     <Compile Include="Game\Logon\Handlers\AuthentificationHandler.cs" />
     <Compile Include="Game\Logon\Handlers\LogonOpcodes.cs" />
@@ -64,7 +66,10 @@
     <Compile Include="Game\Logon\LogonMgr.cs" />
     <Compile Include="Game\Logon\LogonServer.cs" />
     <Compile Include="Game\Logon\LogonClient.cs" />
+    <Compile Include="Intercom\IntercomServer.cs" />
+    <Compile Include="Intercom\RemoteObject.cs" />
     <Compile Include="Logging\Log.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Packet\ExtendedBitConverter.cs" />
     <Compile Include="Network\Packet\PacketStream.cs" />
