@@ -28,19 +28,24 @@ namespace Launcher
             string RemoteServer = textBox3.Text;
 
             string cert = "";
-            using (StreamWriter writer = new StreamWriter(cert + @"\SiennaCert"))
+
+            if(!File.Exists(cert + @"\SiennaCert.pfx"))
+                File.Create(cert + @"\SiennaCert.pfx");
+
+            using (StreamWriter writer = new StreamWriter(cert + @"\SiennaCert.pfx"))
             {
                 writer.WriteLine("Signature: SiennaAuth");
                 writer.WriteLine("<?xml version=\"1.0\"?>");
                 writer.WriteLine("<ClientAuthCertificate xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
                 writer.WriteLine("<Username>" + Username + "</Username>");
                 writer.WriteLine("<Hash>" + Password + "</Hash>");
+                writer.WriteLine("<Sessionkey></Sessionkey>");
                 writer.WriteLine("</ClientAuthCertificate>");
             }
 
             Process process = new Process();
             process.StartInfo.FileName = "rift.exe";
-            process.StartInfo.Arguments = "-u " + Username + " -k " + cert + @"\SiennaCert -l " + Lang + " -s " + RemoteServer;
+            process.StartInfo.Arguments = "-u " + Username + " -k " + cert + @"\SiennaCert.pfx -l " + Lang + " -s " + RemoteServer;
             process.Start();
         }
     }

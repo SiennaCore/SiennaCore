@@ -22,7 +22,7 @@ namespace Sienna.Game
             XmlSerializer xmls = new XmlSerializer(typeof(ClientAuthCertificate));
             ClientAuthCertificate Cert = xmls.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(Certificate))) as ClientAuthCertificate;
 
-            ReplyAuthCertificate(From, Cert.IsValid());
+            ReplyAuthCertificate(From, Cert.IsValid(LogonConfig.get.UsingCustomCertificateServer));
         }
 
         public static void ReplyAuthCertificate(LogonClient To, bool Result)

@@ -43,5 +43,7 @@ namespace Sienna.Game
 
         public int IntercomPort = 8859;
         public string IntercomKey = "Important-Change-Me";
+
+        public bool UsingCustomCertificateServer = false;
     }
 }
