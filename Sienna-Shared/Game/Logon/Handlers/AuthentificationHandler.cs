@@ -34,24 +34,6 @@ namespace Sienna.Game
         [LogonPacket((ushort)LogonOpcodes.Client_RequestRealmlist)]
         public static void HandleCharSelectionRequest(LogonClient From, PacketStream Data)
         {
-            /*PacketStream ps = new PacketStream();
-            ps.WriteByte(0x03);
-            ps.WriteByte(0x5F);
-            ps.WriteByte(0x97);
-            ps.WriteByte(0x0B);
-            ps.WriteByte(0xE5);
-            ps.WriteByte(0x03);
-            ps.WriteByte(0x02);
-            ps.WriteByte(0xEB);
-            ps.WriteByte(0x11);
-            ps.WriteByte(0x0A);
-            ps.WriteByte(0xB6);
-            ps.WriteByte(0xC3);
-            ps.WriteByte(0x01);
-            ps.WriteByte(0x07);
-
-            From.Send(LogonOpcodes.Server_SendRealmlist , ps);*/
-
             From.Send(TempHacks.RealmlistInfos);
         }
 
@@ -60,16 +42,18 @@ namespace Sienna.Game
         {
             PacketStream ps = new PacketStream();
             ps.WriteByte(0x07);
-            From.Send(LogonOpcodes.Server_AcceptRealmSelection, ps);
+
+            From.Send(LogonOpcodes.Client_RequestRealmlist, ps);
+            From.Send(TempHacks.AllowCharCreation);
         }
 
         [LogonPacket((ushort)LogonOpcodes.Client_RequestCharacterlist)]
         public static void HandleCharlistRequest(LogonClient From, PacketStream Data)
         {
-
+            From.Send(TempHacks.CharacterInfos);
         }
 
-        [LogonPacket((ushort)LogonOpcodes.Client_CreateCharacter)]
+        [LogonPacket((ushort)LogonOpcodes.Client_RequestCharCreationInfos)]
         public static void HandleCharCreationRequest(LogonClient From, PacketStream Data)
         {
             From.Send(TempHacks.CharCreationInfos);

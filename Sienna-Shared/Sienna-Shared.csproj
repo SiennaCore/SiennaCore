@@ -89,6 +89,7 @@
     <Compile Include="Game\Logon\LogonMgr.cs" />
     <Compile Include="Game\Logon\LogonServer.cs" />
     <Compile Include="Game\Logon\LogonClient.cs" />
+    <Compile Include="Game\Logon\Realm.cs" />
     <Compile Include="Intercom\IntercomServer.cs" />
     <Compile Include="Intercom\RemoteObject.cs" />
     <Compile Include="Logging\Log.cs" />

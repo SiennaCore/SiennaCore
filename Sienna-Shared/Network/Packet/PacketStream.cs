@@ -279,6 +279,15 @@ namespace Sienna.Network
             return ps.ToArray();
         }
 
+        public byte[] ToLogonPacket(UInt16 Opcode, byte SpecialSize)
+        {
+            PacketStream ps = new PacketStream();
+            ps.WriteByte(SpecialSize);
+            ps.WriteUInt16(Opcode);
+            ps.Write(str.ToArray());
+            return ps.ToArray();
+        }
+
         public byte[] ToArray()
         {
             return str.ToArray();

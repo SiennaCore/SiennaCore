@@ -11,7 +11,7 @@ namespace Sienna.Game
         Client_RequestRealmlist = 0x03C0,
         Client_RequestCharacterlist = 0x03B3,
         Client_SelectRealm = 0x039D,
-        Client_CreateCharacter = 0x03C2,
+        Client_RequestCharCreationInfos = 0x03C2,
 
         Server_AuthCertificate = 0x03AF,
         Server_Ping   = 0x0402,

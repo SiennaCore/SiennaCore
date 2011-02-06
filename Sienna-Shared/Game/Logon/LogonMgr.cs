@@ -43,7 +43,7 @@ namespace Sienna.Game
             LServ.Bind(LogonConfig.get.LoginPort);
 
             Log.Info(">> Sienna Logon is online on port " + LogonConfig.get.LoginPort);
-            
+
             while (true) { Thread.Sleep(Timeout.Infinite); }
         }
     }
