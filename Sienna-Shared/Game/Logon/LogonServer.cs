@@ -88,6 +88,8 @@ namespace Sienna.Game
                         byte Size = (byte)Ps.ReadByte();
                         UInt16 Opcode = Ps.GetUInt16();
 
+                        Log.Error("CLIENT_SENDED_OPCODE : " + Opcode);
+
                         byte[] Buffer = Ps.Read(Size - sizeof(UInt16));
 
                         if (Handlers.ContainsKey(Opcode))

@@ -84,6 +84,7 @@
     <Compile Include="Game\Logon\Handlers\AuthentificationHandler.cs" />
     <Compile Include="Game\Logon\Handlers\LogonOpcodes.cs" />
     <Compile Include="Game\Logon\Handlers\LogonPacketAttribute.cs" />
+    <Compile Include="Game\Logon\Handlers\TempHacks.cs" />
     <Compile Include="Game\Logon\LogonConfig.cs" />
     <Compile Include="Game\Logon\LogonMgr.cs" />
     <Compile Include="Game\Logon\LogonServer.cs" />

@@ -96,7 +96,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(234, 20);
             this.textBox3.TabIndex = 5;
-            this.textBox3.Text = "127.0.0.1:9600";
+            this.textBox3.Text = "127.0.0.1:6900";
             // 
             // listBox1
             // 

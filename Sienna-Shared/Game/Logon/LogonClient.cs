@@ -29,7 +29,7 @@ namespace Sienna.Game
         protected MemoryStream DataStr;
         protected ZOutputStream ZStream;
 
-        protected byte[] Deflate(byte[] Input)
+        public byte[] Deflate(byte[] Input)
         {
             ZStream.Write(Input, 0, Input.Length);
             ZStream.Flush();
@@ -37,6 +37,13 @@ namespace Sienna.Game
             byte[] DeflatedData = DataStr.ToArray();
             DataStr.SetLength(0);
             return DeflatedData;
+        }
+
+        public void Ping()
+        {
+            PacketStream ps = new PacketStream();
+            ps.WriteUInt32((uint)Environment.TickCount);
+            ps.WriteByte(0x07);
         }
 
         public void Send(LogonOpcodes Opcode, PacketStream ps)
