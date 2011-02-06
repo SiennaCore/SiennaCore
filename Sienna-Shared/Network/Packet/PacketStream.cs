@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Sienna.zlib;
+
 using System.Net.Sockets;
 using System.IO;
 
@@ -44,7 +46,20 @@ namespace Sienna.Network
 
         public PacketStream(byte[] Data)
         {
-            str = new MemoryStream(Data);
+            str = new MemoryStream();
+            str.Write(Data, 0, Data.Length );
+        }
+
+        public PacketStream(byte[] Data, int Length)
+        {
+            str = new MemoryStream();
+            str.Write(Data, 0, Length);
+        }
+
+        public PacketStream(byte[] Data, int Start, int Length)
+        {
+            str = new MemoryStream();
+            str.Write(Data, Start, Length);
         }
 
         public virtual UInt16 GetUInt16Reversed()
@@ -267,6 +282,11 @@ namespace Sienna.Network
         public byte[] ToArray()
         {
             return str.ToArray();
+        }
+
+        public void Rewind(int Position)
+        {
+            str.Position = Position;
         }
     }
 }

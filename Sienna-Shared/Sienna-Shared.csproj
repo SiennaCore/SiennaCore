@@ -98,6 +98,21 @@
     <Compile Include="Network\Packet\PacketFormatter.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Libs\zlib\Adler32.cs" />
+    <Compile Include="Libs\zlib\Deflate.cs" />
+    <Compile Include="Libs\zlib\InfBlocks.cs" />
+    <Compile Include="Libs\zlib\InfCodes.cs" />
+    <Compile Include="Libs\zlib\Inflate.cs" />
+    <Compile Include="Libs\zlib\InfTree.cs" />
+    <Compile Include="Libs\zlib\StaticTree.cs" />
+    <Compile Include="Libs\zlib\SupportClass.cs" />
+    <Compile Include="Libs\zlib\Tree.cs" />
+    <Compile Include="Libs\zlib\ZInputStream.cs" />
+    <Compile Include="Libs\zlib\Zlib.cs" />
+    <Compile Include="Libs\zlib\ZlibMgr.cs" />
+    <Compile Include="Libs\zlib\ZOutputStream.cs" />
+    <Compile Include="Libs\zlib\ZStream.cs" />
+    <Compile Include="Libs\zlib\ZStreamException.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -115,6 +130,32 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Libs\zlib\.svn\all-wcprops" />
+    <None Include="Libs\zlib\.svn\entries" />
+    <None Include="Libs\zlib\.svn\text-base\Adler32.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\Deflate.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\InfBlocks.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\InfCodes.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\Inflate.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\InfTree.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\StaticTree.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\SupportClass.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\Tree.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\ZInputStream.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\Zlib.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\ZlibMgr.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\ZOutputStream.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\ZStream.cs.svn-base" />
+    <None Include="Libs\zlib\.svn\text-base\ZStreamException.cs.svn-base" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Libs\zlib\.svn\prop-base\" />
+    <Folder Include="Libs\zlib\.svn\props\" />
+    <Folder Include="Libs\zlib\.svn\tmp\prop-base\" />
+    <Folder Include="Libs\zlib\.svn\tmp\props\" />
+    <Folder Include="Libs\zlib\.svn\tmp\text-base\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

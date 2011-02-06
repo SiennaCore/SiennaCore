@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 
 using Sienna.Network;
+using Sienna.zlib;
 
 using System.Reflection;
+using System.IO;
 
 namespace Sienna.Game
 {
@@ -44,17 +46,53 @@ namespace Sienna.Game
         protected override void OnRead(LogonClient Client, byte[] ReadenBytes)
         {
             PacketStream Ps = new PacketStream(ReadenBytes);
+            Ps.Rewind(0);
+
+            //int offset = 0;
 
             while (!Ps.Empty())
             {
                 try
                 {
-                    byte Size = (byte)Ps.ReadByte();
-                    UInt16 Opcode = Ps.GetUInt16();
-                    byte[] Buffer = Ps.Read(Size - sizeof(UInt16));
+                    /*if (Client.ClientCompressPackets)
+                    {
+                        int StartPos = offset;
+                        int EndPos = -1;
+                        for (int i = offset; i < ReadenBytes.Length; i++)
+                        {
+                            if (ReadenBytes[i] == 0x00 && ReadenBytes.Length - i >= 4)
+                            {
+                                if (ExtendedBitConverter.ConvertToUInt32(ReadenBytes[i + 1], ReadenBytes[i + 2], ReadenBytes[i + 3], ReadenBytes[i + 4]) == 0xFF)
+                                {
+                                    EndPos = i;
+                                    offset = i + 5;
+                                    break;
+                                }
+                            }
+                        }
 
-                    if (Handlers.ContainsKey(Opcode))
-                        Handlers[Opcode].Invoke(Client, new PacketStream(Buffer));
+                        // Read error
+                        if (EndPos == -1)
+                        {
+                            Log.Error("Client sent an invalid deflated packet");
+                            return;
+                        }
+
+                        byte[] pck = new byte[EndPos - StartPos];
+                        Array.Copy(ReadenBytes, StartPos, pck, 0, pck.Length);
+
+                        pck = ZlibMgr.Decompress(pck);
+                    }
+                    else
+                    {*/
+                        byte Size = (byte)Ps.ReadByte();
+                        UInt16 Opcode = Ps.GetUInt16();
+
+                        byte[] Buffer = Ps.Read(Size - sizeof(UInt16));
+
+                        if (Handlers.ContainsKey(Opcode))
+                            Handlers[Opcode].Invoke(Client, new PacketStream(Buffer));
+                   //}
                 }
                 catch (Exception e) { Log.Error(e.Message + " " + e.Source + " " + e.StackTrace); }
             }

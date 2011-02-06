@@ -7,7 +7,11 @@ namespace Sienna.Game
 {
     public enum LogonOpcodes
     {
-        HandleAuthCertificate = 0xC501,
-        ReplyAuthCertificate = 0x03AF
+        Client_AuthCertificate = 0xC502,
+        Client_Ping = 0x0402,
+
+        Server_AuthCertificate = 0x03AF,
+        Server_Unk1   = 0x0402,
+        Server_ZCompressStart = 0x0119
     }
 }

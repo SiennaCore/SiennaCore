@@ -7,6 +7,8 @@ using System.Threading;
 using Sienna.Database;
 using Sienna.Intercom;
 
+using Sienna.zlib;
+
 namespace Sienna.Game
 {
     public static class LogonMgr

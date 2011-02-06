@@ -12,25 +12,41 @@ namespace Sienna.Game
 {
     public static class AuthentificationHandler
     {
-        [LogonPacket((ushort)LogonOpcodes.HandleAuthCertificate)]
+        [LogonPacket((ushort)LogonOpcodes.Client_AuthCertificate)]
         public static void HandleAuthCertificate(LogonClient From, PacketStream Data)
         {
             Data.Skip(17);
 
             string Certificate = Data.ReadString((int)Data.Length());
 
-            XmlSerializer xmls = new XmlSerializer(typeof(ClientAuthCertificate));
-            ClientAuthCertificate Cert = xmls.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(Certificate))) as ClientAuthCertificate;
+            // Inform client that we are starting compression now
+            PacketStream ps = new PacketStream();
+            ps.ToLogonPacket((ushort)LogonOpcodes.Server_ZCompressStart);
+            From.Send(LogonOpcodes.Server_ZCompressStart, ps);
+            From.ServerCompressPackets = true;
 
-            ReplyAuthCertificate(From, Cert.IsValid(LogonConfig.get.UsingCustomCertificateServer));
+            //XmlSerializer xmls = new XmlSerializer(typeof(ClientAuthCertificate));
+            //ClientAuthCertificate Cert = xmls.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(Certificate))) as ClientAuthCertificate;
+
+            ReplyAuthCertificate(From, true/*From, Cert.IsValid(LogonConfig.get.UsingCustomCertificateServer)*/);
         }
 
         public static void ReplyAuthCertificate(LogonClient To, bool Result)
         {
-            PacketStream ps = new PacketStream();
-            ps.Write(new byte[] { 0x0D, 0x3E, 0xD5, 0xE8, 0x44, 0x0E, 0xCA, 0x67, 0x5D, 0x07 });
+            if (!Result)
+                return;
 
-            To.Send((ushort)LogonOpcodes.ReplyAuthCertificate, ps);
+            PacketStream ps = new PacketStream();
+            ps.WriteUInt32(0xCF96D10D); // Unk1
+            ps.WriteUInt32(0xF2336D3C); // Unk2
+            ps.WriteUInt16(0x0749); // Unk3
+
+            To.Send(LogonOpcodes.Server_AuthCertificate, ps);
+
+            ps = new PacketStream();
+            ps.WriteUInt32(0x0067FDEF);
+            ps.WriteByte(0x07);
+            To.Send(LogonOpcodes.Server_Unk1, ps);
         }
     }
 }

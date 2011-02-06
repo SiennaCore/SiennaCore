@@ -77,7 +77,7 @@ namespace Sienna.Network
                     t.Start();
                 }
             }
-            catch (Exception){ return false; }
+            catch (Exception) { return false; }
 
             return true;
         }
@@ -116,9 +116,9 @@ namespace Sienna.Network
                                 int ReadenBytes = ClientSocket.Receive(Buffer, Buffer.Length, SocketFlags.None);
 
                                 OnRead(Client.Key, Buffer);
-
-                                Client.Value.Locked = false;
                             }
+
+                            Client.Value.Locked = false;
                         }
                     }
                     catch (Exception) { }
