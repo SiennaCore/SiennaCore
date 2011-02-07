@@ -82,6 +82,7 @@
     <Compile Include="Game\Logon\Account.cs" />
     <Compile Include="Game\Logon\ClientAuthCertificate.cs" />
     <Compile Include="Game\Logon\Handlers\AuthentificationHandler.cs" />
+    <Compile Include="Game\Logon\Handlers\CharacterHandler.cs" />
     <Compile Include="Game\Logon\Handlers\LogonOpcodes.cs" />
     <Compile Include="Game\Logon\Handlers\LogonPacketAttribute.cs" />
     <Compile Include="Game\Logon\Handlers\TempHacks.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Game\Logon\LogonServer.cs" />
     <Compile Include="Game\Logon\LogonClient.cs" />
     <Compile Include="Game\Logon\Realm.cs" />
+    <Compile Include="Game\World\Entities\Player.cs" />
+    <Compile Include="Game\World\Enums.cs" />
     <Compile Include="Intercom\IntercomServer.cs" />
     <Compile Include="Intercom\RemoteObject.cs" />
     <Compile Include="Libs\zlib\Adler32.cs" />

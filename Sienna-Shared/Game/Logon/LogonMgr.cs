@@ -37,6 +37,7 @@ namespace Sienna.Game
 
             LIntercom = new IntercomServer();
             int Binded = LIntercom.Bind(LogonConfig.get.IntercomPort, LogonConfig.get.IntercomKey);
+            DatabaseWorker.StartWorkers(LogonConfig.get.DatabaseThreads);
 
             Log.Info(">> Sienna Clustering Intercom registered " + Binded + " classes available on port " + LogonConfig.get.IntercomPort);
             Log.Info("");

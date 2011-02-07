@@ -18,7 +18,7 @@ namespace Sienna.Game
         /// </summary>
         /// <param name="UsingCertificateServer">If implementing a custom certificate server for advanced authentification set this to true</param>
         /// <returns></returns>
-        public bool IsValid(bool UsingCertificateServer)
+        public Account IsValid(bool UsingCertificateServer)
         {
             Username = LogonMgr.LDatabase.EscapeString(Username).ToUpper();
             Hash = LogonMgr.LDatabase.EscapeString(Hash).ToUpper();
@@ -32,7 +32,7 @@ namespace Sienna.Game
                 Result = LogonMgr.LDatabase.Execute("SELECT * FROM accounts WHERE sessionkey = \"" + Sessionkey + "\"");
 
             if (Result.Count == 0)
-                return false;
+                return null;
 
             List<Row> IsBanned = LogonMgr.LDatabase.Execute("SELECT * FROM accounts_banned WHERE id = \"" + Result[0]["id"] + "\"");
             bool IsAccountBanned = false;
@@ -42,7 +42,9 @@ namespace Sienna.Game
                 if (r["banend"] == r["banstart"] || long.Parse(r["banend"]) < DateTime.Now.Ticks)
                     IsAccountBanned = true;
 
-            return IsAccountBanned == false ? true : false;
+            Account acct = new Account(long.Parse(Result[0]["id"]), Result[0]["username"], Result[0]["sessionkey"], Result[0]["sha_password"], int.Parse(Result[0]["gmlevel"]), Result[0]["email"]);
+
+            return IsAccountBanned == false ? acct : null;
         }
     }
 }

@@ -16,32 +16,41 @@ namespace Sienna.Database
 
         public void Execute()
         {
-            MySqlCommand Request = new MySqlCommand(Query, DB);
-            MySqlDataReader Result;
-
-            List<Row> Ret = new List<Row>();
-
-            // Check if query have a return value
-            if (Query.StartsWith("SELECT ") == true)
+            try
             {
-                Result = Request.ExecuteReader();
+                MySqlCommand Request = new MySqlCommand(Query, DB);
+                MySqlDataReader Result;
 
-                while (Result.Read())
+                List<Row> Ret = new List<Row>();
+
+                // Check if query have a return value
+                if (Query.StartsWith("SELECT ") == true)
                 {
-                    Row Res = new Row(Result.FieldCount);
+                    Result = Request.ExecuteReader();
 
-                    for (int i = 0; i < Result.FieldCount; i++)
-                        Res.AddToRow(Result.GetName(i), Result.GetValue(i).ToString());
+                    while (Result.Read())
+                    {
+                        Row Res = new Row(Result.FieldCount);
 
-                    Ret.Add(Res);
+                        for (int i = 0; i < Result.FieldCount; i++)
+                            Res.AddToRow(Result.GetName(i), Result.GetValue(i).ToString());
+
+                        Ret.Add(Res);
+                    }
+
+                    Result.Close();
                 }
-            }
-            else
-            {
-                Request.ExecuteNonQuery();
-            }
+                else
+                {
+                    Request.ExecuteNonQuery();
+                }
 
-            Callback.Invoke(Ret, UserData);
+                Callback.Invoke(Ret, UserData);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message + " " + e.Source + " " + e.StackTrace);
+            }
         }
 
         public MySqlConnection DB;

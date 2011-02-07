@@ -13,7 +13,7 @@ CREATE TABLE `accounts` (
   `email` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_username` (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `accounts_banned`
@@ -29,8 +29,24 @@ CREATE TABLE `accounts_banned` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of accounts_banned
+-- Table structure for `characters`
 -- ----------------------------
+DROP TABLE IF EXISTS `characters`;
+CREATE TABLE `characters` (
+  `guid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `account` bigint(20) NOT NULL,
+  `realm` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `sex` tinyint(3) NOT NULL,
+  `class` tinyint(3) NOT NULL,
+  `race` tinyint(3) NOT NULL,
+  `level` int(11) NOT NULL,
+  `data` blob NOT NULL,
+  PRIMARY KEY (`guid`),
+  KEY `idx_realm` (`realm`),
+  KEY `idx_account` (`account`),
+  KEY `idx_name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for `realms`

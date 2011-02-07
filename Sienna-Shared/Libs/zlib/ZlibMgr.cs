@@ -16,7 +16,7 @@ namespace Sienna.zlib
         static public byte[] Compress(byte[] Input)
         {
             MemoryStream OutPut = new MemoryStream();
-            ZOutputStream ZStream = new ZOutputStream(OutPut,zlibConst.Z_DEFAULT_COMPRESSION);
+            ZOutputStream ZStream = new ZOutputStream(OutPut,zlibConst.Z_NO_COMPRESSION);
             Process(ZStream,Input);
 
             return OutPut.ToArray();

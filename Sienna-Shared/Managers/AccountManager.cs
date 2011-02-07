@@ -27,7 +27,7 @@ namespace Sienna
                 return null;
 
             Row row = Result[0];
-            Account acct = new Account(row["username"], row["sha_password"]);
+            Account acct = new Account(long.Parse(row["id"]), row["username"], row["sessionkey"], row["sha_password"], int.Parse(row["gmlevel"]), row["email"]);
             Accounts.Add(Name, acct);
 
             return acct;

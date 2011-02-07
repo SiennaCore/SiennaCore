@@ -90,7 +90,16 @@ namespace Sienna.Network
 
         public void Skip(long num)
         {
-            str.Position += num;
+            ReadString((int)num);
+        }
+
+        public virtual string ReadString()
+        {
+            int len = ReadByte();
+            var buf = new byte[len];
+            str.Read(buf, 0, len);
+
+            return ExtendedBitConverter.ConvertToString(buf);
         }
 
         public virtual string ReadString(int len)

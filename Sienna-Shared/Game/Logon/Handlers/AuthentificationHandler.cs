@@ -91,13 +91,15 @@ namespace Sienna.Game
             From.Send(TempHacks.CharCreationInfos);
         }
 
-        public static void ReplyAuthCertificate(LogonClient To, bool Result)
+        public static void ReplyAuthCertificate(LogonClient To, Account Result)
         {
-            if (!Result)
+            if (Result == null)
             {
                 To.Disconnect();
                 return;
             }
+
+            To.Acct = Result;
 
             PacketStream ps = new PacketStream();
             ps.WriteUInt32(0xCF96D10D); // Unk1

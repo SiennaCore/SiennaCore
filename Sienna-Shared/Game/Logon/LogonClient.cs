@@ -19,7 +19,7 @@ namespace Sienna.Game
         public LogonClient(Socket Sock) : base(Sock)
         {
             DataStr = new MemoryStream();
-            ZStream = new ZOutputStream(DataStr, zlibConst.Z_DEFAULT_COMPRESSION);
+            ZStream = new ZOutputStream(DataStr, zlibConst.Z_NO_COMPRESSION);
             ZStream.FlushMode = zlibConst.Z_SYNC_FLUSH;
         }
 
@@ -28,6 +28,8 @@ namespace Sienna.Game
 
         protected MemoryStream DataStr;
         protected ZOutputStream ZStream;
+
+        public Account Acct;
 
         public byte[] Deflate(byte[] Input)
         {

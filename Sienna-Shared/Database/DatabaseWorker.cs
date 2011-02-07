@@ -40,24 +40,31 @@ namespace Sienna
         {
             while (true)
             {
-                AsyncEventInfo[] Evts = AsyncEvents.ToArray();
-
-                foreach (AsyncEventInfo evt in Evts)
+                try
                 {
-                    lock (evt)
-                    {
-                        if (evt.treatement)
-                            continue;
+                    AsyncEventInfo[] Evts = AsyncEvents.ToArray();
 
-                        evt.treatement = true;
+                    foreach (AsyncEventInfo evt in Evts)
+                    {
+                        lock (evt)
+                        {
+                            if (evt.treatement)
+                                continue;
+
+                            evt.treatement = true;
+                        }
+
+                        evt.meth.Invoke();
+
+                        AsyncEvents.Remove(evt);
                     }
 
-                    evt.meth.Invoke();
-
-                    AsyncEvents.Remove(evt);
+                    Thread.Sleep(30);
                 }
-
-                Thread.Sleep(30);
+                catch (Exception e)
+                {
+                    Log.Error(e.Message + " " + e.Source + " " + e.StackTrace);
+                }
             }
         }
     }

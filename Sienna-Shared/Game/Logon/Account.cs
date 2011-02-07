@@ -8,13 +8,21 @@ namespace Sienna
     [Serializable]
     public class Account
     {
-        public Account(string User, string ShaPassword)
+        public Account(long AccountID, string User, string SKey, string ShaPassword, int GM, string Mail)
         {
+            ID = AccountID;
             Username = User;
             Hash = ShaPassword;
+            SessionKey = SKey;
+            Email = Mail;
+            GMLevel = GM;
         }
 
+        public long ID;
         public string Username;
         public string Hash;
+        public string SessionKey;
+        public string Email;
+        public int GMLevel;
     }
 }
