@@ -31,6 +31,10 @@ namespace Sienna.Game
             LDatabase = new SQLDatabase(LogonConfig.get.LoginDatabase.DatabaseName, LogonConfig.get.LoginDatabase.Address, LogonConfig.get.LoginDatabase.Port, LogonConfig.get.LoginDatabase.Username, LogonConfig.get.LoginDatabase.Password);
             Log.Info("");
 
+            int LoadedRealms = Realm.LoadRealms(LDatabase);
+            Log.Info(">> Loaded " + LoadedRealms + " realms");
+            Log.Info("");
+
             LIntercom = new IntercomServer();
             int Binded = LIntercom.Bind(LogonConfig.get.IntercomPort, LogonConfig.get.IntercomKey);
 

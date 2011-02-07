@@ -20,8 +20,8 @@ namespace Sienna.Game
         /// <returns></returns>
         public bool IsValid(bool UsingCertificateServer)
         {
-            Username = LogonMgr.LDatabase.EscapeString(Username);
-            Hash = LogonMgr.LDatabase.EscapeString(Hash);
+            Username = LogonMgr.LDatabase.EscapeString(Username).ToUpper();
+            Hash = LogonMgr.LDatabase.EscapeString(Hash).ToUpper();
             Sessionkey = LogonMgr.LDatabase.EscapeString(Sessionkey);
 
             List<Row> Result = null;
@@ -42,7 +42,7 @@ namespace Sienna.Game
                 if (r["banend"] == r["banstart"] || long.Parse(r["banend"]) < DateTime.Now.Ticks)
                     IsAccountBanned = true;
 
-            return IsAccountBanned;
+            return IsAccountBanned == false ? true : false;
         }
     }
 }

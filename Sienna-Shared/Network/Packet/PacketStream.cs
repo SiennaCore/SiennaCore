@@ -16,7 +16,7 @@ namespace Sienna.Network
 
         public bool Empty()
         {
-            return (str.Length - str.Position) <= 0;
+            return str.Length - str.Position <= 0;
         }
 
         public long Length()
@@ -90,7 +90,7 @@ namespace Sienna.Network
 
         public void Skip(long num)
         {
-            Read((int)num);
+            str.Position += num;
         }
 
         public virtual string ReadString(int len)
@@ -273,18 +273,26 @@ namespace Sienna.Network
         public byte[] ToLogonPacket(UInt16 Opcode)
         {
             PacketStream ps = new PacketStream();
-            ps.WriteByte(BitConverter.GetBytes(str.Length + 2)[0]);
-            ps.WriteUInt16(Opcode);
-            ps.Write(str.ToArray());
-            return ps.ToArray();
-        }
 
-        public byte[] ToLogonPacket(UInt16 Opcode, byte SpecialSize)
-        {
-            PacketStream ps = new PacketStream();
-            ps.WriteByte(SpecialSize);
+            bool isLongPacket = false;
+
+            if (str.Length + 2 >= 128)
+                isLongPacket = true;
+
+            if (isLongPacket)
+            {
+                byte Offset = (byte)((str.Length + 2) / 128);
+                byte Size = (byte)((str.Length + 2) - (long)(Offset * 128));
+
+                ps.WriteByte(Size);
+                ps.WriteByte(Offset);
+            }
+            else
+                ps.WriteByte(BitConverter.GetBytes(str.Length + 2)[0]);
+
             ps.WriteUInt16(Opcode);
             ps.Write(str.ToArray());
+
             return ps.ToArray();
         }
 

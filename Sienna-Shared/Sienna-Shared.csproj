@@ -92,14 +92,6 @@
     <Compile Include="Game\Logon\Realm.cs" />
     <Compile Include="Intercom\IntercomServer.cs" />
     <Compile Include="Intercom\RemoteObject.cs" />
-    <Compile Include="Logging\Log.cs" />
-    <Compile Include="Managers\AccountManager.cs" />
-    <Compile Include="Network\Client.cs" />
-    <Compile Include="Network\Packet\ExtendedBitConverter.cs" />
-    <Compile Include="Network\Packet\PacketStream.cs" />
-    <Compile Include="Network\Packet\PacketFormatter.cs" />
-    <Compile Include="Network\Server.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Libs\zlib\Adler32.cs" />
     <Compile Include="Libs\zlib\Deflate.cs" />
     <Compile Include="Libs\zlib\InfBlocks.cs" />
@@ -115,6 +107,14 @@
     <Compile Include="Libs\zlib\ZOutputStream.cs" />
     <Compile Include="Libs\zlib\ZStream.cs" />
     <Compile Include="Libs\zlib\ZStreamException.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
+    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\Packet\ExtendedBitConverter.cs" />
+    <Compile Include="Network\Packet\PacketStream.cs" />
+    <Compile Include="Network\Packet\PacketFormatter.cs" />
+    <Compile Include="Network\Server.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

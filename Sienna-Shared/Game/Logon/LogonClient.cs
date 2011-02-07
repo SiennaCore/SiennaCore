@@ -51,26 +51,9 @@ namespace Sienna.Game
             byte[] data = null;
 
             if (ServerCompressPackets)
-            {
                 data = Deflate(ps.ToLogonPacket((ushort)Opcode));
-            }
             else
                 data = ps.ToLogonPacket((ushort)Opcode);
-
-            _Socket.Send(data);
-        }
-
-        // Until we decode special sizes
-        public void SendLongPacket(LogonOpcodes Opcode, byte SpecialSize, PacketStream ps)
-        {
-            byte[] data = null;
-
-            if (ServerCompressPackets)
-            {
-                data = Deflate(ps.ToLogonPacket((ushort)Opcode, SpecialSize));
-            }
-            else
-                data = ps.ToLogonPacket((ushort)Opcode, SpecialSize);
 
             _Socket.Send(data);
         }

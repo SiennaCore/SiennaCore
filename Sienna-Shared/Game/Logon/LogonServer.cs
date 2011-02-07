@@ -85,15 +85,26 @@ namespace Sienna.Game
                     }
                     else
                     {*/
-                        byte Size = (byte)Ps.ReadByte();
+                        UInt64 Size = (byte)Ps.ReadByte();
+
+                        bool isLongPacket = Size >= 0x80;
+
+                        if (isLongPacket)
+                        {
+                            UInt64 BinaryOffset = (byte)Ps.ReadByte();
+                            Size = Size + ((BinaryOffset - 1) * Size);
+                        }
+
                         UInt16 Opcode = Ps.GetUInt16();
 
-                        Log.Error("CLIENT_SENDED_OPCODE : " + Opcode);
+                        //Log.Error("CLIENT_SENDED_OPCODE : " + Opcode);
 
-                        byte[] Buffer = Ps.Read(Size - sizeof(UInt16));
+                        byte[] Buffer = Ps.Read((int)(Size - (ulong)sizeof(UInt16)));
+                        PacketStream ps = new PacketStream(Buffer);
+                        ps.Rewind(0);
 
                         if (Handlers.ContainsKey(Opcode))
-                            Handlers[Opcode].Invoke(Client, new PacketStream(Buffer));
+                            Handlers[Opcode].Invoke(Client, ps);
                    //}
                 }
                 catch (Exception e) { Log.Error(e.Message + " " + e.Source + " " + e.StackTrace); }

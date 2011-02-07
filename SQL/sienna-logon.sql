@@ -1,4 +1,5 @@
 SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
 -- Table structure for `accounts`
 -- ----------------------------
@@ -13,10 +14,6 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_username` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of accounts
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `accounts_banned`
@@ -34,3 +31,22 @@ CREATE TABLE `accounts_banned` (
 -- ----------------------------
 -- Records of accounts_banned
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `realms`
+-- ----------------------------
+DROP TABLE IF EXISTS `realms`;
+CREATE TABLE `realms` (
+  `id` int(11) NOT NULL,
+  `isonline` int(11) unsigned NOT NULL DEFAULT '1',
+  `language` int(11) unsigned NOT NULL,
+  `realmtype` int(11) unsigned NOT NULL,
+  `population` int(11) unsigned NOT NULL,
+  `address` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of realms
+-- ----------------------------
+INSERT INTO `realms` VALUES ('157', '1', '1', '80', '80', '127.0.0.1:6901');

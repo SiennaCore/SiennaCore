@@ -15,9 +15,12 @@ namespace Sienna.Game
         [LogonPacket((ushort)LogonOpcodes.Client_AuthCertificate)]
         public static void HandleAuthCertificate(LogonClient From, PacketStream Data)
         {
-            Data.Skip(17);
+            Data.Skip(16);
 
+            // Get certificate
             string Certificate = Data.ReadString((int)Data.Length());
+            string EndTag = "</ClientAuthCertificate>";
+            Certificate = Certificate.Substring(0, Certificate.IndexOf(EndTag) + EndTag.Length);
 
             // Inform client that we are starting compression now
             PacketStream ps = new PacketStream();
@@ -25,16 +28,45 @@ namespace Sienna.Game
             From.Send(LogonOpcodes.Server_ZCompressStart, ps);
             From.ServerCompressPackets = true;
 
-            //XmlSerializer xmls = new XmlSerializer(typeof(ClientAuthCertificate));
-            //ClientAuthCertificate Cert = xmls.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(Certificate))) as ClientAuthCertificate;
+            // Check certificate validity
+            XmlSerializer xmls = new XmlSerializer(typeof(ClientAuthCertificate));
+            ClientAuthCertificate Cert = xmls.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(Certificate))) as ClientAuthCertificate;
 
-            ReplyAuthCertificate(From, true/*From, Cert.IsValid(LogonConfig.get.UsingCustomCertificateServer)*/);
+            ReplyAuthCertificate(From, Cert.IsValid(LogonConfig.get.UsingCustomCertificateServer));
         }
 
         [LogonPacket((ushort)LogonOpcodes.Client_RequestRealmlist)]
         public static void HandleCharSelectionRequest(LogonClient From, PacketStream Data)
         {
-            From.Send(TempHacks.RealmlistInfos);
+            PacketStream ps = new PacketStream();
+
+            // Unk
+            ps.WriteUInt16Reversed(0x5F97);
+
+            int RealmCount = Realm.Realmlist.Count;
+
+            // Check if realm count is multiple of 2
+            bool isMultipleOfTwo = RealmCount % 2 == 0 ? true : false;
+
+            // If it's not a multiple of 2 add 1
+            if (!isMultipleOfTwo && RealmCount > 0)
+                RealmCount++;
+
+            // Write realmcount / 2
+            ps.WriteByte((byte)(RealmCount / 2));
+            
+            // Write realms data
+            foreach (Realm r in Realm.Realmlist)
+                ps.Write(r.ToLoginData(true));
+
+            // If realm count is not multiple of two add again the first realm
+            if (!isMultipleOfTwo && Realm.Realmlist.Count > 0)
+                ps.Write(Realm.Realmlist[0].ToLoginData(false));
+
+            // End
+            ps.WriteByte(0x07);
+
+            From.Send(LogonOpcodes.Server_SendRealmlist, ps);
         }
 
         [LogonPacket((ushort)LogonOpcodes.Client_SelectRealm)]
@@ -43,7 +75,7 @@ namespace Sienna.Game
             PacketStream ps = new PacketStream();
             ps.WriteByte(0x07);
 
-            From.Send(LogonOpcodes.Client_RequestRealmlist, ps);
+            From.Send(LogonOpcodes.Client_SelectRealm, ps);
             From.Send(TempHacks.AllowCharCreation);
         }
 
@@ -62,7 +94,10 @@ namespace Sienna.Game
         public static void ReplyAuthCertificate(LogonClient To, bool Result)
         {
             if (!Result)
+            {
+                To.Disconnect();
                 return;
+            }
 
             PacketStream ps = new PacketStream();
             ps.WriteUInt32(0xCF96D10D); // Unk1

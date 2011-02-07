@@ -34,5 +34,13 @@ namespace Sienna.Network
         {
             _Socket.Send(Buffer);
         }
+
+        /// <summary>
+        /// Disconnect client from server
+        /// </summary>
+        public void Disconnect()
+        {
+            _Socket.Close();
+        }
     }
 }

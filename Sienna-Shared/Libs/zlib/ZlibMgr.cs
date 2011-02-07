@@ -17,8 +17,6 @@ namespace Sienna.zlib
         {
             MemoryStream OutPut = new MemoryStream();
             ZOutputStream ZStream = new ZOutputStream(OutPut,zlibConst.Z_DEFAULT_COMPRESSION);
-            ZStream.FlushMode = zlibConst.Z_SYNC_FLUSH;
-
             Process(ZStream,Input);
 
             return OutPut.ToArray();
@@ -28,7 +26,6 @@ namespace Sienna.zlib
         {
             MemoryStream OutPut = new MemoryStream();
             ZOutputStream ZStream = new ZOutputStream(OutPut);
-            ZStream.FlushMode = zlibConst.Z_SYNC_FLUSH;
             Process(ZStream,Input);
 
             return OutPut.ToArray();
@@ -42,9 +39,9 @@ namespace Sienna.zlib
                 ZStream.Flush();
                 ZStream.Close();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Log.Error(e.Message + " " + e.Source + " " + e.StackTrace);
+
             }
         }
     }

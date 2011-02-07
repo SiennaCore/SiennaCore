@@ -42,9 +42,8 @@ namespace Launcher
 
             SHA1CryptoServiceProvider Crypto = new SHA1CryptoServiceProvider();
             Crypto.Initialize();
-            
-            byte[] CryptPass = Crypto.TransformFinalBlock(Encoding.UTF8.GetBytes(Password), 0, Encoding.UTF8.GetByteCount(Password));
-            Password = Encoding.UTF8.GetString(CryptPass);
+
+            Password = BitConverter.ToString(Crypto.ComputeHash(Encoding.UTF8.GetBytes(Password), 0, Encoding.UTF8.GetByteCount(Password))).Replace("-", "");
 
             string Lang = listBox1.SelectedItem != null ? (string)listBox1.SelectedItem : "English";
 

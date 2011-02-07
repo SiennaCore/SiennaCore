@@ -89,42 +89,46 @@ namespace Sienna.Network
         {
             while (_IsRunning)
             {
-                foreach (KeyValuePair<T, SocketState> Client in _Clients.ToArray())
+                try
                 {
-                    try
+                    foreach (KeyValuePair<T, SocketState> Client in _Clients.ToArray())
                     {
-                        if (!Client.Value.Locked)
+                        try
                         {
-                            Client.Value.Locked = true;
-
-                            Socket ClientSocket = Client.Value.Socket;
-
-                            // Check if client is disconnected
-                            if (!ClientSocket.Connected || (ClientSocket.Poll(0, SelectMode.SelectRead) && ClientSocket.Available == 0))
+                            if (!Client.Value.Locked)
                             {
-                                OnDisconnect(Client.Key);
-                                ClientSocket.Close();
-                                _Clients.Remove(Client.Key);
-                                continue;
+                                Client.Value.Locked = true;
+
+                                Socket ClientSocket = Client.Value.Socket;
+
+                                // Check if client is disconnected
+                                if (!ClientSocket.Connected || (ClientSocket.Poll(0, SelectMode.SelectRead) && ClientSocket.Available == 0))
+                                {
+                                    OnDisconnect(Client.Key);
+                                    ClientSocket.Close();
+                                    _Clients.Remove(Client.Key);
+                                    continue;
+                                }
+
+                                // Check if there is any data in the buffer
+                                if (ClientSocket.Available != 0)
+                                {
+                                    // Get incoming bytes
+                                    Byte[] Buffer = new Byte[ClientSocket.Available];
+                                    int ReadenBytes = ClientSocket.Receive(Buffer, Buffer.Length, SocketFlags.None);
+
+                                    OnRead(Client.Key, Buffer);
+                                }
+
+                                Client.Value.Locked = false;
                             }
-
-                            // Check if there is any data in the buffer
-                            if (ClientSocket.Available != 0)
-                            {
-                                // Get incoming bytes
-                                Byte[] Buffer = new Byte[ClientSocket.Available];
-                                int ReadenBytes = ClientSocket.Receive(Buffer, Buffer.Length, SocketFlags.None);
-
-                                OnRead(Client.Key, Buffer);
-                            }
-
-                            Client.Value.Locked = false;
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception) { }
-                }
 
-                Thread.Sleep(_UpdateTime);
+                    Thread.Sleep(_UpdateTime);
+                }
+                catch (Exception) { }
             }
         }
 
