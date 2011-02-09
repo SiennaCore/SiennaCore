@@ -87,6 +87,9 @@ namespace Sienna.Game
                     {*/
                         UInt64 Size = (byte)Ps.ReadByte();
 
+                        if (Size == 0)
+                            return;
+
                         bool isLongPacket = Size >= 0x80;
 
                         if (isLongPacket)
