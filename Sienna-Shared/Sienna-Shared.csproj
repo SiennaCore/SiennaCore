@@ -76,6 +76,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chat\Administration\ChatAccount.cs" />
+    <Compile Include="Chat\Administration\ChatHelp.cs" />
+    <Compile Include="Chat\Administration\ChatServer.cs" />
+    <Compile Include="Chat\Administration\Commands.cs" />
+    <Compile Include="Chat\Administration\RegisterCommands.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Database\DatabaseWorker.cs" />
     <Compile Include="Database\Database.cs" />
@@ -112,6 +117,7 @@
     <Compile Include="Libs\zlib\ZStreamException.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Managers\AccountManager.cs" />
+    <Compile Include="Managers\Administration\ConsoleAdministrationMgr.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Packet\ExtendedBitConverter.cs" />
     <Compile Include="Network\Packet\PacketStream.cs" />

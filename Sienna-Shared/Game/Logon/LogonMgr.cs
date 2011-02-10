@@ -42,6 +42,9 @@ namespace Sienna.Game
             Log.Info(">> Sienna Clustering Intercom registered " + Binded + " classes available on port " + LogonConfig.get.IntercomPort);
             Log.Info("");
 
+            Commands.LoadCommands();
+            Log.Info("");
+
             LogonUrl = "";
 
             LServ = new LogonServer(LogonConfig.get.SocketThreads, 50);
@@ -49,7 +52,7 @@ namespace Sienna.Game
 
             Log.Info(">> Sienna Logon is online on port " + LogonConfig.get.LoginPort);
 
-            while (true) { Thread.Sleep(Timeout.Infinite); }
+            ConsoleAdministrationMgr.ExecuteConsoleCommands();
         }
     }
 }
