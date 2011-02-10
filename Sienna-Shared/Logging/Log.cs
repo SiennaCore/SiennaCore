@@ -108,6 +108,8 @@ namespace Sienna
 
             byte[] Msg = Encoding.UTF8.GetBytes(Message);
             _LogFile.Write(Msg, 0, Msg.Length);
+
+            _LogFile.WriteByte(BitConverter.GetBytes('\r')[0]);
             _LogFile.WriteByte(BitConverter.GetBytes('\n')[0]);
 
             _LogFile.Close();
