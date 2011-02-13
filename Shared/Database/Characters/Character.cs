@@ -15,6 +15,9 @@ public class Character : DataObject
     [DataElement]
     public long AccountId;
 
+    [DataElement]
+    public byte RealmId;
+
     [DataElement(Varchar = 9)]
     public string Name;
 
