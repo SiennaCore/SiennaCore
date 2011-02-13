@@ -75,7 +75,7 @@ namespace Shared
                 return false;
             }
 
-            Log.Succes("RpcServer", "Server listening on : " + _Port);
+            Log.Success("RpcServer", "Server listening on : " + _Port);
             return true;
         }
 

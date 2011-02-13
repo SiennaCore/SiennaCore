@@ -9,7 +9,7 @@ namespace Shared
     public class LogInfo
     {
         public bool Info=true;
-        public bool Success=true;
+        public bool Successs=true;
         public bool Notice=true;
         public bool Error=true;
 
@@ -50,11 +50,11 @@ namespace Shared
                         goto case 1;
                     case 1:
                         Info.Info = true;
-                        Info.Success = true;
+                        Info.Successs = true;
                         break;
                     default:
                         Info.Info = true;
-                        Info.Success = true;
+                        Info.Successs = true;
                         break;
                 }
             }

@@ -31,7 +31,7 @@ namespace Shared
                 CharacterDB.SaveObject(Rm);
             }
 
-            Log.Succes("LoadRealms", "Loaded " + _Realms.Count + " Realm(s)");
+            Log.Success("LoadRealms", "Loaded " + _Realms.Count + " Realm(s)");
         }
         public Realm GetRealm(byte RealmId)
         {
@@ -76,16 +76,16 @@ namespace Shared
             return CharacterDB.SelectObjects<Character>("Name='" + CharacterDB.Escape(Name) + "'").ToArray();
         }
 
-        public void AddCharacter(Character Char)
+        public void AddObject(DataObject Char)
         {
             CharacterDB.AddObject(Char);
         }
-        public void SaveCharacter(Character Char)
+        public void SaveObject(DataObject Char)
         {
             Char.Dirty = true;
             CharacterDB.SaveObject(Char);
         }
-        public void DeleteCharacter(Character Char)
+        public void RemoveObject(DataObject Char)
         {
             CharacterDB.DeleteObject(Char);
         }
@@ -96,7 +96,7 @@ namespace Shared
         {
             _Randoms.AddRange(CharacterDB.SelectAllObjects<RandomName>());
 
-            Log.Succes("LoadRandomNames", "Loaded " + _Randoms.Count + " Random Name(s)");
+            Log.Success("LoadRandomNames", "Loaded " + _Randoms.Count + " Random Name(s)");
         }
 
         public string GenerateName()

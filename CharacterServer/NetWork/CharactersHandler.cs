@@ -1266,7 +1266,7 @@ namespace CharacterServer
                  Packet.Skip(2);
                  Char.bBody = Packet.Read((int)Packet.Remain()-2);
 
-                 Program.CharMgr.AddCharacter(Char);
+                 Program.CharMgr.AddObject(Char);
                  Out.WriteByte(1);
              }
 

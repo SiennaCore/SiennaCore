@@ -92,7 +92,7 @@ namespace Shared
                 Connector = (RpcConnector)Activator.GetObject(CoRemote.ObjectType, CoRemote.ObjectUrl);
                 _Id = Connector.Connect(_Name);
 
-                Log.Succes("RpcClient", "Connected to : " + _Ip + ":" + _Port);
+                Log.Success("RpcClient", "Connected to : " + _Ip + ":" + _Port);
                 Load();
             }
             catch (Exception e)

@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Configs\CharacterConfig.cs" />
     <Compile Include="Console\CreateAccount.cs" />
+    <Compile Include="Console\CreateRealm.cs" />
     <Compile Include="NetWork\AuthentificationHandler.cs" />
     <Compile Include="NetWork\CharactersHandler.cs" />
     <Compile Include="NetWork\RealmsHandler.cs" />

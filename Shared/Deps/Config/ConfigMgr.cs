@@ -63,7 +63,7 @@ namespace Shared
                             fs.Close();
                         }
 
-                        Log.Succes("ConfigMgr", "Registering config : " + ConfigAttribs[0].FileName);
+                        Log.Success("ConfigMgr", "Registering config : " + ConfigAttribs[0].FileName);
                         _Configs.Add(Obj);
                     }
                 }

@@ -404,7 +404,7 @@ namespace Shared.Database
 
         #region Implementation
 
-        // Ajoute un objet a la database , true = succes
+        // Ajoute un objet a la database , true = Success
         protected abstract bool AddObjectImpl(DataObject dataObject);
 
         // Sauvegarde un Objet dans la Database

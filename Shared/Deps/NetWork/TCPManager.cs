@@ -224,7 +224,7 @@ namespace Shared.NetWork
                 if (!Client.Connected)
                     return false;
 
-                Log.Succes("TCPManager", "Client connected at : " + IpToConnect+":"+port);
+                Log.Success("TCPManager", "Client connected at : " + IpToConnect+":"+port);
             }
             catch (SocketException e)
             {
@@ -252,7 +252,7 @@ namespace Shared.NetWork
                 Listener.Start();
                 Listener.BeginAcceptTcpClient(ConnectingThread, this);
 
-                Log.Succes("TCPManager", "Server listening to : " + Listener.LocalEndpoint.ToString());
+                Log.Success("TCPManager", "Server listening to : " + Listener.LocalEndpoint.ToString());
             }
             catch (SocketException e)
             {

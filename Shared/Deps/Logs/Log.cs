@@ -131,9 +131,9 @@ namespace Shared
                 Texte("I "+name, message, ConsoleColor.White);
         }
 
-        public static void Succes(string name, string message)
+        public static void Success(string name, string message)
         {
-            if (_config.Info.Success)
+            if (_config.Info.Successs)
                 Texte("S " + name, message, ConsoleColor.Green);
         }
 

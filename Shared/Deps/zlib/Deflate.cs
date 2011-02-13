@@ -266,11 +266,11 @@ namespace Shared.zlib
 		// Size of match buffer for literals/lengths.  There are 4 reasons for
 		// limiting lit_bufsize to 64K:
 		//   - frequencies can be kept in 16 bit counters
-		//   - if compression is not successful for the first block, all input
+		//   - if compression is not Successsful for the first block, all input
 		//     data is still in the window so we can still emit a stored block even
 		//     when input comes from standard input.  (This can also be done for
 		//     all blocks if lit_bufsize is not greater than 32K.)
-		//   - if compression is not successful for a file smaller than 64K, we can
+		//   - if compression is not Successsful for a file smaller than 64K, we can
 		//     even emit a stored file instead of a stored block (saving 5 bytes).
 		//     This is applicable only for zip (not gzip or zlib).
 		//   - creating new Huffman trees less frequently may not provide fast
@@ -953,7 +953,7 @@ namespace Shared.zlib
 				// The test buf != NULL is only necessary if LIT_BUFSIZE > WSIZE.
 				// Otherwise we can't have processed more than WSIZE input bytes since
 				// the last block flush, because compression would have been
-				// successful. If LIT_BUFSIZE <= WSIZE, it is never too late to
+				// Successsful. If LIT_BUFSIZE <= WSIZE, it is never too late to
 				// transform a block into a stored block.
 				_tr_stored_block(buf, stored_len, eof);
 			}

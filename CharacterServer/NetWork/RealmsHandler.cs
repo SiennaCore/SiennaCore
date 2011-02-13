@@ -54,7 +54,7 @@ namespace CharacterServer
                 return;
             }
 
-            Log.Succes("Realms", "Client '" + Client.Acct.Username + "' enter on realm : " + Client.Realm.Name);
+            Log.Success("Realms", "Client '" + Client.Acct.Username + "' enter on realm : " + Client.Realm.Name);
 
 
             PacketOut Out = new PacketOut((ushort)Opcodes.SELECT_REALM_RESPONSE);

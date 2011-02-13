@@ -27,7 +27,7 @@ namespace CharacterServer
             Acct.Email = "";
 
             if (AccountMgr.AccountDB.AddObject(Acct))
-                Log.Succes("CreateAccount", "New Account : '" + Acct.Username + "'-'" + Acct.Sha_Password + "'");
+                Log.Success("CreateAccount", "New Account : '" + Acct.Username + "'-'" + Acct.Sha_Password + "'");
 
             return true;
         }

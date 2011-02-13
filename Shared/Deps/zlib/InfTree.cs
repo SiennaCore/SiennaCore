@@ -85,7 +85,7 @@ namespace Shared.zlib
 		internal static int huft_build(int[] b, int bindex, int n, int s, int[] d, int[] e, int[] t, int[] m, int[] hp, int[] hn, int[] v)
 		{
 			// Given a list of code lengths and a maximum table size, make a set of
-			// tables to decode that set of codes.  Return Z_OK on success, Z_BUF_ERROR
+			// tables to decode that set of codes.  Return Z_OK on Successs, Z_BUF_ERROR
 			// if the given code set is incomplete (the tables are still built in this
 			// case), Z_DATA_ERROR if the input is invalid (an over-subscribed set of
 			// lengths), or Z_MEM_ERROR if not enough memory.
