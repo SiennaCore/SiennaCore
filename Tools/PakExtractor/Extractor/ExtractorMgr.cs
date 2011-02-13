@@ -46,19 +46,22 @@ static public class ExtractorMgr
     static public void CellClick(object sender, EventArgs a)
     {
         DataGridViewCell Cell = Extractor.Data.CurrentCell;
-        string FullName = (Extractor.Box.SelectedItem as FileInfo).FullName;
-        PakFile Pak = _Paks[FullName];
-        PakElement Element = Pak._Elements.Find(info => info.Id == int.Parse(Cell.OwningRow.Cells[0].Value.ToString()));
+        if (Extractor.Box.SelectedItem != null)
+        {
+            string FullName = (Extractor.Box.SelectedItem as FileInfo).FullName;
+            PakFile Pak = _Paks[FullName];
+            PakElement Element = Pak._Elements.Find(info => info.Id == int.Parse(Cell.OwningRow.Cells[0].Value.ToString()));
 
-        if (Cell.OwningColumn.Name == "Extract")
-        {
-            if (Element != null)
-                AddToExtract(Element);
-        }
-        else if (Cell.OwningColumn.Name == "Software")
-        {
-            if (Element != null)
-                Element.OpenSoftware();
+            if (Cell.OwningColumn.Name == "Extract")
+            {
+                if (Element != null)
+                    AddToExtract(Element);
+            }
+            else if (Cell.OwningColumn.Name == "Software")
+            {
+                if (Element != null)
+                    Element.OpenSoftware();
+            }
         }
     }
     static public void SaveHeader(PakHeaders Headers)
@@ -176,12 +179,19 @@ static public class ExtractorMgr
     }
     static public void ExtractPack()
     {
-        string FullName = (Extractor.Box.SelectedItem as FileInfo).FullName;
-        PakFile Pak = _Paks[FullName];
+        if (Extractor.Box.SelectedItem != null)
+        {
+            string FullName = (Extractor.Box.SelectedItem as FileInfo).FullName;
+            PakFile Pak = _Paks[FullName];
 
-        foreach (PakElement Element in Pak._Elements)
-            if (Extractor.Instance.IsChecked(Element.Header.Ext))
-                AddToExtract(Element);
+            foreach (PakElement Element in Pak._Elements)
+                if (Extractor.Instance.IsChecked(Element.Header.Ext))
+                    AddToExtract(Element);
+        }
+        else
+        {
+            MessageBox.Show("Please choose a PAK file from the list", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }
 

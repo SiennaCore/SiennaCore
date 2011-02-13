@@ -56,29 +56,38 @@ namespace PakExtractor
 
         private void b_listing_Click(object sender, EventArgs e)
         {
+            FolderBrowserDialog Dial;
             if (FilesFolder.Length <= 0)
             {
-                FolderBrowserDialog Dial = new FolderBrowserDialog();
+                Dial = new FolderBrowserDialog();
                 Dial.ShowDialog();
-                FilesFolder = Dial.SelectedPath;
-                if (FilesFolder.Length <= 0)
+                if (Dial.SelectedPath.Length >= 0)
+                {
+                    try
+                    {
+                        String[] fichiers = Directory.GetFiles(Dial.SelectedPath, "*.pak", SearchOption.AllDirectories);
+                        foreach (string FileLink in fichiers)
+                        {
+                            FileInfo Info = new FileInfo(FileLink);
+                            l_files.Items.Add(Info);
+                        }
+
+                        FilesFolder = Dial.SelectedPath;
+                        tip_status.Text = fichiers.Length + " Fichiers";
+                        b_allpak.Enabled = true;
+                        b_extract.Enabled = true;
+                        l_files.Enabled = true;
+                    }
+                    catch (System.UnauthorizedAccessException)
+                    {
+                        MessageBox.Show("Could not access the selected Path!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
                     return;
+                }
             }
-
-            b_allpak.Enabled = true;
-            b_extract.Enabled = true;
-            l_files.Enabled = true;
-
-            tip_status.Text = "Selected Folder : " + FilesFolder;
-
-            String[] fichiers = Directory.GetFiles(FilesFolder, "*.pak", SearchOption.AllDirectories);
-            foreach (string FileLink in fichiers)
-            {
-                FileInfo Info = new FileInfo(FileLink);
-                l_files.Items.Add(Info);
-            }
-
-            tip_status.Text = fichiers.Length + " Fichiers";
         }
 
         private void l_files_SelectedValueChanged(object sender, EventArgs e)
