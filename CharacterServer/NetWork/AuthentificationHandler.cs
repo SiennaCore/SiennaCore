@@ -66,7 +66,6 @@ namespace CharacterServer
 
             }
         }
-
         static public void EnableCompresion(RiftClient Client)
         {
             PacketOut Out = new PacketOut((ushort)Opcodes.START_COMPRESSION);
@@ -74,7 +73,6 @@ namespace CharacterServer
 
             Client.InitZlib();
         }
-
         static public void ReplyAuthentification(RiftClient Client)
         {
             PacketOut Out = new PacketOut((ushort)Opcodes.AUTHENTIFICATION_RESPONSE);
@@ -82,6 +80,12 @@ namespace CharacterServer
             Out.WriteUInt32R(0xF2336D3C);
             Out.WriteUInt32R(0x0749);
             Client.SendTCP(Out);
+        }
+
+        [PacketHandler(PacketHandlerType.TCP, (int)Opcodes.PING, (int)RiftState.CONNECTING, "PING")]
+        static public void HandlePing(BaseClient client, PacketIn Packet)
+        {
+
         }
     }
 }

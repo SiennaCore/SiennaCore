@@ -63,7 +63,7 @@ namespace Shared
             return CharacterDB.SelectObject<Character>("Name='" + CharacterDB.Escape(Name) + "' AND RealmId='" + RealmId + "'");
         }
 
-        public Character[] GetCharacters(int AccountId,byte RealmId)
+        public Character[] GetCharacters(long AccountId,byte RealmId)
         {
             return CharacterDB.SelectObjects<Character>("AccountId='" + AccountId + "' AND RealmId='" + RealmId + "'").ToArray();
         }

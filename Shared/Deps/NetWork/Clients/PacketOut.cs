@@ -145,6 +145,11 @@ namespace Shared.NetWork
 
         #endregion
 
+        public virtual void Write(byte[] val)
+        {
+            Write(val, 0, val.Length);
+        }
+
         public virtual void WriteUInt16(ushort val)
         {
             WriteByte((byte)(val >> 8));
@@ -409,9 +414,14 @@ namespace Shared.NetWork
                 WriteByte((byte)(Total.Length));
             else
             {
-                int Size = 0;
-                int Offset = (Total.Length - 1) / 128;
-                Size = (Total.Length - 1) - (Offset * 128) + 2;
+                int Size = Total.Length;
+                int Offset = 1;
+
+                while (Size >= (128*2))
+                {
+                    Size -= 128;
+                    ++Offset;
+                }
 
                 WriteByte((byte)Size);
                 WriteByte((byte)Offset);
