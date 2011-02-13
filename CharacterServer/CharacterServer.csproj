@@ -69,9 +69,9 @@
   <ItemGroup>
     <Compile Include="Configs\CharacterConfig.cs" />
     <Compile Include="Console\CreateAccount.cs" />
-    <Compile Include="NetWork\Authentification.cs" />
-    <Compile Include="NetWork\Characters.cs" />
-    <Compile Include="NetWork\Realms.cs" />
+    <Compile Include="NetWork\AuthentificationHandler.cs" />
+    <Compile Include="NetWork\CharactersHandler.cs" />
+    <Compile Include="NetWork\RealmsHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

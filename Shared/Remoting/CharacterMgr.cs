@@ -90,6 +90,26 @@ namespace Shared
             CharacterDB.DeleteObject(Char);
         }
 
+        static public List<RandomName> _Randoms = new List<RandomName>();
+
+        public void LoadRandomNames()
+        {
+            _Randoms.AddRange(CharacterDB.SelectAllObjects<RandomName>());
+
+            Log.Succes("LoadRandomNames", "Loaded " + _Randoms.Count + " Random Name(s)");
+        }
+
+        public string GenerateName()
+        {
+            if (_Randoms.Count <= 0)
+                return "Sienna";
+
+            Random R = new Random();
+            int Id = R.Next(_Randoms.Count);
+
+            return _Randoms[Id].Name;
+        }
+
         #endregion
     }
 }

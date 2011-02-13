@@ -1113,5 +1113,43 @@ namespace CharacterServer
             Out.WriteByte(07);
             Client.SendTCP(Out);
         }
+
+        [PacketHandler(PacketHandlerType.TCP, (int)Opcodes.CREATE_CHARACTER, (int)RiftState.AUTHENTIFIED, "CREATE_CHARACTER")]
+        static public void HandleCreateCharacter(BaseClient client, PacketIn Packet)
+        {
+            RiftClient Client = client as RiftClient;
+
+            byte Unk = Packet.GetUint8();
+            string Name = Packet.GetPascalString();
+
+            Character Char = Program.CharMgr.GetCharacter(Name, Client.Realm.RealmId);
+
+             PacketOut Out = new PacketOut((ushort)Opcodes.CREATE_CHARACTER_RESPONSE);
+             if (Char != null)
+                 Out.WriteByte(1);
+             else
+             {
+                 // TODO Create Character
+                 Out.WriteByte(1);
+             }
+
+             Out.WriteByte(07);
+             Client.SendTCP(Out);
+        }
+
+        [PacketHandler(PacketHandlerType.TCP, (int)Opcodes.REQUEST_RANDOM_NAME, (int)RiftState.AUTHENTIFIED, "REQUEST_RANDOM_NAME")]
+        static public void HandleRandomName(BaseClient client, PacketIn Packet)
+        {
+            RiftClient Client = client as RiftClient;
+
+            string Name = Program.CharMgr.GenerateName();
+
+            PacketOut Out = new PacketOut((ushort)Opcodes.RANDOM_NAME_RESPONSE);
+            Out.WriteByte(0x0E);
+            Out.WriteByte(0x0A);
+            Out.FillString(Name, 9);
+            Out.WriteUInt16(0x6107);
+            Client.SendTCP(Out);
+        }
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Database\Accounts\Account.cs" />
     <Compile Include="Database\Accounts\Account_Banned.cs" />
     <Compile Include="Database\Characters\Character.cs" />
+    <Compile Include="Database\Characters\RandomName.cs" />
     <Compile Include="Database\Characters\Realm.cs" />
     <Compile Include="Deps\Config\aConfigAttributes.cs" />
     <Compile Include="Deps\Config\ConfigMgr.cs" />

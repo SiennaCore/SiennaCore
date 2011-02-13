@@ -50,6 +50,7 @@ namespace CharacterServer
                 WaitAndExit();
 
             CharMgr.LoadRealms();
+            CharMgr.LoadRandomNames();
 
             // Listening Client
             if (!TCPManager.Listen<RiftServer>(Config.CharacterServerPort, "Character"))
