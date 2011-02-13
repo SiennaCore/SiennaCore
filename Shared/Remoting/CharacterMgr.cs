@@ -12,6 +12,8 @@ namespace Shared
     {
         static public ObjectDatabase CharacterDB = null;
 
+        #region Realms
+
         static public Dictionary<int, Realm> _Realms = new Dictionary<int, Realm>();
 
         public void LoadRealms()
@@ -39,5 +41,12 @@ namespace Shared
         {
             return GetRealms().ToList().Find(info => info.RiftId == RiftId);
         }
+
+        #endregion
+
+        #region Characters
+
+
+        #endregion
     }
 }
