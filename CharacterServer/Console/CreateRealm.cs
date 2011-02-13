@@ -8,7 +8,7 @@ using Shared;
 
 namespace CharacterServer
 {
-    [ConsoleHandler("realm", 3, "<id(<21),type(16-48-80),lang(0-1-2-3)>")]
+    [ConsoleHandler("realm", 3, "<id(<21),type(16-48-80),lang(0-1-3-5)>")]
     public class CreateRealm : IConsoleHandler
     {
         public bool HandleCommand(string command, List<string> args)
