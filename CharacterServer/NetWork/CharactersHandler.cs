@@ -1125,7 +1125,10 @@ namespace CharacterServer
 
                 Out.Write(new byte[] { 0x5F, 0x57, 0xD7, 0x03, 0x02, 0xCB, 0x95, 0x25, 0x0E });
                 Out.WritePascalString(Client.Acct.Email);
-                Out.Write(new byte[] { 0x15, 0xAC, 0x7C, 0x29, 0x08, 0x00, 0x80, 0x66, 0x04, 0x1E });
+                Out.WriteByte(0x15);
+                Out.WriteInt32(Char.Id); // CharacterId
+                Out.WriteInt32((int)Client.Acct.Id); // Account Id
+                Out.WriteByte(0x1E);
                 Out.WritePascalString(Char.Name);
                 Out.Write(new byte[] { 0x22, 0x03, 0xD7, 0x02, 0xDD, 0x03, 0x04 });
 
@@ -1311,6 +1314,40 @@ namespace CharacterServer
             Out.WriteByte(0x0A);
             Out.FillString(Name, 9);
             Out.WriteUInt16(0x6107);
+            Client.SendTCP(Out);
+        }
+
+        [PacketHandler(PacketHandlerType.TCP, (int)Opcodes.REQUEST_ENTER_GAME, (int)RiftState.AUTHENTIFIED, "REQUEST_ENTER_GAME")]
+        static public void HandleEnterGame(BaseClient client, PacketIn Packet)
+        {
+            RiftClient Client = client as RiftClient;
+
+            byte Unk = Packet.GetUint8();
+            int CharId = Packet.GetInt32R();
+            int AccountId = Packet.GetInt32R();
+
+            Character Char = Program.CharMgr.GetCharacter(CharId);
+
+            if (Char == null)
+            {
+                Log.Error("EnterGame", "Can not find character : " + CharId);
+                Client.Disconnect();
+                return;
+            }
+
+            if (Char.AccountId != AccountId)
+            {
+                Log.Error("EnterGame", "Character account is not the same :" + Char.AccountId + "!=" + AccountId);
+                Client.Disconnect();
+                return;
+            }
+
+            Log.Success("EnterGame", "Character '" + Char.Name + "' enter on world");
+
+            PacketOut Out = new PacketOut((ushort)Opcodes.ENTER_GAME_RESPONSE);
+            //Out.WriteUInt16(0x5F0E);
+            //Out.WritePascalString("127.0.0.1:6901"); // GameServer IP
+            Out.WriteByte(7);
             Client.SendTCP(Out);
         }
     }
