@@ -316,9 +316,10 @@ namespace Shared.Database
         // Vérifi ou créer la table a partir d'une DataTable
         public void CheckOrCreateTable(System.Data.DataTable table)
         {
+            List<string> alterRemoveColumnDefs = new List<string>();
             if (connType == ConnectionType.DATABASE_MYSQL)
             {
-                var currentTableColumns = new ArrayList();
+                ArrayList currentTableColumns = new ArrayList();
                 try
                 {
                     ExecuteSelect("DESCRIBE `" + table.TableName + "`", delegate(MySqlDataReader reader)
@@ -326,6 +327,9 @@ namespace Shared.Database
                         while (reader.Read())
                         {
                             currentTableColumns.Add(reader.GetString(0).ToLower());
+                            if (!table.Columns.Contains(reader.GetString(0).ToLower()))
+                                alterRemoveColumnDefs.Add(reader.GetString(0).ToLower());
+
                             Log.Debug("DataConnecion", reader.GetString(0).ToLower());
                         }
 
@@ -346,8 +350,8 @@ namespace Shared.Database
                     primaryKeys[table.PrimaryKey[i].ColumnName] = table.PrimaryKey[i];
                 }
 
-                var columnDefs = new List<string>();
-                var alterAddColumnDefs = new List<string>();
+                 List<string> columnDefs = new List<string>();
+                 List<string> alterAddColumnDefs = new List<string>();
                 for (int i = 0; i < table.Columns.Count; i++)
                 {
                     Type systype = table.Columns[i].DataType;
@@ -355,6 +359,7 @@ namespace Shared.Database
                     string column = "";
 
                     column += "`" + table.Columns[i].ColumnName + "` ";
+                    alterRemoveColumnDefs.Remove(column);
 
                     if (systype == typeof(char))
                     {
@@ -520,6 +525,23 @@ namespace Shared.Database
                     catch (Exception e)
                     {
                         Log.Error("DataConnecion", "Alteration table error " + table.TableName + e.ToString());
+                    }
+                }
+
+                if (alterRemoveColumnDefs.Count > 0)
+                {
+                    foreach (string Column in alterRemoveColumnDefs)
+                    {
+                        string alterTable = "ALTER TABLE `" + table.TableName + "` DROP COLUMN " + Column + "";
+                        try
+                        {
+                            Log.Debug("DataConnecion", alterTable);
+                            ExecuteNonQuery(alterTable);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error("DataConnecion", "Alteration table error " + table.TableName + e.ToString());
+                        }
                     }
                 }
             }

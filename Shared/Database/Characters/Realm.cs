@@ -13,7 +13,6 @@ public class Realm : DataObject
     [PrimaryKey]
     public byte RealmId;
 
-    [DataElement(Varchar = 255)]
     public string Name;
 
     [DataElement(Varchar = 255)]
