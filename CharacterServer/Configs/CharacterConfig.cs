@@ -41,5 +41,23 @@ namespace CharacterServer
         public string RpcKey = "password";
 
         public bool UseCertificate = false;
+
+        [aConfigMethod()]
+        static public void OnLoad(aConfigAttributes Attributes,aConfig Conf,bool FirstLoad)
+        {
+            if (FirstLoad || !Conf.IConfiguredTheFile)
+            {
+                if(FirstLoad)
+                    Log.Info("Config","This is your first launch.");
+                else if(!Conf.IConfiguredTheFile)
+                    Log.Info("Config", "IConfiguredTheFile value is false.");
+
+                Log.Info("Config", "A configuration file was created : " + Attributes.FileName);
+                Log.Info("Config", "You must configure the server before continuing.");
+                Log.Info("Config", "Press any key to exit");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
+        }
     }
 }

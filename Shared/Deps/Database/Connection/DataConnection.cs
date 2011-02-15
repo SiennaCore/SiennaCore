@@ -245,7 +245,7 @@ namespace Shared.Database
                         if (!HandleException(e) || isNewConnection)
                         {
                             Log.Error("DataConnecion", "ExecuteSelect: \"" + sqlcommand + "\"\n" + e.ToString() );
-                            throw;
+                            return;
                         }
 
                         repeat = true;

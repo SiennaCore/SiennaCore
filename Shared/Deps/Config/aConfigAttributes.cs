@@ -7,7 +7,14 @@ namespace Shared
 {
     public abstract class aConfig
     {
+        public bool IConfiguredTheFile=false;
+    }
+    
+    public delegate void ConfigMethod(aConfigAttributes Attributes,aConfig Conf,bool FirstLoad);
 
+    [AttributeUsage(AttributeTargets.Method)]
+    public class aConfigMethod : Attribute
+    {
     }
 
     [AttributeUsage(AttributeTargets.Class)]

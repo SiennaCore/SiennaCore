@@ -49,19 +49,40 @@ namespace Shared
                         {
                         }
 
-                        FileStream fs = new FileStream(ConfigAttribs[0].FileName, FileMode.OpenOrCreate);
-
-                        if (fs.Length > 0)
+                        List<ConfigMethod> OnLoad = new List<ConfigMethod>();
+                        foreach (MethodInfo m in type.GetMethods())
                         {
-                            Obj = Xml.Deserialize(fs) as aConfig;
-                            fs.Close();
+                            aConfigMethod[] Mets = m.GetCustomAttributes(typeof(aConfigMethod), true) as aConfigMethod[];
+                            if (Mets.Length > 0)
+                            {
+                                try
+                                {
+                                    OnLoad.Add((ConfigMethod)Delegate.CreateDelegate(typeof(ConfigMethod), m));
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.Error("ConfigMgr", "ConfigMethod Error : " + e.ToString());
+                                }
+                            }
+                        }
+
+                        FileStream fs = new FileStream(ConfigAttribs[0].FileName, FileMode.OpenOrCreate);
+                        bool FirstLoad = false;
+
+                        if (fs.Length <= 0)
+                        {
+                            FirstLoad = true;
+                            Obj = Activator.CreateInstance(type) as aConfig;
                         }
                         else
                         {
-                            Obj = Activator.CreateInstance(type) as aConfig;
-                            Xml.Serialize(fs, Obj);
-                            fs.Close();
+                            Obj = Xml.Deserialize(fs) as aConfig;
                         }
+
+                        fs.SetLength(0);
+                        Xml.Serialize(fs, Obj);
+                        fs.Close();
+                        OnLoad.ForEach(info => { info.Invoke(ConfigAttribs[0],Obj, FirstLoad); });
 
                         Log.Success("ConfigMgr", "Registering config : " + ConfigAttribs[0].FileName);
                         _Configs.Add(Obj);
