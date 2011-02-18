@@ -18,7 +18,7 @@ public class Character : DataObject
     [DataElement]
     public byte RealmId;
 
-    [DataElement(Varchar = 9)]
+    [DataElement(Varchar = 19)]
     public string Name;
 
     [DataElement]
