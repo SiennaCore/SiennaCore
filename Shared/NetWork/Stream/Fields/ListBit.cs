@@ -10,7 +10,6 @@ namespace Shared
         public ListBitAttribute(int Index)
             : base(Index)
         {
-
         }
 
         public override Type GetSerializableType()
@@ -40,14 +39,22 @@ namespace Shared
             if (Field.Equals(typeof(List<ISerializablePacket>)))
             {
                 List<ISerializablePacket> Elements = val as List<ISerializablePacket>;
-                
+
                 long ListData;
-                
-                PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Packet, 0);
+                PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Packet, Elements.Count);
                 Data.WriteEncoded7Bit(ListData);
 
+                int Count = 1;
                 foreach (ISerializablePacket Packet in Elements)
-                    PacketProcessor.WritePacket(ref Data, Packet.GetType(), Packet, false);
+                {
+                    PacketOutStream NewPacket = new PacketOutStream();
+                    PacketProcessor.WritePacket(ref NewPacket, Packet.GetType(), Packet, false);
+
+                    Log.Dump("NewPacket", NewPacket.ToArray(), 0, (int)NewPacket.Length);
+                    Data.Write(NewPacket.ToArray());
+
+                    Count++;
+                }
             }
         }
     }

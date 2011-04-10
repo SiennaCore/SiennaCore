@@ -61,7 +61,7 @@ namespace CharacterServer
             if (!TCPManager.Listen<RiftServer>(Config.CharacterServerPort, "Character"))
                 WaitAndExit();
 
-            /*long Data = 0x0E;
+            /*long Data = 0x17;
             int FieldType;
             int Index;
             PacketInStream.Decode2Parameters(Data, out FieldType, out Index);

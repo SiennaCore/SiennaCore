@@ -14,13 +14,13 @@ namespace CharacterServer
         public long RealmID;
 
         [Unsigned7Bit(1)]
-        public long ClientVersion;
+        public long Version;
 
         [BoolBit(3)]
-        public bool Pvp;
+        public bool PVP;
 
         [Unsigned7Bit(6)]
-        public long CharacterCount;
+        public long CharactersCount;
 
         [Unsigned7Bit(10)]
         public long Population;
@@ -29,7 +29,7 @@ namespace CharacterServer
         public bool RP;
 
         [BoolBit(16)]
-        public bool Field16;
+        public bool Online;
 
         [BoolBit(17)]
         public bool Recommended;
