@@ -30,6 +30,7 @@ namespace CharacterServer
             Log.Texte("", "http://siennacore.com", ConsoleColor.Blue);
             Log.Texte("", "-------------------------------", ConsoleColor.DarkBlue);
 
+            
             // Loading log level from file
             if (!Log.InitLog("Configs/Characters.log", "Characters"))
                 WaitAndExit();
@@ -59,6 +60,13 @@ namespace CharacterServer
             // Listening Client
             if (!TCPManager.Listen<RiftServer>(Config.CharacterServerPort, "Character"))
                 WaitAndExit();
+
+            /*long Data = 0x0E;
+            int FieldType;
+            int Index;
+            PacketInStream.Decode2Parameters(Data, out FieldType, out Index);
+
+            Log.Success("Test", "Type=" + FieldType + ",Index=" + Index);*/
 
             ConsoleMgr.Start();
         }

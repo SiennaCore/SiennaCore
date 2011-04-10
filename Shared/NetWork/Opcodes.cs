@@ -2,39 +2,46 @@
 
 public enum Opcodes
 {
-    START_COMPRESSION = 0x0119,
-    PLAYER_HEADER = 0x0225,
+    ProtocolHandshakeVersion = 0x01B7,
 
-    AUTHENTIFICATION = 0x03C5,
-    AUTHENTIFICATION_RESPONSE = 0x03AF,
+    ProtocolPingPong = 0x0002,
+    ProtocolHandshakeCompression = 0x0019,
 
-    PROTOCOL_VERSION = 0x03B7,
+    ProtocolHandshakeClientKey = 0x040A,
+    ProtocolHandshakeServerKey = 0x040B,
 
-    REQUEST_REALMS_LIST = 0x03C0,
-    REALMS_LIST_RESPONSE = 0x03C1,
+    ProtocolHandshakeAuthenticationRequest = 0x01C5,
+    ProtocolHandshakeAuthenticationResponse = 0x01AF,
 
-    SELECT_REALM = 0x039D,
-    SELECT_REALM_RESPONSE = 0x039E,
+    LobbyWorldListRequest = 0x01C0,
+    LobbyWorldListResponse = 0x01C1,
+    LobbyWorldEntry = 0x01E5,
+    LobbyWorldSelectRequest = 0x019D,
+    LobbyWorldSelectResponse = 0x019E,
 
-    REQUEST_ENTER_GAME = 0x03B1,
-    ENTER_GAME_RESPONSE = 0x03B2,
+    LobbyCharacterListRequest = 0x01B3,
+    LobbyCharacterListResponse = 0x01B4,
+    LobbyCharacterEntry = 0x01D7,
+    LobbyCharacterUnknown1 = 0x01DD,
+    LobbyCharacterUnknown2 = 0x0DBF,
+    LobbyCharacterUnknown3 = 0x0E10,
+    LobbyCharacterUnknown4 = 0x00DE,
+    LobbyCharacterUnknown5 = 0x0080,
+    LobbyCharacterUnknown6 = 0x1E17,
+    LobbyCharacterCreationCacheRequest = 0x01C2,
+    LobbyCharacterCreationCacheResponse = 0x01C3,
+    CacheUpdate = 0x0025,
+    TemplateCreationData = 0x027E,
+    TemplateCreationUnknown1Data = 0x0ECD,
+    TemplateCreationSubData = 0x0274,
+    TemplateCreationSubUnknown1Data = 0x1C97,
+    TemplateCreationSubUnknown2Data = 0x1C9D,
+    TemplateCreationSubUnknown3Data = 0x1C9C,
+    TemplateCreationSubUnknown4Data = 0x1CD2,
+    TemplateCreationSubUnknown5Data = 0x1E17,
 
-    REQUEST_CHARACTERS_LIST = 0x03B3,
-    CHARACTER_LIST_REPONSE = 0x03B4,
 
-    REQUEST_CREATE_DATA = 0x03C2,
-
-    REQUEST_RANDOM_NAME = 0x03EF,
-    RANDOM_NAME_RESPONSE = 0x03F0,
-
-    CREATE_CHARACTER = 0x03D5,
-    CREATE_CHARACTER_RESPONSE = 0x03D6,
-
-    CONNECT_MAP = 0x03B1,
-    CONNECT_MAP_RESPONSE = 0x03B2,
-
-    DELETE_CHARACTER = 0x03E8,
-    DELETE_CHARACTER_RESPONSE = 0x03E9,
-
-    PING = 0x0402,
+    IPCWorldRegisterRequest = 0x010000,
+    IPCWorldRegisterResponse = 0x010001,
+    IPCWorldPopulationUpdate = 0x010002,
 }

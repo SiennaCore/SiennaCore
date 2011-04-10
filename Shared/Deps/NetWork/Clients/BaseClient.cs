@@ -213,7 +213,7 @@ namespace Shared.NetWork
         {
 
         }
-        protected virtual void OnReceive(PacketIn packet)
+        protected virtual void OnReceive(byte[] Packet)
         {
 
         }
@@ -263,8 +263,9 @@ namespace Shared.NetWork
                     int bufferSize = baseClient.ReceiveBufferOffset + numBytes;
                     baseClient.ReceiveBufferOffset = 0;
 
-                    PacketIn pack = new PacketIn(buffer, 0, bufferSize);
-                    baseClient.OnReceive(pack);
+                    byte[] Packet = new byte[bufferSize];
+                    Buffer.BlockCopy(buffer, 0, Packet, 0, bufferSize);
+                    baseClient.OnReceive(Packet);
 
                     baseClient.BeginReceive();
                 }

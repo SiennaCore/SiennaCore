@@ -6,7 +6,7 @@ using System.Text;
 using Shared;
 using Shared.NetWork;
 
-namespace Shared.NetWork
+namespace Shared
 {
     public class RiftServer  :TCPManager
     {
@@ -18,6 +18,8 @@ namespace Shared.NetWork
             PacketOut.SizeInLen = false;
             PacketOut.Struct = PackStruct.SizeAndOpcode;
             PacketOut.SizeLen = 0;
+
+            PacketProcessor.RegisterDefinitions();
         }
 
         protected override BaseClient GetNewClient()
