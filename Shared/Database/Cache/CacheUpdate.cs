@@ -68,7 +68,7 @@ namespace Shared
         public bool Field75;
     }
 
-    [ISerializableAttribute((long)Opcodes.LobbyCharacterCreationCacheRequest)]
+    [ISerializableAttribute((long)Opcodes.LobbyCharacterCreationCacheResponse)]
     public class CacheUpdate : ISerializablePacket
     {
         [Unsigned7Bit(0)]
