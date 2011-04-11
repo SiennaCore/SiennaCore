@@ -28,6 +28,9 @@ namespace CharacterServer
         [BoolBit(11)]
         public bool RP;
 
+        [Unsigned7Bit(15)]
+        public long Language;
+
         [BoolBit(16)]
         public bool Online;
 

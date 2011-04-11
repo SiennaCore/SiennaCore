@@ -80,6 +80,8 @@
   <ItemGroup>
     <Compile Include="Database\Accounts\Account.cs" />
     <Compile Include="Database\Accounts\Account_Banned.cs" />
+    <Compile Include="Database\Cache\CacheUpdate.cs" />
+    <Compile Include="Database\Characters\CacheData.cs" />
     <Compile Include="Database\Characters\Character.cs" />
     <Compile Include="Database\Characters\RandomName.cs" />
     <Compile Include="Database\Characters\Realm.cs" />

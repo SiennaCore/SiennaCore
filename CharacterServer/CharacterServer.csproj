@@ -78,12 +78,17 @@
     <Compile Include="Console\CreateRealm.cs" />
     <Compile Include="NetWork\Handlers\HandshakeClientKey.cs" />
     <Compile Include="NetWork\Handlers\HandshakeVersion.cs" />
+    <Compile Include="NetWork\Handlers\LobbyCharacterCreationCacheRequest.cs" />
+    <Compile Include="NetWork\Handlers\LobbyCharacterListRequest.cs" />
     <Compile Include="NetWork\Handlers\LobbyWorldListRequest.cs" />
+    <Compile Include="NetWork\Handlers\LobbyWorldSelectRequest.cs" />
     <Compile Include="NetWork\Handlers\PingPong.cs" />
     <Compile Include="NetWork\Handlers\ProtocolHandshakeAuthenticationRequest.cs" />
     <Compile Include="NetWork\Sender\HandshakeCompression.cs" />
     <Compile Include="NetWork\Sender\HanshakeServerKey.cs" />
+    <Compile Include="NetWork\Sender\LobbyCharacterListResponse.cs" />
     <Compile Include="NetWork\Sender\LobbyWorldListResponse.cs" />
+    <Compile Include="NetWork\Sender\LobbyWorldSelectResponse.cs" />
     <Compile Include="NetWork\Sender\ProtocolHandshakeAuthenticationResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

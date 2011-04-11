@@ -8,7 +8,10 @@ namespace Shared
 {
     public abstract class ISerializablePacket
     {
-        public abstract void OnRead(RiftClient From);
+        public virtual void OnRead(RiftClient From)
+        {
+            Log.Error("OnRead", "Unknown ISerialized packet : " + GetType().Name);
+        }
 
         public long GetOpcode()
         {

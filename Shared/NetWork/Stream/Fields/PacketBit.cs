@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Shared
 {
-    public class PacketBittAttribute : ISerializableFieldAttribute
+    public class PacketBitAttribute : ISerializableFieldAttribute
     {
-        public PacketBittAttribute(int Index)
+        public PacketBitAttribute(int Index)
             : base(Index)
         {
 

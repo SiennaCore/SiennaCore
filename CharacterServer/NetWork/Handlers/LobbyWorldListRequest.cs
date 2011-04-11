@@ -16,29 +16,19 @@ namespace CharacterServer
 
             LobbyWorldListResponse Rp = new LobbyWorldListResponse();
 
+            Realm[] Realms = Program.CharMgr.GetRealms();
+            foreach (Realm Rm in Realms)
             {
                 LobbyWorldEntry Entry = new LobbyWorldEntry();
-                Entry.RealmID = 2563;
-                Entry.Version = 29037;
-                Entry.PVP = false;
-                Entry.RP = false;
-                Entry.CharactersCount = 1;
-                Entry.Population = 2;
-                Entry.Recommended = false;
-                Entry.Online = true;
-                Rp.Realms.Add(Entry);
-            }
-
-            {
-                LobbyWorldEntry Entry = new LobbyWorldEntry();
-                Entry.RealmID = 2564;
-                Entry.Version = 29034;
-                Entry.PVP = false;
-                Entry.RP = false;
-                Entry.CharactersCount = 1;
+                Entry.RealmID = Rm.RiftId;
+                Entry.PVP = Rm.PVP == 1;
+                Entry.Recommended = Rm.Recommended == 1;
                 Entry.Population = 0;
-                Entry.Recommended = true;
-                Entry.Online = true;
+                Entry.RP = Rm.RP == 1;
+                Entry.Version = Rm.Version;
+                Entry.Online = Rm.Online == 1;
+                Entry.CharactersCount = 0;
+                Entry.Language = 5;
                 Rp.Realms.Add(Entry);
             }
 

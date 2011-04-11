@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Shared;
 using Shared.NetWork;
 using Shared.Database;
 
-[DataTable(DatabaseName = "Characters", TableName = "Realms", PreCache = true)]
 [Serializable]
+[DataTable(DatabaseName = "Characters", TableName = "Realms", PreCache = true)]
+[ISerializableAttribute((long)Opcodes.LobbyWorldEntry)]
 public class Realm : DataObject
 {
     [PrimaryKey]
@@ -18,16 +20,28 @@ public class Realm : DataObject
     [DataElement(Varchar = 255)]
     public string Address;
 
-    [DataElement()]
+    [DataElement(AllowDbNull = false)]
+    public byte Language;
+    // 1 = English
+    // 3 = German
+    // 5 = French
+
+    [DataElement(AllowDbNull = false)]
+    public long Version;
+
+    [DataElement(AllowDbNull=false)]
+    public byte PVP;
+
+    [DataElement(AllowDbNull = false)]
+    public byte RP;
+
+    [DataElement(AllowDbNull=false)]
     public byte Online;
 
     [DataElement(AllowDbNull = false)]
-    public byte RealmType;
+    public byte Recommended;
 
-    [DataElement(AllowDbNull = false)]
-    public byte Language;
-
-    public int RiftId;
+    public long RiftId;
 
     public void GenerateName()
     {
@@ -36,37 +50,38 @@ public class Realm : DataObject
         switch (RealmId)
         {
             case 1:
-                Name = "Steampike";
-                RiftId = 40210;
+                Name = "Mordant";
+                RiftId = 2571;
                 return; ;
             case 2:
-                Name = "Whitefall";
-                RiftId = 42770;
+                Name = "Refuge";
+                RiftId = 2591;
                 return;
             case 3:
-                Name = "Cloudborne";
-                RiftId = 52241;
+                Name = "Quarrystone";
+                RiftId = 2574;
                 return;
             case 4:
-                Name = "Immerwatch";
-                RiftId = 52753;
+                Name = "Heaterfield";
+                RiftId = 2583;
                 return;
             case 5:
-                Name = "Blightwild";
-                RiftId = 51985;
+                Name = "Maidenfalls";
+                RiftId = 2572;
                 return;
+
             case 6:
                 Name = "Brisesol";
-                RiftId = 52497;
+                RiftId = 2514;
                 return;
             case 7:
                 Name = "Icewatch";
-                RiftId = 54545;
+                RiftId = 2593;
                 return;
 
             case 8:
                 Name = "Rubicon";
-                RiftId = 54801;
+                RiftId = 2582;
                 return; ;
             case 9:
                 Name = "Brutwatch";
@@ -130,28 +145,5 @@ public class Realm : DataObject
                 RiftId = RealmId;
                 break;
         };
-    }
-    public void Write(ref PacketOut Out)
-    {
-        Out.WriteByte(0xE5);
-        Out.WriteUInt16(0x0302);
-        Out.WriteUInt16((UInt16)RiftId);
-        Out.WriteUInt32(0x0AB6C301);
-
-        int RealmStatus = 0x00;
-
-        RealmStatus = RealmStatus ^ 112; // 80 medium, 112 low, 
-        RealmStatus = RealmStatus ^ 1; // 1 online 2 offline
-
-        int RealmData = 0x00;
-        RealmData = RealmData ^ RealmType; // 16 PVP, 48 PVE, 80 PVE-RP, 0 Locked
-        RealmData = RealmData ^ 8;
-        RealmData = RealmData ^ 1;
-
-        Out.WriteByte((byte)RealmStatus);
-        Out.WriteByte((byte)RealmData);
-        Out.WriteByte(0x62);
-        Out.WriteByte((byte)Language);
-        Out.WriteUInt16(0x6907);
     }
 }
