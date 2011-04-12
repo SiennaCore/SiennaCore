@@ -28,7 +28,7 @@ namespace CharacterServer
                 Entry.Version = Rm.Version;
                 Entry.Online = Rm.Online == 1;
                 Entry.CharactersCount = 0;
-                Entry.Language = 5;
+                Entry.Language = Rm.Language;
                 Rp.Realms.Add(Entry);
             }
 
