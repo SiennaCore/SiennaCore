@@ -95,10 +95,18 @@ namespace Shared
             }
         }
 
-        public static ISerializableField ReadField(ref PacketInStream Stream,EPacketFieldType FieldType,Type Element)
+
+        public static ISerializableField GetFieldType(EPacketFieldType Type)
         {
             ISerializableField Field;
-            FieldsTypes.TryGetValue((EPacketFieldType)FieldType, out Field);
+            FieldsTypes.TryGetValue(Type, out Field);
+            return Field;
+        }
+
+        public static ISerializableField ReadField(ref PacketInStream Stream,EPacketFieldType FieldType,Type Element)
+        {
+            ISerializableField Field = GetFieldType(FieldType);
+
             if (Field != null)
             {
                 Log.Success("ReadField", "FieldType=" + FieldType + ",Element=" + Element);
@@ -132,14 +140,9 @@ namespace Shared
                 {
                     Log.Error("Deserialize", "Index(" + FieldIndex + ") not Found on class(" + Class.Name + ")");
 
-                    ISerializableField Field;
-                    FieldsTypes.TryGetValue((EPacketFieldType)FieldType, out Field);
-                    if (Field != null)
-                    {
-                        Field = Activator.CreateInstance(Field.GetType()) as ISerializableField;
-                        Field.Deserialize(ref Stream, null);
+                    ISerializableField Field = ReadField(ref Stream,(EPacketFieldType)FieldType,null);
+                    if(Field != null)
                         Packet.AddField(FieldIndex, Field);
-                    }
                     else
                         return;
                 }
@@ -211,10 +214,9 @@ namespace Shared
             Stream.Write(Temp.ToArray());
         }
 
-        public static int Serialize(ref PacketOutStream Stream, Type Class, ISerializablePacket Packet)
+        public static void Serialize(ref PacketOutStream Stream, Type Class, ISerializablePacket Packet)
         {
             FieldInfo[] Fields = Class.GetFields();
-            int MaxIndex = 0;
 
             foreach (FieldInfo Field in Fields)
             {
@@ -237,13 +239,28 @@ namespace Shared
 
                     if( !(IField is BoolBitField))
                         IField.Serialize(ref Stream, Field.FieldType);
-
-                    if (FieldsAttr[0].Index > MaxIndex)
-                        MaxIndex = FieldsAttr[0].Index;
                 }
             }
 
-            return MaxIndex;
+            foreach (KeyValuePair<int,ISerializableField> Field in Packet.GetFields())
+            {
+                Log.Success("WRITING", "FIELD IN FIELD = " + Field);
+                WriteField(ref Stream, Field.Key,Field.Value.PacketType, Field.Value , null);
+            }
+        }
+
+        static public void WriteField(ref PacketOutStream Stream,int Index,EPacketFieldType FieldType, ISerializableField Field,Type TypeField)
+        {
+            long FieldResult;
+
+            if (Field is BoolBitField)
+                FieldType = (bool)Field.value ? EPacketFieldType.True : EPacketFieldType.False;
+
+            PacketOutStream.Encode2Parameters(out FieldResult, (int)FieldType, Index);
+            Stream.WriteEncoded7Bit(FieldResult);
+
+            if (!(Field is BoolBitField))
+                Field.Serialize(ref Stream, TypeField);
         }
     }
 }

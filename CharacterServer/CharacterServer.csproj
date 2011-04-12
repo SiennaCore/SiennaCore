@@ -80,6 +80,8 @@
     <Compile Include="NetWork\Characters\LobbyCharacterCreateRequest.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterCreationCacheRequest.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterListRequest.cs" />
+    <Compile Include="NetWork\Characters\LobbyCharacterRandomNameRequest.cs" />
+    <Compile Include="NetWork\Characters\LobbyCharacterRandomNameResponse.cs" />
     <Compile Include="NetWork\Realm\LobbyWorldListRequest.cs" />
     <Compile Include="NetWork\Realm\LobbyWorldSelectRequest.cs" />
     <Compile Include="NetWork\PingPong.cs" />

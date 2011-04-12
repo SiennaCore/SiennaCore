@@ -102,7 +102,7 @@ namespace Shared
         public string GenerateName()
         {
             if (_Randoms.Count <= 0)
-                return "Sienna";
+                return "Siennacore";
 
             Random R = new Random();
             int Id = R.Next(_Randoms.Count);

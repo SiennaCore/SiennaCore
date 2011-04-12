@@ -12,6 +12,12 @@ using Shared.NetWork;
 
 namespace CharacterServer
 {
+    [ISerializableAttribute((long)Opcodes.LobbyCharacterCreateResponse)]
+    public class LobbyCharacterCreateResponse : ISerializablePacket
+    {
+
+    }
+
     [Serializable]
     [ISerializableAttribute((long)Opcodes.LobbyCharacterUnknown4)]
     public class LobbyCharacterUnknown4 : ISerializablePacket
@@ -145,23 +151,31 @@ namespace CharacterServer
         {
             Log.Success("Creation", "CharacterName  = " + Name);
 
-            string Data = "";
+            LobbyCharacterCreateResponse Rp = new LobbyCharacterCreateResponse();
+            Character Exist = CharacterMgr.CharacterDB.SelectObject<Character>("Name='" + CharacterMgr.CharacterDB.Escape(Name) + "' AND RealmID=" + From.Realm.RealmId);
+            if (Exist != null)
+            {
+                Rp.AddField(0, EPacketFieldType.Unsigned7BitEncoded, (long)6);
+            }
+            else
+            {
+                string Data = "";
 
-            MemoryStream memoryStream = new MemoryStream();
-            XmlSerializer xs = new XmlSerializer(typeof(LobbyCharacterCreateRequest));
-            XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-            xs.Serialize(xmlTextWriter, this);
-            memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
-            Data = UTF8ByteArrayToString(memoryStream.ToArray());
+                MemoryStream memoryStream = new MemoryStream();
+                XmlSerializer xs = new XmlSerializer(typeof(LobbyCharacterCreateRequest));
+                XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+                xs.Serialize(xmlTextWriter, this);
+                memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
+                Data = UTF8ByteArrayToString(memoryStream.ToArray());
 
-
-            Character Char = new Character();
-            Char.Name = Name;
-            Char.AccountId = From.Acct.Id;
-            Char.RealmId = From.Realm.RealmId;
-            Char.Data = Data;
-            Program.CharMgr.AddObject(Char);
-
+                Character Char = new Character();
+                Char.Name = Name;
+                Char.AccountId = From.Acct.Id;
+                Char.RealmId = From.Realm.RealmId;
+                Char.Data = Data;
+                Program.CharMgr.AddObject(Char);
+            }
+            From.SendSerialized(Rp);
         }
 
         private String UTF8ByteArrayToString(Byte[] characters)

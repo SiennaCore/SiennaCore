@@ -15,7 +15,10 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
-            From.Realm = Program.CharMgr.GetRealm((int)RealmId);
+            Realm Rm = Program.CharMgr.GetRealm((int)RealmId);
+
+            if (Rm != null)
+                From.Realm = Rm;
 
             if (From.Realm == null)
             {

@@ -35,6 +35,11 @@ public enum Opcodes
     LobbyCharacterCreationCacheResponse = 0x01C3,
 
     LobbyCharacterCreateRequest = 0x01D5,
+    LobbyCharacterCreateResponse = 0x01D6,
+
+    LobbyCharacterRandomNameRequest = 0x01EF,
+    LobbyCharacterRandomNameResponse = 0x01F0,
+
 
     CacheUpdate = 0x0025,
     TemplateCreationData = 0x027E,
