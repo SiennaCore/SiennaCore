@@ -32,6 +32,30 @@ namespace Shared
             int ListType;
             int ListCount;
             PacketInStream.Decode2Parameters(ListData, out ListType, out ListCount);
+
+
+            List<ISerializableField> Fields = new List<ISerializableField>();
+
+            if(Field.Equals(typeof(List<UInt32>)))
+            {
+                for (int i = 0; i < ListCount; ++i)
+                    Fields.Add(PacketProcessor.ReadField(ref Data, (EPacketFieldType)ListType, typeof(UInt32)));
+
+                List<UInt32> Uints = new List<uint>();
+                foreach (ISerializableField Fd in Fields)
+                    Uints.Add((UInt32)Fd.value);
+                val = Uints;
+            }
+            else if (Field.Equals(typeof(List<long>)))
+            {
+                for (int i = 0; i < ListCount; ++i)
+                    Fields.Add(PacketProcessor.ReadField(ref Data, (EPacketFieldType)ListType, typeof(long)));
+
+                List<long> longs = new List<long>();
+                foreach (ISerializableField Fd in Fields)
+                    longs.Add((long)Fd.value);
+                val = longs;
+            }
         }
 
         public override void Serialize(ref PacketOutStream Data, Type Field)

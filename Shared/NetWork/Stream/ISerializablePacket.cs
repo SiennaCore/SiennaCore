@@ -6,8 +6,24 @@ using System.Text;
 
 namespace Shared
 {
-    public abstract class ISerializablePacket
+    [Serializable]
+    public class ISerializablePacket
     {
+        private Dictionary<int, ISerializableField> Fields = new Dictionary<int, ISerializableField>();
+
+        public void AddField(int Index, ISerializableField Field)
+        {
+            if (!Fields.ContainsKey(Index))
+                Fields.Add(Index, Field);
+        }
+        public ISerializableField GetField(int Index)
+        {
+            ISerializableField Field;
+            Fields.TryGetValue(Index, out Field);
+            return Field;
+        }
+
+
         public virtual void OnRead(RiftClient From)
         {
             Log.Error("OnRead", "Unknown ISerialized packet : " + GetType().Name);

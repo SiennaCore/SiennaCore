@@ -81,7 +81,8 @@
     <Compile Include="Database\Accounts\Account.cs" />
     <Compile Include="Database\Accounts\Account_Banned.cs" />
     <Compile Include="Database\Cache\CacheUpdate.cs" />
-    <Compile Include="Database\Characters\CacheData.cs" />
+    <Compile Include="Database\Characters\Cache\CacheData.cs" />
+    <Compile Include="Database\Characters\Cache\CacheSoul.cs" />
     <Compile Include="Database\Characters\Character.cs" />
     <Compile Include="Database\Characters\RandomName.cs" />
     <Compile Include="Database\Characters\Realm.cs" />
@@ -136,6 +137,9 @@
     <Compile Include="Deps\NetWork\Crypt\ICryptHandler.cs" />
     <Compile Include="Deps\NetWork\Marshal.cs" />
     <Compile Include="Deps\NetWork\TCPManager.cs" />
+    <Compile Include="NetWork\Crypto\HandshakeClientKey.cs" />
+    <Compile Include="NetWork\Crypto\HandshakeCompression.cs" />
+    <Compile Include="NetWork\Crypto\HanshakeServerKey.cs" />
     <Compile Include="NetWork\Opcodes.cs" />
     <Compile Include="NetWork\RiftClient.cs" />
     <Compile Include="NetWork\RiftServer.cs" />

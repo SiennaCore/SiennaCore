@@ -385,7 +385,7 @@ namespace Shared.Database
                     {
                         column += "BIGINT";
                     }
-                    else if (systype == typeof(byte))
+                    else if (systype == typeof(byte) || systype == typeof(bool))
                     {
                         column += "TINYINT UNSIGNED";
                     }
@@ -408,10 +408,6 @@ namespace Shared.Database
                     else if (systype == typeof(double))
                     {
                         column += "DOUBLE";
-                    }
-                    else if (systype == typeof(bool))
-                    {
-                        column += "TINYINT(1)";
                     }
                     else if (systype == typeof(string))
                     {
@@ -436,7 +432,7 @@ namespace Shared.Database
                     }
                     else
                     {
-                        column += "BLOB";
+                        column += "TEXT";
                     }
                     if (!table.Columns[i].AllowDBNull)
                     {

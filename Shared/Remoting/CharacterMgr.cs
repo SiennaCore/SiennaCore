@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using Shared.Database;
 
@@ -26,7 +27,6 @@ namespace Shared
             {
                 Rm.GenerateName();
                 Rm.Dirty = true;
-
                 _Realms.Add(Rm.RealmId, Rm);
                 CharacterDB.SaveObject(Rm);
             }
@@ -108,6 +108,32 @@ namespace Shared
             int Id = R.Next(_Randoms.Count);
 
             return _Randoms[Id].Name;
+        }
+
+        #endregion
+
+        #region CacheData
+
+        public byte[] GetCache(long CacheType, uint ID)
+        {
+            try
+            {
+                FileStream Ft = new FileStream("CacheData/" + CacheType + "-" + ID + ".cache", FileMode.Open);
+                if (Ft == null || !Ft.CanRead)
+                {
+                    Log.Error("GetCache", "Invalid Cache Data : Type=" + CacheType + ",ID=" + ID);
+                    return null;
+                }
+
+                byte[] Result = new byte[Ft.Length];
+                Ft.Read(Result, 0, (int)Result.Length);
+                return Result;
+            }
+            catch (Exception e)
+            {
+                Log.Error("GetCache", "Invalid Cache Data : Type=" + CacheType + ",ID=" + ID);
+                return null;
+            }
         }
 
         #endregion

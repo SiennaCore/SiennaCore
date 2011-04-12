@@ -28,11 +28,7 @@ namespace Shared
 
         public override void Deserialize(ref PacketInStream Data, Type Field)
         {
-            long Size = Data.ReadEncoded7Bit();
-            byte[] Buff = Data.Read((int)Size);
-
-            PacketInStream NewPacket = new PacketInStream(Buff, Buff.Length);
-            val = PacketProcessor.ProcessGameDataStream(ref NewPacket);
+            val = PacketProcessor.ProcessGameDataStream(ref Data);
         }
 
         public override void Serialize(ref PacketOutStream Data, Type Field)

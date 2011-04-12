@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -83,6 +84,30 @@ namespace Shared.Database
                         else if (val is string)
                         {
                             val = Escape(val.ToString());
+                        }
+                        else if (val is List<byte>)
+                        {
+                            List<byte> bytes = val as List<byte>;
+                            string Result="";
+                            foreach (byte b in bytes)
+                                Result += b.ToString("X2") + " ";
+                            val = Result;
+                        }
+                        else if (val is List<UInt32>)
+                        {
+                            List<UInt32> bytes = val as List<UInt32>;
+                            string Result = "";
+                            foreach (UInt32 b in bytes)
+                                Result += b.ToString("X4") + " ";
+                            val = Result;
+                        }
+                        else if (val is List<long>)
+                        {
+                            List<long> bytes = val as List<long>;
+                            string Result = "";
+                            foreach (long b in bytes)
+                                Result += b.ToString("X8") + " ";
+                            val = Result;
                         }
 
                         values.Append('\'');
@@ -193,6 +218,30 @@ namespace Shared.Database
                         else if (val is string)
                         {
                             val = Escape(val.ToString());
+                        }
+                        else if (val is List<byte>)
+                        {
+                            List<byte> bytes = val as List<byte>;
+                            string Result = "";
+                            foreach (byte b in bytes)
+                                Result += b.ToString("X2") + " ";
+                            val = Result;
+                        }
+                        else if (val is List<UInt32>)
+                        {
+                            List<UInt32> bytes = val as List<UInt32>;
+                            string Result = "";
+                            foreach (UInt32 b in bytes)
+                                Result += b.ToString("X4") + " ";
+                            val = Result;
+                        }
+                        else if (val is List<long>)
+                        {
+                            List<long> bytes = val as List<long>;
+                            string Result = "";
+                            foreach (long b in bytes)
+                                Result += b.ToString("X8") + " ";
+                            val = Result;
                         }
 
                         sb.Append("`" + bind.Member.Name + "` = ");
@@ -447,6 +496,16 @@ namespace Shared.Database
                                                                                       null);
                                             }
                                         }
+                                        else if (type == typeof(List<byte>))
+                                        {
+                                            string sVal = val as string;
+                                            List<byte> bytes = new List<byte>();
+                                            foreach (string R in sVal.Split(' '))
+                                                bytes.Add(byte.Parse(R));
+
+                                            val = bytes;
+
+                                        }
                                         else
                                         {
                                             ((PropertyInfo)bind.Member).SetValue(obj, val, null);
@@ -462,6 +521,32 @@ namespace Shared.Database
                                 }
                                 else if (bind.Member is FieldInfo)
                                 {
+                                    FieldInfo Info = (FieldInfo)bind.Member;
+                                    if (Info.FieldType == typeof(List<byte>))
+                                    {
+                                        List<byte> bytes = new List<byte>();
+                                        string sval = val.ToString();
+                                        foreach (string R in sval.Split(' '))
+                                            if (R.Length > 0) bytes.Add(byte.Parse(R));
+                                        val = bytes;
+                                    }
+                                    else if (Info.FieldType == typeof(List<UInt32>))
+                                    {
+                                        List<UInt32> bytes = new List<UInt32>();
+                                        string sval = val.ToString();
+                                        foreach (string R in sval.Split(' '))
+                                            if (R.Length > 0) bytes.Add(UInt32.Parse(R));
+                                        val = bytes;
+                                    }
+                                    else if (Info.FieldType == typeof(List<long>))
+                                    {
+                                        List<long> bytes = new List<long>();
+                                        string sval = val.ToString();
+                                        foreach (string R in sval.Split(' '))
+                                            if (R.Length > 0) bytes.Add(long.Parse(R));
+                                        val = bytes;
+                                    }
+
                                     ((FieldInfo)bind.Member).SetValue(obj, val);
                                 }
                             }
@@ -595,6 +680,32 @@ namespace Shared.Database
                                 }
                                 else if (bind.Member is FieldInfo)
                                 {
+                                    FieldInfo Info = (FieldInfo)bind.Member;
+                                    if (Info.FieldType == typeof(List<byte>))
+                                    {
+                                        List<byte> bytes = new List<byte>();
+                                        string sval = val.ToString();
+                                        foreach (string R in sval.Split(' '))
+                                            if(R.Length > 0) bytes.Add(byte.Parse(R));
+                                        val = bytes;
+                                    }
+                                    else if(Info.FieldType == typeof(List<UInt32>))
+                                    {
+                                        List<UInt32> bytes = new List<UInt32>();
+                                        string sval = val.ToString();
+                                        foreach (string R in sval.Split(' '))
+                                            if (R.Length > 0) bytes.Add(UInt32.Parse(R));
+                                        val = bytes;
+                                    }
+                                    else if (Info.FieldType == typeof(List<long>))
+                                    {
+                                        List<long> bytes = new List<long>();
+                                        string sval = val.ToString();
+                                        foreach (string R in sval.Split(' '))
+                                            if (R.Length > 0) bytes.Add(long.Parse(R));
+                                        val = bytes;
+                                    }
+
                                     ((FieldInfo)bind.Member).SetValue(obj, val);
                                 }
                             }

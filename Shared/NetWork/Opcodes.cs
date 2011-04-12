@@ -16,11 +16,13 @@ public enum Opcodes
     LobbyWorldListRequest = 0x01C0,
     LobbyWorldListResponse = 0x01C1,
     LobbyWorldEntry = 0x01E5,
+
     LobbyWorldSelectRequest = 0x019D,
     LobbyWorldSelectResponse = 0x019E,
 
     LobbyCharacterListRequest = 0x01B3,
     LobbyCharacterListResponse = 0x01B4,
+
     LobbyCharacterEntry = 0x01D7,
     LobbyCharacterUnknown1 = 0x01DD,
     LobbyCharacterUnknown2 = 0x0DBF,
@@ -28,8 +30,12 @@ public enum Opcodes
     LobbyCharacterUnknown4 = 0x00DE,
     LobbyCharacterUnknown5 = 0x0080,
     LobbyCharacterUnknown6 = 0x1E17,
+
     LobbyCharacterCreationCacheRequest = 0x01C2,
     LobbyCharacterCreationCacheResponse = 0x01C3,
+
+    LobbyCharacterCreateRequest = 0x01D5,
+
     CacheUpdate = 0x0025,
     TemplateCreationData = 0x027E,
     TemplateCreationUnknown1Data = 0x0ECD,

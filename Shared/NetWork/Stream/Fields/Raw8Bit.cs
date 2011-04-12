@@ -30,7 +30,7 @@ namespace Shared
         {
             if (Field.Equals(typeof(UInt64)) || Field.Equals(typeof(Int64)))
                 val = Data.GetUint64R();
-            else if (Field.Equals(typeof(byte[])))
+            else
                 val = Data.Read(8);
         }
 

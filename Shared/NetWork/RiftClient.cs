@@ -267,7 +267,11 @@ namespace Shared
             PacketProcessor.WritePacket(ref Out, Packet.GetType(), Packet);
 
             byte[] ToSend = Out.ToArray();
+            SendTCP(ToSend);
+        }
 
+        public void SendTCP(byte[] ToSend)
+        {
             Log.Dump("ToSend", ToSend, 0, ToSend.Length);
 
             if (SendCompressed)
@@ -281,7 +285,16 @@ namespace Shared
             if (Crypted)
                 ToSend = Crypt(ToSend);
 
-            SendTCP(ToSend);
+            base.SendTCP(ToSend);
+        }
+
+        public void SendTCPWithSize(byte[] ToSend)
+        {
+            PacketOutStream St = new PacketOutStream();
+            St.WriteEncoded7Bit(ToSend.Length);
+            St.Write(ToSend);
+
+            SendTCP(St.ToArray());
         }
 
         private void AdvanceEncryptIV()

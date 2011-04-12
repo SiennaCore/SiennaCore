@@ -31,10 +31,12 @@ namespace Shared
     public static class PacketProcessor
     {
         private static Dictionary<long, PacketHandlerDefinition> Definitions;
+        private static Dictionary<EPacketFieldType,ISerializableField> FieldsTypes;
 
         public static void RegisterDefinitions()
         {
             Definitions = new Dictionary<long, PacketHandlerDefinition>();
+            FieldsTypes = new Dictionary<EPacketFieldType, ISerializableField>();
 
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
@@ -61,6 +63,16 @@ namespace Shared
                     }
                 }
             }
+
+            FieldsTypes.Add(EPacketFieldType.ByteArray, new ArrayBitField());
+            FieldsTypes.Add(EPacketFieldType.True, new BoolBitField());
+            FieldsTypes.Add(EPacketFieldType.False, new BoolBitField());
+            FieldsTypes.Add(EPacketFieldType.List, new ListBitField());
+            FieldsTypes.Add(EPacketFieldType.Packet, new PacketBitField());
+            FieldsTypes.Add(EPacketFieldType.Raw4Bytes, new Raw4BitField());
+            FieldsTypes.Add(EPacketFieldType.Raw8Bytes, new Raw8BitBitField());
+            FieldsTypes.Add(EPacketFieldType.Signed7BitEncoded, new Encoded7BitField());
+            FieldsTypes.Add(EPacketFieldType.Unsigned7BitEncoded, new Unsigned7BitField());
         }
 
         public static ISerializablePacket ProcessGameDataStream(ref PacketInStream Stream)
@@ -75,9 +87,26 @@ namespace Shared
                 return Packet;
             }
             else
-                Log.Error("ProcessGameDataStream","Received unhandled packet with opcode " + Opcode);
+            {
+                Log.Error("ProcessGameDataStream", "Received unhandled packet with opcode " + Opcode);
+                ISerializablePacket Packet = new ISerializablePacket();
+                Deserialize(ref Stream,Packet.GetType(),ref Packet);
+                return Packet;
+            }
+        }
 
-            return null;
+        public static ISerializableField ReadField(ref PacketInStream Stream,EPacketFieldType FieldType,Type Element)
+        {
+            ISerializableField Field;
+            FieldsTypes.TryGetValue((EPacketFieldType)FieldType, out Field);
+            if (Field != null)
+            {
+                Log.Success("ReadField", "FieldType=" + FieldType + ",Element=" + Element);
+                Field = Activator.CreateInstance(Field.GetType()) as ISerializableField;
+                Field.Deserialize(ref Stream, Element);
+            }
+
+            return Field;
         }
 
         public static void Deserialize(ref PacketInStream Stream, Type Class, ref ISerializablePacket Packet)
@@ -96,12 +125,23 @@ namespace Shared
                 if (FieldType == (int)EPacketFieldType.Terminator)
                     return;
 
+                Log.Success("Read", "Packet" + Packet + " | Index=" + FieldIndex + ",Type=" + FieldType);
                 FieldInfo Info = GetField(Fields, FieldIndex);
 
                 if (Info == null)
                 {
-                    Log.Error("Deserialize", "Index not Found on class");
-                    return;
+                    Log.Error("Deserialize", "Index(" + FieldIndex + ") not Found on class(" + Class.Name + ")");
+
+                    ISerializableField Field;
+                    FieldsTypes.TryGetValue((EPacketFieldType)FieldType, out Field);
+                    if (Field != null)
+                    {
+                        Field = Activator.CreateInstance(Field.GetType()) as ISerializableField;
+                        Field.Deserialize(ref Stream, null);
+                        Packet.AddField(FieldIndex, Field);
+                    }
+                    else
+                        return;
                 }
                 else
                 {
@@ -111,7 +151,12 @@ namespace Shared
                     IField.Deserialize(ref Stream,Info.FieldType);
 
                     if (FieldType == (int)EPacketFieldType.True || (int)FieldType == (int)EPacketFieldType.False)
-                        Info.SetValue(Packet, FieldType == (int)EPacketFieldType.True);
+                    {
+                        if(Info.FieldType.Equals(typeof(bool)))
+                            Info.SetValue(Packet, FieldType == (int)EPacketFieldType.True);
+                        else
+                            Info.SetValue(Packet, (byte)((FieldType == (int)EPacketFieldType.True) ? 1 : 0));
+                    }
                     else
                         Info.SetValue(Packet, IField.value);
                 }
@@ -145,6 +190,23 @@ namespace Shared
 
             if (WriteSize)
                 Stream.WriteEncoded7Bit(Temp.Length);
+
+            Stream.Write(Temp.ToArray());
+        }
+
+        public static void WritePacket(ref PacketOutStream Stream, long Opcode)
+        {
+            PacketOutStream Temp = new PacketOutStream();
+            Temp.WriteEncoded7Bit(Opcode);
+
+            if (Opcode != (long)Opcodes.ProtocolHandshakeCompression)
+            {
+                long Terminator;
+                PacketOutStream.Encode2Parameters(out Terminator, (int)EPacketFieldType.Terminator, 0);
+                Temp.WriteEncoded7Bit(Terminator);
+            }
+
+            Stream.WriteEncoded7Bit(Temp.Length);
 
             Stream.Write(Temp.ToArray());
         }

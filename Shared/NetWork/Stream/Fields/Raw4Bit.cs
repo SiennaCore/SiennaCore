@@ -15,27 +15,29 @@ namespace Shared
 
         public override Type GetSerializableType()
         {
-            return typeof(Raw4BitBitField);
+            return typeof(Raw4BitField);
         }
     }
 
-    public class Raw4BitBitField : ISerializableField
+    public class Raw4BitField : ISerializableField
     {
-        public Raw4BitBitField()
+        public Raw4BitField()
         {
             PacketType = EPacketFieldType.Raw4Bytes;
         }
 
         public override void Deserialize(ref PacketInStream Data,Type Field)
         {
-            if (Field.Equals(typeof(Int32)))
+            if(Field == null)
+                val = Data.GetUint32R();
+            else if (Field.Equals(typeof(Int32)))
                 val = Data.GetInt32R();
             else if (Field.Equals(typeof(UInt32)))
                 val = Data.GetUint32R();
             else if (Field.Equals(typeof(float)))
                 val = Data.GetFloat();
-            else if (Field.Equals(typeof(byte[])))
-                val = Data.Read(4);
+            else
+                val = Data.GetUint32R();
         }
 
         public override void Serialize(ref PacketOutStream Data, Type Field)
