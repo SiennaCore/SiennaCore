@@ -27,7 +27,7 @@ public class Realm : DataObject
     // 5 = French
 
     [DataElement(AllowDbNull = false)]
-    public long Version;
+    public long ClientVersion;
 
     [DataElement(AllowDbNull=false)]
     public byte PVP;

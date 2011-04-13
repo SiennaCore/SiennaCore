@@ -25,7 +25,7 @@ namespace CharacterServer
                 Entry.Recommended = Rm.Recommended == 1;
                 Entry.Population = 0;
                 Entry.RP = Rm.RP == 1;
-                Entry.Version = Rm.Version;
+                Entry.Version = Rm.ClientVersion;
                 Entry.Online = Rm.Online == 1;
                 Entry.CharactersCount = Program.CharMgr.GetCharactersCount(From.Acct.Id,Rm.RealmId);
                 Entry.Language = Rm.Language;

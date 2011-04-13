@@ -30,6 +30,7 @@ namespace Shared
     {
         public Account Acct = null;
         public Realm Realm = null;
+        public long ClientVersion;
 
         public RiftClient(TCPManager Server)
             : base(Server)
