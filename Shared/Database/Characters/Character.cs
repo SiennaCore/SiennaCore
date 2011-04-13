@@ -22,5 +22,14 @@ public class Character : DataObject
     public string Name;
 
     [DataElement()]
+    public long Race;
+
+    [DataElement()]
+    public long Classe;
+
+    [DataElement()]
+    public long Level;
+
+    [DataElement()]
     public string Data;
 }

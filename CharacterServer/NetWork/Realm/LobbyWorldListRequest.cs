@@ -27,7 +27,7 @@ namespace CharacterServer
                 Entry.RP = Rm.RP == 1;
                 Entry.Version = Rm.Version;
                 Entry.Online = Rm.Online == 1;
-                Entry.CharactersCount = 0;
+                Entry.CharactersCount = Program.CharMgr.GetCharactersCount(From.Acct.Id,Rm.RealmId);
                 Entry.Language = Rm.Language;
                 Rp.Realms.Add(Entry);
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace Shared
 {
@@ -21,19 +22,24 @@ namespace Shared
 
     public class BoolBitField : ISerializableField
     {
-        public BoolBitField()
+        public override void Deserialize(ref PacketInStream Data)
+        {
+            if (PacketType == EPacketFieldType.True)
+                val = (bool)true;
+            else
+                val = (bool)false;
+        }
+
+        public override void Serialize(ref PacketOutStream Data)
         {
 
         }
 
-        public override void Deserialize(ref PacketInStream Data, Type Field)
+        public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)
         {
-
-        }
-
-        public override void Serialize(ref PacketOutStream Data, Type Field)
-        {
-
+            if (Field.Equals(typeof(bool)))
+                Info.SetValue(Packet, val);
+                
         }
     }
 }

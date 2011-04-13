@@ -157,9 +157,9 @@ namespace CharacterServer
             SendCache(From,7310, 1088944139);
             SendCache(From,623, 824725952);
 
-            PacketOutStream Str = new PacketOutStream();
-            PacketProcessor.WritePacket(ref Str, (long)Opcodes.LobbyCharacterCreationCacheResponse);
-            From.SendTCP(Str.ToArray());
+            ISerializablePacket Packet = new ISerializablePacket();
+            Packet.Opcode = (long)Opcodes.LobbyCharacterCreationCacheResponse;
+            From.SendSerialized(Packet);
         }
 
         public void SendCache(RiftClient From,long CacheType, uint ID)

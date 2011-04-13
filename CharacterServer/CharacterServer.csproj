@@ -77,6 +77,8 @@
     <Compile Include="Console\CreateAccount.cs" />
     <Compile Include="Console\CreateRealm.cs" />
     <Compile Include="NetWork\Authentification\HandshakeVersion.cs" />
+    <Compile Include="NetWork\Characters\Character\LobbyCharacterEntry.cs" />
+    <Compile Include="NetWork\Characters\Character\LobbyCharacterUnknown1.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterCreateRequest.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterCreationCacheRequest.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterListRequest.cs" />

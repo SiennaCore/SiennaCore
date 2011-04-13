@@ -30,8 +30,10 @@ namespace Shared
 
     public static class PacketProcessor
     {
+        #region PacketHandler && Fields
+
         private static Dictionary<long, PacketHandlerDefinition> Definitions;
-        private static Dictionary<EPacketFieldType,ISerializableField> FieldsTypes;
+        private static Dictionary<EPacketFieldType, ISerializableField> FieldsTypes;
 
         public static void RegisterDefinitions()
         {
@@ -73,194 +75,170 @@ namespace Shared
             FieldsTypes.Add(EPacketFieldType.Raw8Bytes, new Raw8BitBitField());
             FieldsTypes.Add(EPacketFieldType.Signed7BitEncoded, new Encoded7BitField());
             FieldsTypes.Add(EPacketFieldType.Unsigned7BitEncoded, new Unsigned7BitField());
+            FieldsTypes.Add(EPacketFieldType.Dictionary, new DicBitField());
         }
 
-        public static ISerializablePacket ProcessGameDataStream(ref PacketInStream Stream)
+        public static PacketHandlerDefinition GetPacketHandler(long Opcode)
         {
-            long Opcode = Stream.ReadEncoded7Bit();
+            PacketHandlerDefinition Handler;
+            Definitions.TryGetValue(Opcode, out Handler);
 
-            if (Definitions.ContainsKey(Opcode))
+            if (Handler == null)
             {
-                PacketHandlerDefinition Handler = Definitions[Opcode];
-                ISerializablePacket Packet = Activator.CreateInstance(Handler.GetClass()) as ISerializablePacket;
-                Deserialize(ref Stream, Handler.GetClass(), ref Packet);
-                return Packet;
+                Log.Error("PacketProcessor","Unhandled Opcode : " + Opcode.ToString("X8"));
+                Handler = new PacketHandlerDefinition(Opcode, typeof(ISerializablePacket));
             }
-            else
-            {
-                Log.Error("ProcessGameDataStream", "Received unhandled packet with opcode " + Opcode);
-                ISerializablePacket Packet = new ISerializablePacket();
-                Deserialize(ref Stream,Packet.GetType(),ref Packet);
-                return Packet;
-            }
+
+            return Handler;
         }
-
 
         public static ISerializableField GetFieldType(EPacketFieldType Type)
         {
             ISerializableField Field;
             FieldsTypes.TryGetValue(Type, out Field);
-            return Field;
-        }
+            if(Field != null)
+                return Activator.CreateInstance(Field.GetType()) as ISerializableField;
 
-        public static ISerializableField ReadField(ref PacketInStream Stream,EPacketFieldType FieldType,Type Element)
-        {
-            ISerializableField Field = GetFieldType(FieldType);
-
-            if (Field != null)
-            {
-                Log.Success("ReadField", "FieldType=" + FieldType + ",Element=" + Element);
-                Field = Activator.CreateInstance(Field.GetType()) as ISerializableField;
-                Field.Deserialize(ref Stream, Element);
-            }
-
-            return Field;
-        }
-
-        public static void Deserialize(ref PacketInStream Stream, Type Class, ref ISerializablePacket Packet)
-        {
-            FieldInfo[] Fields = Class.GetFields();
-
-            long FieldData;
-            while ((FieldData = Stream.ReadEncoded7Bit()) >= 0)
-            {
-                int FieldType;
-                int FieldIndex;
-
-                if (!PacketInStream.Decode2Parameters(FieldData, out FieldType, out FieldIndex))
-                    return;
-
-                if (FieldType == (int)EPacketFieldType.Terminator)
-                    return;
-
-                Log.Success("Read", "Packet" + Packet + " | Index=" + FieldIndex + ",Type=" + FieldType);
-                FieldInfo Info = GetField(Fields, FieldIndex);
-
-                if (Info == null)
-                {
-                    Log.Error("Deserialize", "Index(" + FieldIndex + ") not Found on class(" + Class.Name + ")");
-
-                    ISerializableField Field = ReadField(ref Stream,(EPacketFieldType)FieldType,null);
-                    if(Field != null)
-                        Packet.AddField(FieldIndex, Field);
-                    else
-                        return;
-                }
-                else
-                {
-                    ISerializableFieldAttribute[] FieldsAttr = Info.GetCustomAttributes(typeof(ISerializableFieldAttribute), true) as ISerializableFieldAttribute[];
-
-                    ISerializableField IField = Activator.CreateInstance(FieldsAttr[0].GetSerializableType()) as ISerializableField;
-                    IField.Deserialize(ref Stream,Info.FieldType);
-
-                    if (FieldType == (int)EPacketFieldType.True || (int)FieldType == (int)EPacketFieldType.False)
-                    {
-                        if(Info.FieldType.Equals(typeof(bool)))
-                            Info.SetValue(Packet, FieldType == (int)EPacketFieldType.True);
-                        else
-                            Info.SetValue(Packet, (byte)((FieldType == (int)EPacketFieldType.True) ? 1 : 0));
-                    }
-                    else
-                        Info.SetValue(Packet, IField.value);
-                }
-            }
-        }
-
-        public static FieldInfo GetField(FieldInfo[] Fields, int Index)
-        {
-            foreach (FieldInfo Field in Fields)
-            {
-                ISerializableFieldAttribute[] FieldsAttr = Field.GetCustomAttributes(typeof(ISerializableFieldAttribute), true) as ISerializableFieldAttribute[];
-                if (FieldsAttr != null && FieldsAttr.Length > 0 && FieldsAttr[0].Index == Index)
-                    return Field;
-            }
-
+            Log.Error("PacketProcessor", "Unhandled Field Type : " + Type);
             return null;
         }
 
-        public static void WritePacket(ref PacketOutStream Stream, Type Class, ISerializablePacket Packet,bool WriteSize=true)
+        public static EPacketFieldType GetFieldType(ISerializableField Field)
         {
-            PacketOutStream Temp = new PacketOutStream();
-            Temp.WriteEncoded7Bit(Packet.GetOpcode());
-            Serialize(ref Temp, Packet.GetType(), Packet);
-
-            if (Packet.GetOpcode() != (long)Opcodes.ProtocolHandshakeCompression)
-            {
-                long Terminator;
-                PacketOutStream.Encode2Parameters(out Terminator, (int)EPacketFieldType.Terminator, 0);
-                Temp.WriteEncoded7Bit(Terminator);
-            }
-
-            if (WriteSize)
-                Stream.WriteEncoded7Bit(Temp.Length);
-
-            Stream.Write(Temp.ToArray());
-        }
-
-        public static void WritePacket(ref PacketOutStream Stream, long Opcode)
-        {
-            PacketOutStream Temp = new PacketOutStream();
-            Temp.WriteEncoded7Bit(Opcode);
-
-            if (Opcode != (long)Opcodes.ProtocolHandshakeCompression)
-            {
-                long Terminator;
-                PacketOutStream.Encode2Parameters(out Terminator, (int)EPacketFieldType.Terminator, 0);
-                Temp.WriteEncoded7Bit(Terminator);
-            }
-
-            Stream.WriteEncoded7Bit(Temp.Length);
-
-            Stream.Write(Temp.ToArray());
-        }
-
-        public static void Serialize(ref PacketOutStream Stream, Type Class, ISerializablePacket Packet)
-        {
-            FieldInfo[] Fields = Class.GetFields();
-
-            foreach (FieldInfo Field in Fields)
-            {
-                ISerializableFieldAttribute[] FieldsAttr = Field.GetCustomAttributes(typeof(ISerializableFieldAttribute), true) as ISerializableFieldAttribute[];
-
-                if (FieldsAttr != null && FieldsAttr.Length > 0)
-                {
-                    ISerializableField IField = Activator.CreateInstance(FieldsAttr[0].GetSerializableType()) as ISerializableField;
-                    IField.value = Field.GetValue(Packet);
-
-                    long FieldResult;
-                    int FieldType = (int)IField.PacketType;
-                    int FieldIndex = (int)FieldsAttr[0].Index;
-
-                    if (IField is BoolBitField)
-                        FieldType = (bool)IField.value ? (int)EPacketFieldType.True : (int)EPacketFieldType.False;
-
-                    PacketOutStream.Encode2Parameters(out FieldResult, FieldType, FieldIndex);
-                    Stream.WriteEncoded7Bit(FieldResult);
-
-                    if( !(IField is BoolBitField))
-                        IField.Serialize(ref Stream, Field.FieldType);
-                }
-            }
-
-            foreach (KeyValuePair<int,ISerializableField> Field in Packet.GetFields())
-            {
-                Log.Success("WRITING", "FIELD IN FIELD = " + Field);
-                WriteField(ref Stream, Field.Key,Field.Value.PacketType, Field.Value , null);
-            }
-        }
-
-        static public void WriteField(ref PacketOutStream Stream,int Index,EPacketFieldType FieldType, ISerializableField Field,Type TypeField)
-        {
-            long FieldResult;
-
             if (Field is BoolBitField)
-                FieldType = (bool)Field.value ? EPacketFieldType.True : EPacketFieldType.False;
+            {
+                if (Field.val.ToString() == "0")
+                    return EPacketFieldType.False;
+                else
+                    return EPacketFieldType.True;
+            }
 
-            PacketOutStream.Encode2Parameters(out FieldResult, (int)FieldType, Index);
+            foreach (KeyValuePair<EPacketFieldType, ISerializableField> F in FieldsTypes)
+                if (F.Value.GetType() == Field.GetType() )
+                    return F.Key;
+
+            Log.Error("PacketProcessor", "Unhandled Field : " + Field);
+            return EPacketFieldType.Invalid;
+        }
+
+        #endregion
+
+        #region Readers
+
+        public static ISerializablePacket ReadPacket(ref PacketInStream Stream)
+        {
+            return (ISerializablePacket)ReadField(ref Stream, 0, (int)EPacketFieldType.Packet).val;
+        }
+
+        public static ISerializableField ReadField(ref PacketInStream Stream)
+        {
+            long FieldData = Stream.ReadEncoded7Bit();
+            if (FieldData < 0)
+                return null;
+
+            int FieldType;
+            int FieldIndex;
+
+            if (!PacketInStream.Decode2Parameters(FieldData, out FieldType, out FieldIndex))
+                return null;
+
+            return ReadField(ref Stream, FieldIndex, FieldType);
+        }
+
+        public static ISerializableField ReadField(ref PacketInStream Stream, int FieldIndex, int FieldType)
+        {
+            if (FieldType == (int)EPacketFieldType.Terminator)
+                return null;
+
+            ISerializableField Field = GetFieldType((EPacketFieldType)FieldType);
+            if (Field == null)
+            {
+                Log.Error("PacketProcessor", "Unhandled Field : Type = " + FieldType);
+                return null;
+            }
+
+            Field.Index = FieldIndex;
+            Field.PacketType = (EPacketFieldType)FieldType;
+            Field.Deserialize(ref Stream);
+
+            return Field;
+        }
+
+        #endregion
+
+        #region Writers
+
+        public static bool WriteField(ref PacketOutStream Stream, ISerializableField Field)
+        {
+            if (Field == null)
+                return false;
+
+            return WriteField(ref Stream, Field, Field.Index, (int)Field.PacketType);
+        }
+
+        public static bool WriteField(ref PacketOutStream Stream, ISerializableField Field, int FieldIndex, int FieldType)
+        {
+            if (FieldType == (int)EPacketFieldType.Invalid)
+                return false;
+
+            long FieldResult;
+            PacketOutStream.Encode2Parameters(out FieldResult, FieldType, FieldIndex);
             Stream.WriteEncoded7Bit(FieldResult);
 
-            if (!(Field is BoolBitField))
-                Field.Serialize(ref Stream, TypeField);
+            if(Field != null)
+                Field.Serialize(ref Stream);
+
+            return true;
         }
+
+        public static bool WriteField(ref PacketOutStream Stream, EPacketFieldType FieldType, object Value)
+        {
+            ISerializableField Field = GetFieldType(FieldType);
+            if (Field != null)
+            {
+                Field.val = Value;
+                Field.Serialize(ref Stream);
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool WritePacket(ref PacketOutStream Stream,ISerializablePacket Packet, bool WithSize = true , bool WithTerminator = true, bool WithOpcode = true)
+        {
+            if (Packet == null)
+                return false;
+
+            Packet.ConvertToField();
+
+            PacketOutStream Data = new PacketOutStream();
+
+            if (WithOpcode)
+                Data.WriteEncoded7Bit(Packet.Opcode);
+
+            foreach (ISerializableField Field in Packet.GetFields().Values)
+                WriteField(ref Data, Field);
+
+            if (WithTerminator && Packet.Opcode != (int)Opcodes.ProtocolHandshakeCompression)
+                WriteField(ref Data, null, 0, (int)EPacketFieldType.Terminator);
+
+            if (WithSize)
+                Stream.WriteEncoded7Bit(Data.Length);
+
+            Stream.Write(Data.ToArray());
+
+            return true;
+        }
+
+        public static PacketOutStream WritePacket(ISerializablePacket Packet)
+        {
+            PacketOutStream Stream = new PacketOutStream();
+
+            WritePacket(ref Stream, Packet,true,true,true);
+
+            return Stream;
+        }
+
+        #endregion
     }
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+
+using Shared.NetWork;
 
 namespace Shared
 {
@@ -21,25 +24,27 @@ namespace Shared
 
     public class Raw8BitBitField : ISerializableField
     {
-        public Raw8BitBitField()
+        public override void Deserialize(ref PacketInStream Data)
         {
-            PacketType = EPacketFieldType.Raw8Bytes;
+            val = Data.Read(8);
         }
 
-        public override void Deserialize(ref PacketInStream Data, Type Field)
+        public override void Serialize(ref PacketOutStream Data)
         {
-            if (Field.Equals(typeof(UInt64)) || Field.Equals(typeof(Int64)))
-                val = Data.GetUint64R();
-            else
-                val = Data.Read(8);
-        }
-
-        public override void Serialize(ref PacketOutStream Data, Type Field)
-        {
-            if (Field.Equals(typeof(UInt64)) || Field.Equals(typeof(Int64)))
-                Data.WriteUInt64R((uint)val);
-            else if (Field.Equals(typeof(byte[])))
+            if (val is byte[])
                 Data.Write((byte[])val);
+            else if (val is long)
+                Data.Write(BitConverter.GetBytes((long)val));
+            else if (val is UInt64)
+                Data.WriteUInt64((UInt64)val);
+        }
+
+        public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)
+        {
+            if (Field.Equals(typeof(byte[])))
+                Info.SetValue(Packet, (byte[])val);
+            else if (Field.Equals(typeof(long)))
+                Info.SetValue(Packet, BitConverter.ToInt64((byte[])val, 0));
         }
     }
 }

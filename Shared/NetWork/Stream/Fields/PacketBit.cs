@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace Shared
 {
@@ -21,19 +22,37 @@ namespace Shared
 
     public class PacketBitField : ISerializableField
     {
-        public PacketBitField()
+        public override void Deserialize(ref PacketInStream Data)
         {
-            PacketType = EPacketFieldType.Packet;
+            long Opcode = Data.ReadEncoded7Bit();
+            PacketHandlerDefinition Handler = PacketProcessor.GetPacketHandler(Opcode);
+            ISerializablePacket Packet = Activator.CreateInstance(Handler.GetClass()) as ISerializablePacket;
+
+            ISerializableField Field = null;
+
+            Log.Debug("Packet", "----------------------> New " + Opcode.ToString("X8"));
+
+            while ((Field = PacketProcessor.ReadField(ref Data)) != null)
+            {
+                Log.Success("Packet", "------> ++T : " + Field.PacketType);
+                Packet.AddField(Field.Index, Field);
+            }
+
+            Log.Debug("Packet", "----------------------> End ");
+
+            Packet.ApplyToFieldInfo();
+            val = Packet;
         }
 
-        public override void Deserialize(ref PacketInStream Data, Type Field)
+        public override void Serialize(ref PacketOutStream Data)
         {
-            val = PacketProcessor.ProcessGameDataStream(ref Data);
+            PacketProcessor.WritePacket(ref Data, (ISerializablePacket)val, false, true, true);
         }
 
-        public override void Serialize(ref PacketOutStream Data, Type Field)
+        public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)
         {
-            PacketProcessor.WritePacket(ref Data, val.GetType(), val as ISerializablePacket);
+            if (Field.IsSubclassOf(typeof(ISerializablePacket)))
+                Info.SetValue(Packet, val);
         }
     }
 }

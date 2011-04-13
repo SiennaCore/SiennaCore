@@ -19,8 +19,8 @@ namespace CharacterServer
     }
 
     [Serializable]
-    [ISerializableAttribute((long)Opcodes.LobbyCharacterUnknown4)]
-    public class LobbyCharacterUnknown4 : ISerializablePacket
+    [ISerializableAttribute((long)Opcodes.LobbyCharacterCustom)]
+    public class LobbyCharacterCustom : ISerializablePacket
     {
         [ListBit(1)]
         public List<uint> Field1;
@@ -91,6 +91,7 @@ namespace CharacterServer
 
     [Serializable]
     [ISerializableAttribute((long)Opcodes.LobbyCharacterCreateRequest)]
+    [XmlRootAttribute(ElementName = "Custom", IsNullable = false)]
     public class LobbyCharacterCreateRequest : ISerializablePacket
     {
         [ArrayBit(0)]
@@ -98,6 +99,7 @@ namespace CharacterServer
 
         [Unsigned7Bit(1)]
         public long Field1;
+        // Race + Sex
 
         [Unsigned7Bit(2)]
         public long Field2;
@@ -108,8 +110,8 @@ namespace CharacterServer
         [Raw4Bit(5)]
         public uint Field5;
 
-        [BoolBit(6)]
-        public byte Field6;
+        [Raw4Bit(6)]
+        public uint Field6;
 
         [Unsigned7Bit(8)]
         public long Field8;
@@ -121,10 +123,10 @@ namespace CharacterServer
         public uint Field10;
 
         [Unsigned7Bit(13)]
-        public long Field13;
+        public long Field13; // Classe
 
         [PacketBit(28)]
-        public LobbyCharacterUnknown4 Custom;
+        public LobbyCharacterCustom Custom;
 
         [Unsigned7Bit(29)]
         public long Field29;
@@ -149,7 +151,12 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
-            Log.Success("Creation", "CharacterName  = " + Name);
+            if (Program.CharMgr.GetCharactersCount(From.Acct.Id, From.Realm.RealmId) >= 6)
+            {
+                Log.Error("CharacterCreate", "Hack From : " + From.GetIp);
+                From.Disconnect();
+                return;
+            }
 
             LobbyCharacterCreateResponse Rp = new LobbyCharacterCreateResponse();
             Character Exist = CharacterMgr.CharacterDB.SelectObject<Character>("Name='" + CharacterMgr.CharacterDB.Escape(Name) + "' AND RealmID=" + From.Realm.RealmId);
@@ -173,7 +180,13 @@ namespace CharacterServer
                 Char.AccountId = From.Acct.Id;
                 Char.RealmId = From.Realm.RealmId;
                 Char.Data = Data;
+                Char.Classe = Field13;
+                Char.Race = Field1;
+                Char.Level = 1;
+
                 Program.CharMgr.AddObject(Char);
+                From.Disconnect();
+                return;
             }
             From.SendSerialized(Rp);
         }
@@ -183,7 +196,7 @@ namespace CharacterServer
 
             UTF8Encoding encoding = new UTF8Encoding();
             String constructedString = encoding.GetString(characters);
-            return (constructedString);
+            return constructedString.Remove(0,1);
         }
 
     }

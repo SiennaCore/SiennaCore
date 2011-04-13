@@ -15,6 +15,8 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
+            Log.Dump("ClientKey", ClientKey, 0, ClientKey.Length);
+
             From.InitCrypto(ClientKey);
 
             HandshakeServerKey ServerKey = new HandshakeServerKey();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 using Shared.NetWork;
 
@@ -40,28 +41,58 @@ namespace Shared
     {
         public EPacketFieldType PacketType;
 
-        protected object val;
+        public int Index;
+        public object val;
 
-        public object value
+        public abstract void Deserialize(ref PacketInStream Data);
+        public abstract void Serialize(ref PacketOutStream Data);
+
+        public abstract void ApplyToFieldInfo(FieldInfo Info,ISerializablePacket Packet, Type Field);
+
+        public uint GetUint()
         {
-            get
+            if (val is byte[])
             {
-                return val;
+                byte[] Data = val as byte[];
+                return Marshal.ConvertToUInt32(Data[3], Data[2], Data[1], Data[0]);
             }
-            set
-            {
-                val = value;
-            }
+            else if (val is uint)
+                return (uint)val;
+
+            return 0;
         }
 
-        public abstract void Deserialize(ref PacketInStream Data, Type Field);
-
-        public abstract void Serialize(ref PacketOutStream Data, Type Field);
-        public void WriteType(ref PacketOutStream Data, int Index)
+        public byte[] GetBytes()
         {
-            long FieldType;
-            PacketOutStream.Encode2Parameters(out FieldType, (int)PacketType, Index);
-            Data.WriteEncoded7Bit(FieldType);
+            if (val is byte[])
+                return val as byte[];
+
+            return new byte[0];
+        }
+
+        public ISerializablePacket GetPacket()
+        {
+            return val as ISerializablePacket;
+        }
+
+        public string GetString()
+        {
+            if (val is byte[])
+                return Marshal.ConvertToString(val as byte[]);
+            else if (val is string)
+                return (string)val;
+
+            return "";
+        }
+
+        public long GetLong()
+        {
+            if (val is long)
+                return (long)val;
+            else if (val is byte[])
+                return BitConverter.ToInt64((byte[])val, 0);
+            else 
+                return 0;
         }
     }
 }

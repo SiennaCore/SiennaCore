@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+
+using Shared.NetWork;
 
 namespace Shared
 {
@@ -21,35 +24,32 @@ namespace Shared
 
     public class Raw4BitField : ISerializableField
     {
-        public Raw4BitField()
+        public override void Deserialize(ref PacketInStream Data)
         {
-            PacketType = EPacketFieldType.Raw4Bytes;
+            val = Data.Read(4);
         }
 
-        public override void Deserialize(ref PacketInStream Data,Type Field)
+        public override void Serialize(ref PacketOutStream Data)
         {
-            if(Field == null)
-                val = Data.GetUint32R();
-            else if (Field.Equals(typeof(Int32)))
-                val = Data.GetInt32R();
-            else if (Field.Equals(typeof(UInt32)))
-                val = Data.GetUint32R();
-            else if (Field.Equals(typeof(float)))
-                val = Data.GetFloat();
+            if (val is UInt32)
+                Data.WriteUInt32R((UInt32)val);
+            else if (val is Int32)
+                Data.WriteInt32((Int32)val);
             else
-                val = Data.GetUint32R();
+                Data.Write((byte[])val);
         }
 
-        public override void Serialize(ref PacketOutStream Data, Type Field)
+        public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)
         {
-            if (Field.Equals(typeof(Int32)))
-                Data.WriteInt32R((int)val);
-            else if (Field.Equals(typeof(UInt32)))
-                Data.WriteUInt32R((uint)val);
-            else if (Field.Equals(typeof(float)))
-                Data.WriteFloat((float)val);
-            else if (Field.Equals(typeof(byte[])))
-                Data.Write((byte[])val);
+            byte[] Data = val as byte[];
+            object Result = Data;
+
+            if(Field.Equals(typeof(UInt32)))
+                Result = Marshal.ConvertToUInt32(Data[3], Data[2], Data[1], Data[0]);
+            else if(Field.Equals(typeof(Int32)))
+                Result = BitConverter.ToInt32(Data, 0);
+
+            Info.SetValue(Packet, Result);
         }
     }
 }

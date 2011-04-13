@@ -27,7 +27,7 @@ public enum Opcodes
     LobbyCharacterUnknown1 = 0x01DD,
     LobbyCharacterUnknown2 = 0x0DBF,
     LobbyCharacterUnknown3 = 0x0E10,
-    LobbyCharacterUnknown4 = 0x00DE,
+    LobbyCharacterCustom = 0x00DE,
     LobbyCharacterUnknown5 = 0x0080,
     LobbyCharacterUnknown6 = 0x1E17,
 

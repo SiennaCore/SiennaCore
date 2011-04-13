@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace Shared
 {
@@ -21,19 +22,19 @@ namespace Shared
 
     public class Encoded7BitField : ISerializableField
     {
-        public Encoded7BitField()
-        {
-            PacketType = EPacketFieldType.Signed7BitEncoded;
-        }
-
-        public override void Deserialize(ref PacketInStream Data, Type Field)
+        public override void Deserialize(ref PacketInStream Data)
         {
             val = Data.ReadEncoded7Bit();
         }
 
-        public override void Serialize(ref PacketOutStream Data, Type Field)
+        public override void Serialize(ref PacketOutStream Data)
         {
             Data.WriteEncoded7Bit((long)val);
+        }
+
+        public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)
+        {
+            Info.SetValue(Packet, (long)val);
         }
     }
 }

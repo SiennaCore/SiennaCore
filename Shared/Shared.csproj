@@ -140,6 +140,7 @@
     <Compile Include="NetWork\Opcodes.cs" />
     <Compile Include="NetWork\RiftClient.cs" />
     <Compile Include="NetWork\RiftServer.cs" />
+    <Compile Include="NetWork\Stream\Fields\DicBit.cs" />
     <Compile Include="NetWork\Stream\Fields\ListBit.cs" />
     <Compile Include="NetWork\Stream\Fields\PacketBit.cs" />
     <Compile Include="NetWork\Stream\Fields\Raw4Bit.cs" />

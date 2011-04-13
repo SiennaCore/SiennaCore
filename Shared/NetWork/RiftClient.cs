@@ -155,7 +155,7 @@ namespace Shared
 
                 Received.RemoveRange(0, (int)(Packet.Position+Size));
 
-                ISerializablePacket Pack = PacketProcessor.ProcessGameDataStream(ref Packet);
+                ISerializablePacket Pack = PacketProcessor.ReadPacket(ref Packet);
                 if (Pack != null)
                     Pack.OnRead(this);
 
@@ -189,7 +189,7 @@ namespace Shared
                         continue;
                     }
 
-                    ISerializablePacket Pack = PacketProcessor.ProcessGameDataStream(ref Packet);
+                    ISerializablePacket Pack = PacketProcessor.ReadPacket(ref Packet);
                     if (Pack != null)
                         Pack.OnRead(this);
                 }
@@ -263,8 +263,7 @@ namespace Shared
 
         public void SendSerialized(ISerializablePacket Packet)
         {
-            PacketOutStream Out = new PacketOutStream();
-            PacketProcessor.WritePacket(ref Out, Packet.GetType(), Packet);
+            PacketOutStream Out = PacketProcessor.WritePacket(Packet);
 
             byte[] ToSend = Out.ToArray();
             SendTCP(ToSend);

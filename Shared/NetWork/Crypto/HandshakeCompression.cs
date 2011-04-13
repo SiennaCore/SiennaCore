@@ -15,6 +15,7 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
+            Log.Success("HanshakeCompression", "Client Compression : " + Enabled);
             From.EnableReceiveCompress();
         }
     }

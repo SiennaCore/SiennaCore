@@ -15,6 +15,8 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
+            Log.Success("HanshakeVersion", "Version = " + Version);
+
             HandshakeCompression Cp = new HandshakeCompression();
             Cp.Enabled = true;
             From.SendSerialized(Cp);
