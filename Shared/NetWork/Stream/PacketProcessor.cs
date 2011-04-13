@@ -61,7 +61,10 @@ namespace Shared
                         PacketHandlerDefinition PacketDef = new PacketHandlerDefinition(PacketAttribute.GetOpcode(), Class);
 
                         Log.Success("RegisterDefinitions", "Registering Handler : " + PacketAttribute.GetOpcode().ToString("X8"));
-                        Definitions.Add(PacketAttribute.GetOpcode(), PacketDef);
+                        if(!Definitions.ContainsKey(PacketAttribute.GetOpcode()))
+                            Definitions.Add(PacketAttribute.GetOpcode(), PacketDef);
+                        else
+                            Log.Error("RegisterDefinitions","Handler already registered : " + PacketAttribute.GetOpcode().ToString("X8"));
                     }
                 }
             }
