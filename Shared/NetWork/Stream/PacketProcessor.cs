@@ -184,12 +184,14 @@ namespace Shared
             if (FieldType == (int)EPacketFieldType.Invalid)
                 return false;
 
+            PacketOutStream NewStream = new PacketOutStream();
+
             long FieldResult;
             PacketOutStream.Encode2Parameters(out FieldResult, FieldType, FieldIndex);
-            Stream.WriteEncoded7Bit(FieldResult);
+            NewStream.WriteEncoded7Bit(FieldResult);
 
-            if(Field != null)
-                Field.Serialize(ref Stream);
+            if(Field == null || Field.Serialize(ref NewStream))
+                Stream.Write(NewStream.ToArray());
 
             return true;
         }

@@ -30,7 +30,7 @@ namespace Shared
             val = Data.Read((int)Size);
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
             if (val is string)
             {
@@ -42,6 +42,10 @@ namespace Shared
                 Data.WriteEncoded7Bit((val as byte[]).Length);
                 Data.Write((val as byte[]));
             }
+            else
+                return false;
+
+            return true;
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)

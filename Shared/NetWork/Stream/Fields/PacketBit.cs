@@ -44,9 +44,9 @@ namespace Shared
             val = Packet;
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
-            PacketProcessor.WritePacket(ref Data, (ISerializablePacket)val, false, true, true);
+            return PacketProcessor.WritePacket(ref Data, (ISerializablePacket)val, false, true, true);
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)

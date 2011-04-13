@@ -35,9 +35,91 @@ namespace CharacterServer
                 Entry.Email = "email@hotmail.com";
                 Entry.CharacterId = Char.Id;
                 Entry.CharacterName = Char.Name;
+
                 Entry.Field5 = new LobbyCharacterUnknown1();
                 Entry.Field5.AddField(15, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Classe);
                 Entry.Field5.AddField(9, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Level);
+                Entry.Field5.Custom = Request.Custom;
+
+                {
+                    // Shoulders
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1620638527);
+                    Test.AddField(5, EPacketFieldType.Raw4Bytes, (uint)1791353197);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)582720386);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 2028933878;
+
+                    Entry.Field5.Field7.Add((long)6, Test);
+                }
+
+                {
+                    // Header
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1530909831);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)2);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 768949022;
+
+                    Entry.Field5.Field7.Add((long)10, Test);
+                }
+
+
+                {
+                    // Body
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1526924417);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)1495820655);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 1979672106;
+
+                    Entry.Field5.Field7.Add((long)14, Test);
+                }
+
+                {
+                    // Short
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1524239181);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)1495820655);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 632628948;
+
+                    Entry.Field5.Field7.Add((long)16, Test);
+                }
+
+                {
+                    // Hand
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)2002975902);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)582720386);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 699634871;
+
+                    Entry.Field5.Field7.Add((long)18, Test);
+                }
+
+                {
+                    // Feet
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1533670656);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)1495820655);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 493821701;
+
+                    Entry.Field5.Field7.Add((long)22, Test);
+                }
+
+                {
+                    // Hairs
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)864322278);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)1785712051);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 807819347;
+
+                    Entry.Field5.Field7.Add((long)46, Test);
+                }
+
                 Rp.Characters.Add(Entry);
             }
 

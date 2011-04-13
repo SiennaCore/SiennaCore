@@ -30,9 +30,10 @@ namespace Shared
                 val = (bool)false;
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
 
+            return true;
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)

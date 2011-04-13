@@ -27,9 +27,10 @@ namespace Shared
             val = Data.ReadEncoded7Bit();
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
             Data.WriteEncoded7Bit((long)val);
+            return true;
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)

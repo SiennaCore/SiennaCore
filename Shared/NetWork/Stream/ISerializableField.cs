@@ -45,7 +45,7 @@ namespace Shared
         public object val;
 
         public abstract void Deserialize(ref PacketInStream Data);
-        public abstract void Serialize(ref PacketOutStream Data);
+        public abstract bool Serialize(ref PacketOutStream Data);
 
         public abstract void ApplyToFieldInfo(FieldInfo Info,ISerializablePacket Packet, Type Field);
 

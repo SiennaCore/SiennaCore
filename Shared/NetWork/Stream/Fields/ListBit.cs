@@ -44,11 +44,14 @@ namespace Shared
             val = Fields;
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
             if (val is List<ISerializablePacket>)
             {
                 List<ISerializablePacket> Packets = val as List<ISerializablePacket>;
+
+                if (Packets.Count <= 0)
+                    return false;
 
                 long ListData;
                 PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Packet, Packets.Count);
@@ -61,6 +64,9 @@ namespace Shared
             {
                 List<uint> Values = val as List<uint>;
 
+                if (Values.Count <= 0)
+                    return false;
+
                 long ListData;
                 PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Raw4Bytes, Values.Count);
                 Data.WriteEncoded7Bit(ListData);
@@ -70,6 +76,10 @@ namespace Shared
                 foreach (uint Value in Values)
                     PacketProcessor.WriteField(ref Data, EPacketFieldType.Raw4Bytes, Value);
             }
+            else
+                return false;
+
+            return true;
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)

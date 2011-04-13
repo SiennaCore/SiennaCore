@@ -29,7 +29,7 @@ namespace Shared
             val = Data.Read(8);
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
             if (val is byte[])
                 Data.Write((byte[])val);
@@ -37,6 +37,10 @@ namespace Shared
                 Data.Write(BitConverter.GetBytes((long)val));
             else if (val is UInt64)
                 Data.WriteUInt64((UInt64)val);
+            else
+                return false;
+
+            return true;
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)

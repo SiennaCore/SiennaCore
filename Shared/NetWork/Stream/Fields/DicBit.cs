@@ -43,7 +43,7 @@ namespace Shared
             val = Dic;
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
             if (val is Dictionary<long, ISerializablePacket>)
             {
@@ -52,6 +52,9 @@ namespace Shared
                 int ValueType = (int)EPacketFieldType.Packet;
                 int Count = Dic.Count;
 
+                if (Count <= 0)
+                    return false;
+
                 long DicData;
                 PacketOutStream.Encode3Parameters(out DicData, KeyType, ValueType, Count);
                 Data.WriteEncoded7Bit(DicData);
@@ -59,9 +62,13 @@ namespace Shared
                 foreach (KeyValuePair<long, ISerializablePacket> KP in Dic)
                 {
                     PacketProcessor.WriteField(ref Data, (EPacketFieldType)KeyType, KP.Key);
-                    PacketProcessor.WriteField(ref Data, (EPacketFieldType)KeyType, KP.Value);
+                    PacketProcessor.WriteField(ref Data, (EPacketFieldType)ValueType, KP.Value);
                 }
+
+                return true;
             }
+
+            return false;
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)

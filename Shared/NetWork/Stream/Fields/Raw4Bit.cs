@@ -29,14 +29,18 @@ namespace Shared
             val = Data.Read(4);
         }
 
-        public override void Serialize(ref PacketOutStream Data)
+        public override bool Serialize(ref PacketOutStream Data)
         {
             if (val is UInt32)
                 Data.WriteUInt32R((UInt32)val);
             else if (val is Int32)
                 Data.WriteInt32((Int32)val);
-            else
+            else if (val is byte[])
                 Data.Write((byte[])val);
+            else
+                return false;
+
+            return true;
         }
 
         public override void ApplyToFieldInfo(FieldInfo Info, ISerializablePacket Packet, Type Field)
