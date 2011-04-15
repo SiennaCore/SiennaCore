@@ -18,17 +18,17 @@ namespace CharacterServer
         {
             Log.Success("CharacterListRequest", "Characters Requested For : " + From.GetIp);
 
-            Character[] Chars = Program.CharMgr.GetCharacters(From.Acct.Id, From.Realm.RealmId);
+            Character[] Chars = CharacterMgr.Instance.GetCharacters(From.Acct.Id, From.Realm.RealmId);
 
             LobbyCharacterListResponse Rp = new LobbyCharacterListResponse();
             foreach (Character Char in Chars)
             {
                 Log.Debug("Data", Char.Data);
 
-                XmlSerializer xs = new XmlSerializer(typeof(LobbyCharacterCreateRequest));
+                XmlSerializer xs = new XmlSerializer(typeof(LobbyCharacterCustom));
                 MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(Char.Data));
                 XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-                LobbyCharacterCreateRequest Request = xs.Deserialize(memoryStream) as LobbyCharacterCreateRequest;
+                LobbyCharacterCustom Custom = xs.Deserialize(memoryStream) as LobbyCharacterCustom;
 
                 LobbyCharacterEntry Entry = new LobbyCharacterEntry();
                 Entry.AccountId = Char.AccountId;
@@ -37,11 +37,30 @@ namespace CharacterServer
                 Entry.CharacterName = Char.Name;
 
                 Entry.Field5 = new LobbyCharacterUnknown1();
-                Entry.Field5.AddField(15, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Classe);
-                Entry.Field5.AddField(9, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Level);
-                Entry.Field5.Custom = Request.Custom;
 
-                {
+                if (Char.Sex > 1)
+                    Entry.Field5.AddField(2, EPacketFieldType.False , (bool)false);
+
+                Entry.Field5.AddField(15, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Class);
+                Entry.Field5.AddField(9, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Level);
+                Entry.Field5.Custom = Custom;
+
+                // 2 = Main Gauche
+                // 3 = Bouclier
+
+                /*{
+                    // Main Gauche
+                    LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1170445023);
+                    Test.AddField(5, EPacketFieldType.Raw4Bytes, (uint)2110727112);
+                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)582720386);
+                    Test.Field8 = new LobbyCharacterUnknown3();
+                    Test.Field8.CacheIdentifier = 1933503643;
+
+                    Entry.Field5.Field7.Add((long)2, Test);
+                }*/
+
+                /*{
                     // Shoulders
                     LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
                     Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1620638527);
@@ -51,7 +70,7 @@ namespace CharacterServer
                     Test.Field8.CacheIdentifier = 2028933878;
 
                     Entry.Field5.Field7.Add((long)6, Test);
-                }
+                }*/
 
                 {
                     // Header

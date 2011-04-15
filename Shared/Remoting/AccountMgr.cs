@@ -7,10 +7,17 @@ using Shared.Database;
 
 namespace Shared
 {
-    [RpcAttributes(new string[] { "CharacterServer" })]
+    [RpcAttributes(new string[] { "CharacterServer", "WorldServer" })]
     public class AccountMgr : ARpc
     {
         static public ObjectDatabase AccountDB = null;
+        static public AccountMgr Instance = null;
+
+        public AccountMgr()
+        {
+            if (Instance == null)
+                Instance = this;
+        }
 
         public Account GetAccountBySession(string SessionKey)
         {

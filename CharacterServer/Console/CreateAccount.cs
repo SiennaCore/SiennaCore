@@ -13,7 +13,7 @@ namespace CharacterServer
     {
         public bool HandleCommand(string command, List<string> args)
         {
-            Account Acct = Program.AcctMgr.GetAccount(args[0]);
+            Account Acct = AccountMgr.Instance.GetAccount(args[0]);
             if (Acct != null)
             {
                 Log.Error("CreateAccount", "Username '" + args[0] + "' Already exist.");

@@ -28,7 +28,7 @@ namespace CharacterServer
         public override void OnRead(RiftClient From)
         {
             LobbyCharacterRandomNameResponse Rp = new LobbyCharacterRandomNameResponse();
-            Rp.Name = Program.CharMgr.GenerateName();
+            Rp.Name = CharacterMgr.Instance.GenerateName();
             From.SendSerialized(Rp);
         }
     }

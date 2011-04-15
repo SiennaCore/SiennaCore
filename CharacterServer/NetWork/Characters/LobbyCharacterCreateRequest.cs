@@ -55,6 +55,9 @@ namespace CharacterServer
         [Unsigned7Bit(11)]
         public long Field11;
 
+        [Unsigned7Bit(12)]
+        public long Field12;
+
         [ListBit(14)]
         public List<uint> Field14;
 
@@ -98,11 +101,11 @@ namespace CharacterServer
         public string Name;
 
         [Unsigned7Bit(1)]
-        public long Field1;
+        public long Field1=1;
         // Race + Sex
 
         [Unsigned7Bit(2)]
-        public long Field2;
+        public long Field2=0;
 
         [Raw4Bit(4)]
         public uint Field4;
@@ -123,7 +126,7 @@ namespace CharacterServer
         public uint Field10;
 
         [Unsigned7Bit(13)]
-        public long Field13; // Classe
+        public long Field13=1; // Classe
 
         [PacketBit(28)]
         public LobbyCharacterCustom Custom;
@@ -151,7 +154,7 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
-            if (Program.CharMgr.GetCharactersCount(From.Acct.Id, From.Realm.RealmId) >= 6)
+            if (CharacterMgr.Instance.GetCharactersCount(From.Acct.Id, From.Realm.RealmId) >= 6)
             {
                 Log.Error("CharacterCreate", "Hack From : " + From.GetIp);
                 From.Disconnect();
@@ -169,9 +172,9 @@ namespace CharacterServer
                 string Data = "";
 
                 MemoryStream memoryStream = new MemoryStream();
-                XmlSerializer xs = new XmlSerializer(typeof(LobbyCharacterCreateRequest));
+                XmlSerializer xs = new XmlSerializer(typeof(LobbyCharacterCustom));
                 XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-                xs.Serialize(xmlTextWriter, this);
+                xs.Serialize(xmlTextWriter, Custom);
                 memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
                 Data = UTF8ByteArrayToString(memoryStream.ToArray());
 
@@ -179,12 +182,13 @@ namespace CharacterServer
                 Char.Name = Name;
                 Char.AccountId = From.Acct.Id;
                 Char.RealmId = From.Realm.RealmId;
-                Char.Data = Data;
-                Char.Classe = Field13;
                 Char.Race = Field1;
+                Char.Sex = Field2;
+                Char.Class = Field13;
                 Char.Level = 1;
+                Char.Data = Data;
 
-                Program.CharMgr.AddObject(Char);
+                CharacterMgr.Instance.AddObject(Char);
                 From.Disconnect();
                 return;
             }

@@ -32,7 +32,7 @@ namespace Shared
         public override bool Serialize(ref PacketOutStream Data)
         {
             if (val is UInt32)
-                Data.WriteUInt32R((UInt32)val);
+                Data.Write(BitConverter.GetBytes((uint)val));
             else if (val is Int32)
                 Data.WriteInt32((Int32)val);
             else if (val is byte[])
@@ -52,6 +52,8 @@ namespace Shared
                 Result = Marshal.ConvertToUInt32(Data[3], Data[2], Data[1], Data[0]);
             else if(Field.Equals(typeof(Int32)))
                 Result = BitConverter.ToInt32(Data, 0);
+            else if(Field.Equals(typeof(long)))
+                Result = (long)BitConverter.ToUInt32(Data,0);
 
             Info.SetValue(Packet, Result);
         }

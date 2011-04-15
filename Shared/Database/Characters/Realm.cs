@@ -41,6 +41,9 @@ public class Realm : DataObject
     [DataElement(AllowDbNull = false)]
     public byte Recommended;
 
+    // Remoting
+    public int RpcId;
+
     public long RiftId;
 
     public void GenerateName()

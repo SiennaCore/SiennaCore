@@ -16,7 +16,7 @@ namespace CharacterServer
 
             LobbyWorldListResponse Rp = new LobbyWorldListResponse();
 
-            Realm[] Realms = Program.CharMgr.GetRealms();
+            Realm[] Realms = CharacterMgr.Instance.GetRealms();
             foreach (Realm Rm in Realms)
             {
                 LobbyWorldEntry Entry = new LobbyWorldEntry();
@@ -27,7 +27,7 @@ namespace CharacterServer
                 Entry.RP = Rm.RP == 1;
                 Entry.Version = Rm.ClientVersion;
                 Entry.Online = Rm.Online == 1;
-                Entry.CharactersCount = Program.CharMgr.GetCharactersCount(From.Acct.Id,Rm.RealmId);
+                Entry.CharactersCount = CharacterMgr.Instance.GetCharactersCount(From.Acct.Id, Rm.RealmId);
                 Entry.Language = Rm.Language;
                 Rp.Realms.Add(Entry);
             }

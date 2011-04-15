@@ -164,7 +164,7 @@ namespace CharacterServer
 
         public void SendCache(RiftClient From,long CacheType, uint ID)
         {
-            byte[] Packet = Program.CharMgr.GetCache(CacheType, ID);
+            byte[] Packet = CharacterMgr.Instance.GetCache(CacheType, ID);
             if (Packet == null)
                 return;
 

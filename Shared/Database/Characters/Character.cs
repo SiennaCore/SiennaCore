@@ -25,10 +25,13 @@ public class Character : DataObject
     public long Race;
 
     [DataElement()]
-    public long Classe;
+    public long Class;
 
     [DataElement()]
     public long Level;
+
+    [DataElement()]
+    public long Sex;
 
     [DataElement()]
     public string Data;

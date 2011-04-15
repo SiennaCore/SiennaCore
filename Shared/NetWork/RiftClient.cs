@@ -181,6 +181,7 @@ namespace Shared
 
                     byte[] Result = UnCompress(ToUnCompress);
 
+                    Log.Dump("Decrypted", Result, 0, Result.Length);
                     PacketInStream Packet = new PacketInStream(Result, Result.Length);
                     long Size = Packet.ReadEncoded7Bit();
 

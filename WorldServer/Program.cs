@@ -12,11 +12,11 @@ using Shared.NetWork;
 using Shared.Database;
 using System.Security.Cryptography;
 
-namespace CharacterServer
+namespace WorldServer
 {
     class Program
     {
-        static public CharacterConfig Config = null;
+        static public WorldConfig Config = null;
 
         static void Main(string[] args)
         {
@@ -28,43 +28,32 @@ namespace CharacterServer
             Log.Texte("", "http://siennacore.com", ConsoleColor.Blue);
             Log.Texte("", "-------------------------------", ConsoleColor.DarkBlue);
 
-            
             // Loading log level from file
-            if (!Log.InitLog("Configs/Characters.log", "Characters"))
+            if (!Log.InitLog("Configs/World.log", "World"))
                 WaitAndExit();
 
             // Loading all configs files
             ConfigMgr.LoadConfigs();
-            Config = ConfigMgr.GetConfig<CharacterConfig>();
+            Config = ConfigMgr.GetConfig<WorldConfig>();
 
             // Starting Remoting Server
-            if (!RpcServer.InitRpcServer("CharacterServer", Config.RpcKey, Config.RpcPort))
+            if (!RpcClient.InitRpcClient("WorldServer", Config.RpcKey,Config.RpcIp, Config.RpcPort))
                 WaitAndExit();
 
             // Creating Remote objects
-            new AccountMgr();
-            AccountMgr.AccountDB = DBManager.Start(Config.AccountsDB.Total(), ConnectionType.DATABASE_MYSQL, "Accounts");
-            if (AccountMgr.AccountDB == null)
-                WaitAndExit();
-
-            new CharacterMgr();
-            CharacterMgr.CharacterDB = DBManager.Start(Config.CharactersDB.Total(), ConnectionType.DATABASE_MYSQL, "Characters");
-            if (CharacterMgr.CharacterDB == null)
-                WaitAndExit();
-
-            CharacterMgr.Instance.LoadRealms();
-            CharacterMgr.Instance.LoadRandomNames();
+            AccountMgr.Instance = new AccountMgr();
+            CharacterMgr.Instance = new CharacterMgr();
 
             // Listening Client
-            if (!TCPManager.Listen<RiftServer>(Config.CharacterServerPort, "CharacterServer"))
+            if (!TCPManager.Listen<RiftServer>(Config.WorldServerPort, "WorldServer"))
                 WaitAndExit();
 
-            /*long Data = 0x17;
-            int FieldType;
-            int Index;
-            PacketInStream.Decode2Parameters(Data, out FieldType, out Index);
-
-            Log.Success("Test", "Type=" + FieldType + ",Index=" + Index);*/
+            Realm Rm = CharacterMgr.Instance.RegisterRealm(Config.RealmId, Config.WorldServerIP, Config.WorldServerPort, RpcClient.GetRpcClientId("WorldServer"));
+            if (Rm == null)
+            {
+                Log.Error("WorldServer", "Invalid Realm : " + Config.RealmId);
+                WaitAndExit();
+            }
 
             ConsoleMgr.Start();
         }

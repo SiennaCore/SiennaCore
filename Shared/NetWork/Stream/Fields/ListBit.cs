@@ -46,6 +46,7 @@ namespace Shared
 
         public override bool Serialize(ref PacketOutStream Data)
         {
+            Log.Success("WriteList", "Serialize : " + val);
             if (val is List<ISerializablePacket>)
             {
                 List<ISerializablePacket> Packets = val as List<ISerializablePacket>;
@@ -65,7 +66,10 @@ namespace Shared
                 List<uint> Values = val as List<uint>;
 
                 if (Values.Count <= 0)
+                {
+                    Log.Error("WriteList", "List Count <= 0");
                     return false;
+                }
 
                 long ListData;
                 PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Raw4Bytes, Values.Count);
@@ -73,8 +77,11 @@ namespace Shared
 
                 Log.Success("List", "LIST OF UINT ! Count = " + Values.Count);
 
-                foreach (uint Value in Values)
-                    PacketProcessor.WriteField(ref Data, EPacketFieldType.Raw4Bytes, Value);
+                for (int i = 0; i < Values.Count; ++i)
+                {
+                    Log.Success("List","Value = " + Values[i]);
+                    PacketProcessor.WriteField(ref Data, EPacketFieldType.Raw4Bytes, (uint)Values[i]);
+                }
             }
             else
                 return false;

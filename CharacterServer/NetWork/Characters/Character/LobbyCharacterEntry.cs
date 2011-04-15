@@ -37,6 +37,6 @@ namespace CharacterServer
         public bool Field6 = true;
 
         [Raw8Bit(7)]
-        public long Field7 = 129470309850200000;
+        public long Field7 = 129472084607000000;
     }
 }

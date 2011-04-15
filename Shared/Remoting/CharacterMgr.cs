@@ -8,10 +8,17 @@ using Shared.Database;
 
 namespace Shared
 {
-    [RpcAttributes(new string[] { "CharacterServer" })]
+    [RpcAttributes(new string[] { "CharacterServer" , "WorldServer" })]
     public class CharacterMgr : ARpc
     {
         static public ObjectDatabase CharacterDB = null;
+        static public CharacterMgr Instance = null;
+
+        public CharacterMgr()
+        {
+            if (Instance == null)
+                Instance = this;
+        }
 
         #region Realms
 
@@ -26,6 +33,7 @@ namespace Shared
             foreach (Realm Rm in Rms)
             {
                 Rm.GenerateName();
+                Rm.Online = 0;
                 Rm.Dirty = true;
                 _Realms.Add(Rm.RealmId, Rm);
                 CharacterDB.SaveObject(Rm);
@@ -44,6 +52,23 @@ namespace Shared
         public Realm[] GetRealms()
         {
             return _Realms.Values.ToArray();
+        }
+
+        public Realm RegisterRealm(byte RealmId,string RealmIP,int RealmPort,int RpcId)
+        {
+            Realm Rm = GetRealm(RealmId);
+            if (Rm == null)
+                return Rm;
+
+            Rm.Address = RealmIP+":"+RealmPort;
+            Rm.Online = 1;
+            Rm.RpcId = RpcId;
+            Rm.Dirty = true;
+
+            Log.Success("Realm", "World (" + Rm.Name + ") Online at : " + Rm.Address);
+
+            SaveObject(Rm);
+            return Rm;
         }
 
         #endregion
@@ -141,5 +166,22 @@ namespace Shared
         }
 
         #endregion
+
+        public override void Disconnected(int Id)
+        {
+            Realm[] Rms = GetRealms();
+            foreach (Realm Rm in Rms)
+            {
+                if (Rm.RpcId == Id)
+                {
+                    Log.Error("Realm", "World (" + Rm.Name + ") Offline at : " + Rm.Address);
+                    Rm.Online = 0;
+                    Rm.RpcId = 0;
+                    Rm.Dirty = true;
+                    SaveObject(Rm);
+                }
+            }
+            base.Disconnected(Id);
+        }
     }
 }

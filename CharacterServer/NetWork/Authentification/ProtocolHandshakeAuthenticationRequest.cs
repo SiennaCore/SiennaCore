@@ -36,9 +36,9 @@ namespace CharacterServer
                 ClientAuthCertificate Cert = xmls.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(Certificate))) as ClientAuthCertificate;
 
                 if (Program.Config.UseCertificate)
-                    From.Acct = Program.AcctMgr.GetAccountBySession(Cert.Sessionkey);
+                    From.Acct = AccountMgr.Instance.GetAccountBySession(Cert.Sessionkey);
                 else
-                    From.Acct = Program.AcctMgr.GetAccountByPassword(Cert.Username, Cert.Hash);
+                    From.Acct = AccountMgr.Instance.GetAccountByPassword(Cert.Username, Cert.Hash);
 
             }
             catch (Exception e)

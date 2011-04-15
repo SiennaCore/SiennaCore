@@ -36,7 +36,7 @@ namespace Shared
             else if (val is long)
                 Data.Write(BitConverter.GetBytes((long)val));
             else if (val is UInt64)
-                Data.WriteUInt64((UInt64)val);
+                Data.WriteUInt64R((UInt64)val);
             else
                 return false;
 

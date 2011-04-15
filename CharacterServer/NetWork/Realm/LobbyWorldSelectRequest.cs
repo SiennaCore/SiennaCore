@@ -15,12 +15,12 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
-            Realm Rm = Program.CharMgr.GetRealm((int)RealmId);
+            Realm Rm = CharacterMgr.Instance.GetRealm((int)RealmId);
 
             if (Rm != null)
                 From.Realm = Rm;
 
-            if (From.Realm == null)
+            if (From.Realm == null || From.Realm.Online <= 0)
             {
                 Log.Error("LobbyWorldSelectRequest", "Invalid RealmId=" + RealmId);
                 From.Disconnect();

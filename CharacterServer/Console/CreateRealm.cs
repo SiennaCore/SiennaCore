@@ -17,7 +17,7 @@ namespace CharacterServer
             byte Type = byte.Parse(args[1]);
             byte Lang = byte.Parse(args[2]);
 
-            Realm Rm = Program.CharMgr.GetRealm(Id);
+            Realm Rm = CharacterMgr.Instance.GetRealm(Id);
             if (Rm != null) // Realm already registered
             {
                 Log.Error("CreateRealm", "Realm id : " + Id + " already exist");
@@ -38,8 +38,8 @@ namespace CharacterServer
             if (Type == 2 || Type == 3)
                 Rm.RP = 1;
 
-            Program.CharMgr.AddObject(Rm);
-            Program.CharMgr.LoadRealms();
+            CharacterMgr.Instance.AddObject(Rm);
+            CharacterMgr.Instance.LoadRealms();
 
             Log.Success("CreateRealm", "Realm '" + Rm.Name + "' Successsfully added to database.");
             return true;

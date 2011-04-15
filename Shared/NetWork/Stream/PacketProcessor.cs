@@ -160,6 +160,7 @@ namespace Shared
                 return null;
             }
 
+            Log.Success("ReadField", "Index = " + FieldIndex + ",Type=" + FieldType);
             Field.Index = FieldIndex;
             Field.PacketType = (EPacketFieldType)FieldType;
             Field.Deserialize(ref Stream);
@@ -199,6 +200,7 @@ namespace Shared
         public static bool WriteField(ref PacketOutStream Stream, EPacketFieldType FieldType, object Value)
         {
             ISerializableField Field = GetFieldType(FieldType);
+            Log.Success("WriteField", "Type=" + FieldType + ",Val=" + Value + ",Field="+Field);
             if (Field != null)
             {
                 Field.val = Value;

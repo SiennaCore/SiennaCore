@@ -32,18 +32,22 @@ namespace Shared
 
         public override bool Serialize(ref PacketOutStream Data)
         {
+            byte[] Result = new byte[0];
+
             if (val is string)
             {
-                Data.WriteEncoded7Bit((val as string).Length);
-                Data.WriteStringBytes((val as string));
+                Result = UTF8Encoding.UTF8.GetBytes((val as string));
             }
             else if (val is byte[])
             {
-                Data.WriteEncoded7Bit((val as byte[]).Length);
-                Data.Write((val as byte[]));
+                Result = (val as byte[]);
             }
-            else
+
+            if (Result == null || Result.Length <= 0)
                 return false;
+
+            Data.WriteEncoded7Bit(Result.Length);
+            Data.Write(Result);
 
             return true;
         }

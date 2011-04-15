@@ -80,9 +80,9 @@ namespace Shared
 
         #region Fields
 
-        private Dictionary<int, ISerializableField> Fields = new Dictionary<int, ISerializableField>();
-        
-        public Dictionary<int, ISerializableField> GetFields()
+        private SortedDictionary<int, ISerializableField> Fields = new SortedDictionary<int, ISerializableField>();
+
+        public SortedDictionary<int, ISerializableField> GetFields()
         {
             return Fields;
         }

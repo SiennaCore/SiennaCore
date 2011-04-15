@@ -11,13 +11,14 @@ namespace CharacterServer
     public class PingPong : ISerializablePacket
     {
         [Raw4Bit(0)]
-        public UInt32 Timestamp;
+        public long Timestamp;
 
         public override void OnRead(RiftClient From)
         {
-            /*PingPong Pong = new PingPong();
+            Log.Success("Ping", "Time=" + Timestamp + "," + Environment.TickCount);
+            PingPong Pong = new PingPong();
             Pong.Timestamp = (UInt32)Timestamp;
-            From.SendSerialized(Pong);*/
+            From.SendSerialized(Pong);
         }
     }
 }
