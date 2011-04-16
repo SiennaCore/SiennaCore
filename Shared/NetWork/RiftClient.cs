@@ -317,6 +317,15 @@ namespace Shared
             return Packet;
         }
 
+        public void SendCache(long CacheType, uint ID)
+        {
+            byte[] Packet = CharacterMgr.Instance.GetCache(CacheType, ID);
+            if (Packet == null)
+                return;
+
+            SendTCPWithSize(Packet);
+        }
+
         #endregion
     }
 }

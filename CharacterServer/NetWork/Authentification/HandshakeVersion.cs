@@ -18,12 +18,6 @@ namespace CharacterServer
             Log.Success("HanshakeVersion", "Version = " + Version);
 
             From.ClientVersion = Version;
-
-            HandshakeCompression Cp = new HandshakeCompression();
-            Cp.Enabled = true;
-            From.SendSerialized(Cp);
-
-            From.EnableSendCompress();
         }
     }
 }

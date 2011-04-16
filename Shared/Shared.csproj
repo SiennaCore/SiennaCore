@@ -137,6 +137,7 @@
     <Compile Include="NetWork\Crypto\HandshakeClientKey.cs" />
     <Compile Include="NetWork\Crypto\HandshakeCompression.cs" />
     <Compile Include="NetWork\Crypto\HanshakeServerKey.cs" />
+    <Compile Include="NetWork\Crypto\PingPong.cs" />
     <Compile Include="NetWork\Opcodes.cs" />
     <Compile Include="NetWork\RiftClient.cs" />
     <Compile Include="NetWork\RiftServer.cs" />

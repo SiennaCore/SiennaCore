@@ -19,6 +19,12 @@ namespace CharacterServer
 
             From.InitCrypto(ClientKey);
 
+            HandshakeCompression Cp = new HandshakeCompression();
+            Cp.Enabled = true;
+            From.SendSerialized(Cp);
+            From.EnableSendCompress();
+
+
             HandshakeServerKey ServerKey = new HandshakeServerKey();
             ServerKey.Nid = 420;
             ServerKey.ServerKey = From.LocalPublicKey;

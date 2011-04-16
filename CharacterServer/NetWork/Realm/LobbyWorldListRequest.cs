@@ -26,7 +26,7 @@ namespace CharacterServer
                 Entry.Population = 0;
                 Entry.RP = Rm.RP == 1;
                 Entry.Version = Rm.ClientVersion;
-                Entry.Online = Rm.Online == 1;
+                Entry.AddField(16, EPacketFieldType.True, (bool)true);
                 Entry.CharactersCount = CharacterMgr.Instance.GetCharactersCount(From.Acct.Id, Rm.RealmId);
                 Entry.Language = Rm.Language;
                 Rp.Realms.Add(Entry);

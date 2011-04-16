@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\WorldConfig.cs" />
+    <Compile Include="NetWork\Authentification\WorldAuthenticationRequest.cs" />
+    <Compile Include="NetWork\Authentification\WorldCacheUpdated.cs" />
+    <Compile Include="NetWork\Authentification\WorldStartingPosition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

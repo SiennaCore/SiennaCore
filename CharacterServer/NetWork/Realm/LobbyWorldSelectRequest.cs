@@ -20,7 +20,7 @@ namespace CharacterServer
             if (Rm != null)
                 From.Realm = Rm;
 
-            if (From.Realm == null || From.Realm.Online <= 0)
+            if (From.Realm == null)
             {
                 Log.Error("LobbyWorldSelectRequest", "Invalid RealmId=" + RealmId);
                 From.Disconnect();

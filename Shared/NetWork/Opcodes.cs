@@ -51,8 +51,17 @@ public enum Opcodes
     TemplateCreationSubUnknown4Data = 0x1CD2,
     TemplateCreationSubUnknown5Data = 0x1E17,
 
+    LobbyCharacterSelectRequest = 0x01B1,
+    LobbyCharacterSelectResponse = 0x01B2,
 
     IPCWorldRegisterRequest = 0x010000,
     IPCWorldRegisterResponse = 0x010001,
     IPCWorldPopulationUpdate = 0x010002,
+
+
+    WorldAuthenticationRequest = 0x03E8,
+    WorldAuthenticationResponse = 0x03E9,
+    WorldCacheUpdated = 0x03EA,
+
+    WorldStartingPosition = 0x03EF,
 }

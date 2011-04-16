@@ -169,6 +169,7 @@ namespace CharacterServer
             }
             else
             {
+                Rp.AddField(0, EPacketFieldType.Unsigned7BitEncoded, (long)0);
                 string Data = "";
 
                 MemoryStream memoryStream = new MemoryStream();
@@ -189,8 +190,6 @@ namespace CharacterServer
                 Char.Data = Data;
 
                 CharacterMgr.Instance.AddObject(Char);
-                From.Disconnect();
-                return;
             }
             From.SendSerialized(Rp);
         }

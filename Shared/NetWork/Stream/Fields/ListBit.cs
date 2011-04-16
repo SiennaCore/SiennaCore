@@ -66,22 +66,30 @@ namespace Shared
                 List<uint> Values = val as List<uint>;
 
                 if (Values.Count <= 0)
-                {
-                    Log.Error("WriteList", "List Count <= 0");
                     return false;
-                }
 
                 long ListData;
                 PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Raw4Bytes, Values.Count);
                 Data.WriteEncoded7Bit(ListData);
 
-                Log.Success("List", "LIST OF UINT ! Count = " + Values.Count);
-
                 for (int i = 0; i < Values.Count; ++i)
-                {
-                    Log.Success("List","Value = " + Values[i]);
                     PacketProcessor.WriteField(ref Data, EPacketFieldType.Raw4Bytes, (uint)Values[i]);
-                }
+            }
+            else if (val is List<string>)
+            {
+                List<string> Strs = val as List<string>;
+                Log.Success("ListBit", "Writing String : Count=" + Strs.Count);
+                if (Strs.Count <= 0)
+                    return false;
+
+                long ListData;
+                PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.ByteArray, Strs.Count);
+                Data.WriteEncoded7Bit(ListData);
+
+                for (int i = 0; i < Strs.Count; ++i)
+                    PacketProcessor.WriteField(ref Data, EPacketFieldType.ByteArray, (string)Strs[i]);
+
+                return true;
             }
             else
                 return false;
