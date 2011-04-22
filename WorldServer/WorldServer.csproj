@@ -55,7 +55,10 @@
     <Compile Include="Configs\WorldConfig.cs" />
     <Compile Include="NetWork\Authentification\WorldAuthenticationRequest.cs" />
     <Compile Include="NetWork\Authentification\WorldCacheUpdated.cs" />
-    <Compile Include="NetWork\Authentification\WorldStartingPosition.cs" />
+    <Compile Include="NetWork\World\Channels\WorldChannelJoinned.cs" />
+    <Compile Include="NetWork\World\WorldCanConnect.cs" />
+    <Compile Include="NetWork\World\WorldMapLoaded.cs" />
+    <Compile Include="NetWork\World\WorldTemplateUpdate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +68,7 @@
       <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

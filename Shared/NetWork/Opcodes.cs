@@ -28,8 +28,6 @@ public enum Opcodes
     LobbyCharacterUnknown2 = 0x0DBF,
     LobbyCharacterUnknown3 = 0x0E10,
     LobbyCharacterCustom = 0x00DE,
-    LobbyCharacterUnknown5 = 0x0080,
-    LobbyCharacterUnknown6 = 0x1E17,
 
     LobbyCharacterCreationCacheRequest = 0x01C2,
     LobbyCharacterCreationCacheResponse = 0x01C3,
@@ -63,5 +61,14 @@ public enum Opcodes
     WorldAuthenticationResponse = 0x03E9,
     WorldCacheUpdated = 0x03EA,
 
+    WorldZoneInfo = 0x0080,
+    WorldMapInfo = 0x1E17,
     WorldStartingPosition = 0x03EF,
+    WorldStartingPositionExtra = 0x03ED,
+    WorldPositionExtra = 0x025B,
+
+    WorldMapLoaded = 0x0DAF,
+    WorldCanConnect = 0x1E99,
+    WorldTemplateUpdate = 0x0271,
+    WorldChannelJoinned = 0x10CE,
 }

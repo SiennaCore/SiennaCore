@@ -134,10 +134,22 @@
     <Compile Include="Deps\NetWork\Crypt\ICryptHandler.cs" />
     <Compile Include="Deps\NetWork\Marshal.cs" />
     <Compile Include="Deps\NetWork\TCPManager.cs" />
-    <Compile Include="NetWork\Crypto\HandshakeClientKey.cs" />
-    <Compile Include="NetWork\Crypto\HandshakeCompression.cs" />
-    <Compile Include="NetWork\Crypto\HanshakeServerKey.cs" />
-    <Compile Include="NetWork\Crypto\PingPong.cs" />
+    <Compile Include="NetWork\Handlers\Auth\HandshakeClientKey.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NetWork\Handlers\Auth\HandshakeCompression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NetWork\Handlers\Auth\HanshakeServerKey.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NetWork\Handlers\PingPong.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NetWork\Handlers\Positions\WorldMapInfo.cs" />
+    <Compile Include="NetWork\Handlers\Positions\WorldPositionExtra.cs" />
+    <Compile Include="NetWork\Handlers\Positions\WorldStartingPosition.cs" />
+    <Compile Include="NetWork\Handlers\Positions\WorldZoneInfo.cs" />
     <Compile Include="NetWork\Opcodes.cs" />
     <Compile Include="NetWork\RiftClient.cs" />
     <Compile Include="NetWork\RiftServer.cs" />
@@ -183,7 +195,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
