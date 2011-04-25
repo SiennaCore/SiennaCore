@@ -41,7 +41,7 @@ namespace CharacterServer
             CharacterMgr.Instance.AddObject(Rm);
             CharacterMgr.Instance.LoadRealms();
 
-            Log.Success("CreateRealm", "Realm '" + Rm.Name + "' Successsfully added to database.");
+            Log.Success("CreateRealm", "Realm '" + Rm.Name + "' Successfully added to database.");
             return true;
         }
     }
