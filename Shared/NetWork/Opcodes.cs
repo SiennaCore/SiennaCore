@@ -64,6 +64,7 @@ public enum Opcodes
     WorldZoneInfo = 0x0080,
     WorldMapInfo = 0x1E17,
     WorldStartingPosition = 0x03EF,
+    WorldEntityUpdate = 0x03EC,
     WorldStartingPositionExtra = 0x03ED,
     WorldPositionExtra = 0x025B,
 
@@ -71,4 +72,6 @@ public enum Opcodes
     WorldCanConnect = 0x1E99,
     WorldTemplateUpdate = 0x0271,
     WorldChannelJoinned = 0x10CE,
+
+    WorldServerMOTD = 0x010E9
 }

@@ -51,8 +51,8 @@ namespace Shared
             {
                 List<ISerializablePacket> Packets = val as List<ISerializablePacket>;
 
-                if (Packets.Count <= 0)
-                    return false;
+                /*if (Packets.Count <= 0)
+                    return false;*/
 
                 long ListData;
                 PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Packet, Packets.Count);
@@ -61,12 +61,26 @@ namespace Shared
                 foreach (ISerializablePacket Packet in Packets)
                     PacketProcessor.WritePacket(ref Data, Packet, false, true, true);
             }
+            else if (val is List<long>)
+            {
+                List<long> Values = val as List<long>;
+
+                /*if (Values.Count <= 0)
+                    return false;*/
+
+                long ListData;
+                PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Unsigned7BitEncoded, Values.Count);
+                Data.WriteEncoded7Bit(ListData);
+
+                for (int i = 0; i < Values.Count; ++i)
+                    PacketProcessor.WriteField(ref Data, EPacketFieldType.Unsigned7BitEncoded, (long)Values[i]);
+            }
             else if (val is List<uint>)
             {
                 List<uint> Values = val as List<uint>;
 
-                if (Values.Count <= 0)
-                    return false;
+                /*if (Values.Count <= 0)
+                    return false;*/
 
                 long ListData;
                 PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Raw4Bytes, Values.Count);
@@ -79,8 +93,8 @@ namespace Shared
             {
                 List<string> Strs = val as List<string>;
                 Log.Success("ListBit", "Writing String : Count=" + Strs.Count);
-                if (Strs.Count <= 0)
-                    return false;
+                /*if (Strs.Count <= 0)
+                    return false;*/
 
                 long ListData;
                 PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.ByteArray, Strs.Count);
