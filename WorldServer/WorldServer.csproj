@@ -57,7 +57,9 @@
     <Compile Include="NetWork\Authentification\WorldCacheUpdated.cs" />
     <Compile Include="NetWork\World\Channels\WorldChannelJoinned.cs" />
     <Compile Include="NetWork\World\WorldCanConnect.cs" />
+    <Compile Include="NetWork\World\WorldEntityUpdate.cs" />
     <Compile Include="NetWork\World\WorldMapLoaded.cs" />
+    <Compile Include="NetWork\World\WorldServerMOTD.cs" />
     <Compile Include="NetWork\World\WorldTemplateUpdate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

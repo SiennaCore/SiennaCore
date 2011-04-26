@@ -15,5 +15,7 @@ namespace WorldServer
     [ISerializableAttribute((long)Opcodes.WorldCacheUpdated)]
     public class WorldCacheUpdated : ISerializablePacket
     {
+        [Raw8Bit(0)]
+        public long GUID;
     }
 }

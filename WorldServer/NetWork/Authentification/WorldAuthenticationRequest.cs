@@ -31,7 +31,7 @@ namespace WorldServer
             Log.Success("Authentification", "Email = " + Email);
 
             WorldAuthenticationResponse Rp = new WorldAuthenticationResponse();
-            Rp.AddField(0, EPacketFieldType.Unsigned7BitEncoded, (long)CharacterId);
+            Rp.AddField(0, EPacketFieldType.True, (bool)true);
             From.SendSerialized(Rp);
 
             From.SendCache(7310, 1954446864);
@@ -65,12 +65,22 @@ namespace WorldServer
             // Unk
             {
                 WorldCacheUpdated Updated = new WorldCacheUpdated();
+                Updated.GUID = CharacterId;
                 From.SendSerialized(Updated);
 
-                ISerializablePacket Packet1 = new ISerializablePacket();
+               /* ISerializablePacket Packet1 = new ISerializablePacket();
                 Packet1.Opcode = 0x03EB;
                 Packet1.AddField(0, EPacketFieldType.Raw8Bytes, new byte[8] { 0xBC, 0x3C, 0x09, 0x06, 0x00, 0x80, 0x23, 0x05 });
                 Packet1.AddField(1, EPacketFieldType.True, (bool)true);
+                From.SendSerialized(Packet1);*/
+
+                ISerializablePacket Packet1 = new ISerializablePacket();
+                Packet1.Opcode = 0x03F6;
+                Packet1.AddField(0, EPacketFieldType.Raw4Bytes, new byte[4] { 0x00, 0x0C, 0xE8, 0x40 });
+                Packet1.AddField(1, EPacketFieldType.ByteArray, new byte[] { 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
+                                                                             00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
+                                                                             00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 });
+                Packet1.AddField(2, EPacketFieldType.Raw8Bytes, new byte[8] { 0xCB, 0x34, 0x3D, 0x94, 0x23, 0x04, 0xCC, 0x01 });
                 From.SendSerialized(Packet1);
 
                 ISerializablePacket Packet2 = new ISerializablePacket();
@@ -82,9 +92,9 @@ namespace WorldServer
                 Packet3.Opcode = 0x2D7F;
                 From.SendSerialized(Packet3);
 
-                ISerializablePacket Packet4 = new ISerializablePacket();
+                /*ISerializablePacket Packet4 = new ISerializablePacket();
                 Packet4.Opcode = 0x1973;
-                From.SendSerialized(Packet4);
+                From.SendSerialized(Packet4);*/
             }
 
             // Map Info
