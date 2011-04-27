@@ -74,7 +74,7 @@ public class Realm : DataObject
                 return;
 
             case 6:
-                Name = "Brisesol";
+                Name = "Riptalon";
                 RiftId = 2514;
                 return;
             case 7:
@@ -115,7 +115,7 @@ public class Realm : DataObject
                 RiftId = 59665;
                 return;
             case 16:
-                Name = "Riptalon";
+                Name = "Brisesol";
                 RiftId = 59921;
                 return;
             case 17:
