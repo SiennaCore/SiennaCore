@@ -46,21 +46,10 @@ namespace WorldServer
                 WPos.Orientation.Add(0.0f);
                 WPos.Orientation.Add(0.0f);
 
-                /*if (long.Parse(pos[3]) != 676)
+                if (long.Parse(pos[3]) != 676)
                 {
-                    WorldTeleport WorldPort = new WorldTeleport();
-                    WorldPort.MapId = long.Parse(pos[3]);
-                    WorldPort.DestinationData = new List<ISerializablePacket>();
-
-                    ISerializablePacket Packet = new ISerializablePacket();
-                    Packet.Opcode = 0x11CE;
-                    Packet.AddField(0, EPacketFieldType.Unsigned7BitEncoded, (long)100);
-                    Packet.AddField(1, EPacketFieldType.ByteArray, "tm_Sanctum_SanctumOfTheVigil");
-                    Packet.AddField(2, EPacketFieldType.Raw8Bytes, (UInt64)9223372039941789842);
-
-                    WorldPort.DestinationData.Add(Packet);
-
-                    From.SendSerialized(Packet);
+                    WorldTeleport WorldPort = WorldTeleport.FromPorticulum(long.Parse(pos[3]), 1, 0, "tm_Sanctum_SanctumOfTheVigil");
+                    From.SendSerialized(WorldPort);
 
                     WorldZoneInfo ZoneInfo = CacheMgr.Instance.GetZoneInfoCache("Capital1");
                     From.SendSerialized(ZoneInfo);
@@ -70,21 +59,21 @@ namespace WorldServer
 
                     From.SendSerialized(StartPos);
 
+                    ISerializablePacket PacketContainer = new ISerializablePacket();
                     WorldPositionExtra StartPos2 = new WorldPositionExtra();
                     StartPos2.MapName = "world";
                     StartPos2.MapId = 2;
-                    StartPos2.Position = WPos.Position;
+                    StartPos2.Position = new List<float>(WPos.Position.ToArray());
+                    StartPos2.Position2 = new List<float>(WPos.Position.ToArray());
 
-                    List<float> QuaternionBase = new List<float>(WPos.Orientation.ToArray());
-                    QuaternionBase.Add(0.0f);
+                    PacketContainer.Opcode = 0x03ED;
+                    PacketContainer.AddField(0, EPacketFieldType.Packet, StartPos2);
 
-                    StartPos2.Field4 = QuaternionBase;
-                    StartPos2.Field8 = WPos.Position;
-
-                    From.SendSerialized(StartPos2);
+                    From.SendSerialized(PacketContainer);
+                    From.SendSerialized(WPos);
 
                 }
-                else*/
+                else
                     From.SendSerialized(WPos);
             }
             else

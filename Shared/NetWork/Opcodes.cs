@@ -76,6 +76,7 @@ public enum Opcodes
 
     WorldServerPositionUpdate = 0x0007,
     WorldPorticulumTeleport = 0x0E55,
+    WorldPorticulumConfirm = 0x11CE,
     WorldTeleport = 0x0F04,
     WorldChatMessage = 0x010CC
 }
