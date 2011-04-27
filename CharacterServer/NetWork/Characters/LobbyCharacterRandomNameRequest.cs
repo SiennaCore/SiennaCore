@@ -7,8 +7,8 @@ using Shared;
 
 namespace CharacterServer
 {
-    [ISerializableAttribute((long)Opcodes.LobbyCharacterRandomNameRequest)]
-    public class LobbyCharacterRandomNameRequest : ISerializablePacket
+    [ISerializableAttribute((long)Opcodes.LobbyCharacterCreation_NameRequest)]
+    public class LobbyCharacterCreation_NameRequest : ISerializablePacket
     {
         [Unsigned7Bit(0)]
         public long Field0;
@@ -27,7 +27,7 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
-            LobbyCharacterRandomNameResponse Rp = new LobbyCharacterRandomNameResponse();
+            LobbyCharacterCreation_NameResponse Rp = new LobbyCharacterCreation_NameResponse();
             Rp.Name = CharacterMgr.Instance.GenerateName();
             From.SendSerialized(Rp);
         }

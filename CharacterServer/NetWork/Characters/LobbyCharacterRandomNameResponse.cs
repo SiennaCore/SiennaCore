@@ -7,8 +7,8 @@ using Shared;
 
 namespace CharacterServer
 {
-    [ISerializableAttribute((long)Opcodes.LobbyCharacterRandomNameResponse)]
-    public class LobbyCharacterRandomNameResponse : ISerializablePacket
+    [ISerializableAttribute((long)Opcodes.LobbyCharacterCreation_NameResponse)]
+    public class LobbyCharacterCreation_NameResponse : ISerializablePacket
     {
         [ArrayBit(1)]
         public string Name;
