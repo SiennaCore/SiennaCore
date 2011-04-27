@@ -35,8 +35,8 @@ public enum Opcodes
     LobbyCharacterCreateRequest = 0x01D5,
     LobbyCharacterCreateResponse = 0x01D6,
 
-    LobbyCharacterRandomNameRequest = 0x01EF,
-    LobbyCharacterRandomNameResponse = 0x01F0,
+    LobbyCharacterCreation_NameRequest = 0x01EF,
+    LobbyCharacterCreation_NameResponse = 0x01F0,
 
     CacheUpdate = 0x0025,
     TemplateCreationData = 0x027E,
@@ -47,7 +47,7 @@ public enum Opcodes
     TemplateCreationSubUnknown3Data = 0x1C9C,
     TemplateCreationSubUnknown4Data = 0x1CD2,
     
-    WorldTextEntry = 0x1E17,
+    WorldText_Info = 0x1E17,
 
     LobbyCharacterSelectRequest = 0x01B1,
     LobbyCharacterSelectResponse = 0x01B2,

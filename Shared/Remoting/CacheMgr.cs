@@ -20,11 +20,11 @@ namespace Shared
                 Instance = this;
         }
 
-        public WorldTextEntry GetTextCache(long Entry)
+        public WorldText_Info GetTextCache(long Entry)
         {
-            TextEntry entry = CharacterDB.SelectObject<TextEntry>("Id=" + Entry + "");
+            Text_Info entry = CharacterDB.SelectObject<Text_Info>("Id=" + Entry + "");
 
-            WorldTextEntry tentry = new WorldTextEntry();
+            WorldText_Info tentry = new WorldText_Info();
             tentry.Entry = entry.Id;
             tentry.Text = entry.Loc_1;
 
@@ -33,7 +33,7 @@ namespace Shared
 
         public WorldZoneInfo GetZoneInfoCache(string Zone)
         {
-            ZoneEntry entry = CharacterDB.SelectObject<ZoneEntry>("Name='" + CharacterDB.Escape(Zone) + "'");
+            Zone_Info entry = CharacterDB.SelectObject<Zone_Info>("Name='" + CharacterDB.Escape(Zone) + "'");
 
             WorldZoneInfo ZoneInfo = new WorldZoneInfo();
             ZoneInfo.ZoneFileName = entry.Name;
@@ -43,10 +43,10 @@ namespace Shared
             return ZoneInfo;
         }
 
-        public List<CacheEntry> GetBinCache(long Opcode, bool IsOnRead)
+        public List<Cache_Info> GetBinCache(long Opcode, bool IsOnRead)
         {
-            CacheEntry[] entries = (CacheEntry[])CharacterDB.SelectObjects<CacheEntry>("Opcode=" + Opcode + " AND OnRead=" + (IsOnRead == true ? 1 : 0));
-            return new List<CacheEntry>(entries);
+            Cache_Info[] entries = (Cache_Info[])CharacterDB.SelectObjects<Cache_Info>("Opcode=" + Opcode + " AND OnRead=" + (IsOnRead == true ? 1 : 0));
+            return new List<Cache_Info>(entries);
         }
     }
 }

@@ -93,6 +93,7 @@ namespace Shared
             {
                 List<string> Strs = val as List<string>;
                 Log.Success("ListBit", "Writing String : Count=" + Strs.Count);
+
                 /*if (Strs.Count <= 0)
                     return false;*/
 

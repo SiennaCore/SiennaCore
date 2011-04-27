@@ -161,9 +161,9 @@ namespace Shared
                 {
                     Pack.OnRead(this);
 
-                    List<CacheEntry> Entries = CacheMgr.Instance.GetBinCache(Pack.Opcode, true);
+                    List<Cache_Info> Entries = CacheMgr.Instance.GetBinCache(Pack.Opcode, true);
 
-                    foreach (CacheEntry Entry in Entries)
+                    foreach (Cache_Info Entry in Entries)
                         SendCache(Entry.Type, (uint)Entry.CacheId);
                 }
 
@@ -203,9 +203,9 @@ namespace Shared
                     {
                         Pack.OnRead(this);
 
-                        List<CacheEntry> Entries = CacheMgr.Instance.GetBinCache(Pack.Opcode, true);
+                        List<Cache_Info> Entries = CacheMgr.Instance.GetBinCache(Pack.Opcode, true);
 
-                        foreach (CacheEntry Entry in Entries)
+                        foreach (Cache_Info Entry in Entries)
                             SendCache(Entry.Type, (uint)Entry.CacheId);
                     }
                 }
@@ -284,9 +284,9 @@ namespace Shared
             byte[] ToSend = Out.ToArray();
             SendTCP(ToSend);
 
-            List<CacheEntry> Entries = CacheMgr.Instance.GetBinCache(Packet.Opcode, false);
+            List<Cache_Info> Entries = CacheMgr.Instance.GetBinCache(Packet.Opcode, false);
 
-            foreach (CacheEntry Entry in Entries)
+            foreach (Cache_Info Entry in Entries)
                 SendCache(Entry.Type, (uint)Entry.CacheId);
          }
 

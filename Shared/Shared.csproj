@@ -80,12 +80,15 @@
   <ItemGroup>
     <Compile Include="Database\Accounts\Account.cs" />
     <Compile Include="Database\Accounts\Account_Banned.cs" />
-    <Compile Include="Database\Cache\CacheEntry.cs" />
-    <Compile Include="Database\Cache\TextEntry.cs" />
-    <Compile Include="Database\Characters\Character.cs" />
-    <Compile Include="Database\Characters\RandomName.cs" />
-    <Compile Include="Database\Characters\Realm.cs" />
-    <Compile Include="Database\World\ZoneEntry.cs" />
+    <Compile Include="Database\Characters\Info\Cache_Info.cs" />
+    <Compile Include="Database\Characters\Info\Text_Info.cs" />
+    <Compile Include="Database\Characters\Characters\Character.cs" />
+    <Compile Include="Database\Characters\Characters\Character_Info.cs" />
+    <Compile Include="Database\Characters\Characters\Character_Item.cs" />
+    <Compile Include="Database\Characters\Creation\Creation_Names.cs" />
+    <Compile Include="Database\Characters\Creation\Creation_Position.cs" />
+    <Compile Include="Database\Characters\Realms\Realm.cs" />
+    <Compile Include="Database\World\Maps\Zone_Info.cs" />
     <Compile Include="Deps\Config\aConfigAttributes.cs" />
     <Compile Include="Deps\Config\ConfigMgr.cs" />
     <Compile Include="Deps\Console\ConsoleHandlerAttribute.cs" />

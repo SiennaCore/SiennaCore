@@ -5,9 +5,9 @@ using System.Text;
 
 using Shared.Database;
 
-[DataTable(DatabaseName = "Characters", TableName = "cachedata", PreCache = true)]
+[DataTable(DatabaseName = "Characters", TableName = "Cache_Info", PreCache = true)]
 [Serializable]
-public class CacheEntry : DataObject
+public class Cache_Info : DataObject
 {
     [DataElement]
     public long Opcode;

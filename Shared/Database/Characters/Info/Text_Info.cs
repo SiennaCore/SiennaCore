@@ -5,9 +5,9 @@ using System.Text;
 
 using Shared.Database;
 
-[DataTable(DatabaseName = "Characters", TableName = "textentry", PreCache = true)]
+[DataTable(DatabaseName = "Characters", TableName = "Text_Info", PreCache = true)]
 [Serializable]
-public class TextEntry : DataObject
+public class Text_Info : DataObject
 {
     [PrimaryKey(AutoIncrement = true)]
     public long Id;

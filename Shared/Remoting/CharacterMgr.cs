@@ -119,13 +119,13 @@ namespace Shared
             CharacterDB.DeleteObject(Char);
         }
 
-        static public List<RandomName> _Randoms = new List<RandomName>();
+        static public List<Creation_Name> _Randoms = new List<Creation_Name>();
 
-        public void LoadRandomNames()
+        public void LoadCreation_Names()
         {
-            _Randoms.AddRange(CharacterDB.SelectAllObjects<RandomName>());
+            _Randoms.AddRange(CharacterDB.SelectAllObjects<Creation_Name>());
 
-            Log.Success("LoadRandomNames", "Loaded " + _Randoms.Count + " Random Name(s)");
+            Log.Success("LoadCreation_Names", "Loaded " + _Randoms.Count + " Random Name(s)");
         }
 
         public string GenerateName()

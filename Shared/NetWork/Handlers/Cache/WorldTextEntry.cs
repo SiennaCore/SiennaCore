@@ -6,9 +6,9 @@ using Shared.Database;
 
 namespace Shared
 {
-    [ISerializableAttribute((long)Opcodes.WorldTextEntry)]
+    [ISerializableAttribute((long)Opcodes.WorldText_Info)]
     [Serializable]
-    public class WorldTextEntry : ISerializablePacket
+    public class WorldText_Info : ISerializablePacket
     {
         [Raw4Bit(0)]
         public long Entry;

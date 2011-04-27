@@ -35,4 +35,7 @@ public class Character : DataObject
 
     [DataElement()]
     public string Data;
+
+    [Relation(LocalField = "Id", RemoteField = "Id", AutoDelete = true, AutoLoad = true)]
+    public Character_Position[] Position;
 }

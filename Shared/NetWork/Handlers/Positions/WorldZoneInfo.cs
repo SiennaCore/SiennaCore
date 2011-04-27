@@ -15,10 +15,10 @@ namespace Shared
         public string ZoneFileName;
 
         [PacketBit(1)]
-        public WorldTextEntry Description;
+        public WorldText_Info Description;
 
         [PacketBit(9)]
-        public WorldTextEntry DisplayName;
+        public WorldText_Info DisplayName;
 
         
     }
