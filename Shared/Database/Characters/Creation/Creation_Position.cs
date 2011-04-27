@@ -13,7 +13,7 @@ public class Creation_Position : DataObject
     public long Faction;
 
     [DataElement()]
-    public int MapId;
+    public long MapId;
 
     [DataElement()]
     public float X;

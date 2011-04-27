@@ -13,7 +13,7 @@ public class Character_Position : DataObject
     public int Id;
 
     [DataElement()]
-    public int MapId;
+    public long MapId;
 
     [DataElement()]
     public float X;
