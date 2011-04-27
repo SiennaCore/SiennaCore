@@ -7,9 +7,33 @@ using Shared;
 
 namespace WorldServer
 {
+    public class DatabaseInfo
+    {
+        public string Server = "127.0.0.1";
+        public string Port = "3306";
+        public string Database = "databasename";
+        public string Username = "root";
+        public string Password = "password";
+        public string Custom = "Treat Tiny As Boolean=False";
+
+        public string Total()
+        {
+            string Result = "";
+            Result += "Server=" + Server + ";";
+            Result += "Port=" + Port + ";";
+            Result += "Database=" + Database + ";";
+            Result += "User Id=" + Username + ";";
+            Result += "Password=" + Password + ";";
+            Result += Custom;
+            return Result;
+        }
+    }
+
     [aConfigAttributes("Configs/World.xml")]
     public class WorldConfig : aConfig
     {
+        public string ServerMOTD = "Welcome to SiennaCore server";
+
         public string WorldServerIP = "127.0.0.1";
         public int WorldServerPort = 6901;
 
@@ -18,6 +42,8 @@ namespace WorldServer
         public string RpcKey = "password";
 
         public byte RealmId = 1;
+
+        public DatabaseInfo WorldDB = new DatabaseInfo();
 
         [aConfigMethod()]
         static public void OnLoad(aConfigAttributes Attributes, aConfig Conf, bool FirstLoad)

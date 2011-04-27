@@ -80,9 +80,12 @@
   <ItemGroup>
     <Compile Include="Database\Accounts\Account.cs" />
     <Compile Include="Database\Accounts\Account_Banned.cs" />
+    <Compile Include="Database\Cache\CacheEntry.cs" />
+    <Compile Include="Database\Cache\TextEntry.cs" />
     <Compile Include="Database\Characters\Character.cs" />
     <Compile Include="Database\Characters\RandomName.cs" />
     <Compile Include="Database\Characters\Realm.cs" />
+    <Compile Include="Database\World\ZoneEntry.cs" />
     <Compile Include="Deps\Config\aConfigAttributes.cs" />
     <Compile Include="Deps\Config\ConfigMgr.cs" />
     <Compile Include="Deps\Console\ConsoleHandlerAttribute.cs" />
@@ -143,10 +146,15 @@
     <Compile Include="NetWork\Handlers\Auth\HanshakeServerKey.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NetWork\Handlers\Cache\WorldCacheUpdated.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NetWork\Handlers\Cache\WorldTextEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="NetWork\Handlers\PingPong.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="NetWork\Handlers\Positions\WorldMapInfo.cs" />
     <Compile Include="NetWork\Handlers\Positions\WorldPositionExtra.cs" />
     <Compile Include="NetWork\Handlers\Positions\WorldStartingPosition.cs" />
     <Compile Include="NetWork\Handlers\Positions\WorldZoneInfo.cs" />
@@ -176,6 +184,7 @@
     <Compile Include="Deps\Remoting\RpcClient.cs" />
     <Compile Include="Deps\Remoting\RpcConnector.cs" />
     <Compile Include="Deps\Remoting\RpcServer.cs" />
+    <Compile Include="Remoting\CacheMgr.cs" />
     <Compile Include="Remoting\CharacterMgr.cs" />
   </ItemGroup>
   <ItemGroup>

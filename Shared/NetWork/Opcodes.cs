@@ -38,7 +38,6 @@ public enum Opcodes
     LobbyCharacterRandomNameRequest = 0x01EF,
     LobbyCharacterRandomNameResponse = 0x01F0,
 
-
     CacheUpdate = 0x0025,
     TemplateCreationData = 0x027E,
     TemplateCreationUnknown1Data = 0x0ECD,
@@ -47,7 +46,8 @@ public enum Opcodes
     TemplateCreationSubUnknown2Data = 0x1C9D,
     TemplateCreationSubUnknown3Data = 0x1C9C,
     TemplateCreationSubUnknown4Data = 0x1CD2,
-    TemplateCreationSubUnknown5Data = 0x1E17,
+    
+    WorldTextEntry = 0x1E17,
 
     LobbyCharacterSelectRequest = 0x01B1,
     LobbyCharacterSelectResponse = 0x01B2,
@@ -55,7 +55,6 @@ public enum Opcodes
     IPCWorldRegisterRequest = 0x010000,
     IPCWorldRegisterResponse = 0x010001,
     IPCWorldPopulationUpdate = 0x010002,
-
 
     WorldAuthenticationRequest = 0x03E8,
     WorldAuthenticationResponse = 0x03E9,
@@ -73,5 +72,8 @@ public enum Opcodes
     WorldTemplateUpdate = 0x0271,
     WorldChannelJoinned = 0x10CE,
 
-    WorldServerMOTD = 0x010E9
+    WorldServerMOTD = 0x010E9,
+
+    WorldServerPositionUpdate = 0x0007,
+    WorldChatMessage = 0x010CC
 }

@@ -79,14 +79,21 @@ namespace WorldServer
             }
 
             {
-                WorldEntityUpdate EntPck = new WorldEntityUpdate();
+                byte[] data = CharacterMgr.Instance.GetBuild(359021332923844977);
+                PacketInStream ps = new PacketInStream(data, data.Length);
+                From.SendTCPWithSize(data);
+                /*ISerializablePacket pack = PacketProcessor.ReadPacket(ref ps);
+                pack.AddField(0, EPacketFieldType.Raw8Bytes, BitConverter.GetBytes(CharacterId));
+                From.SendSerialized(pack);
+                
+                /*WorldEntityUpdate EntPck = new WorldEntityUpdate();
                 EntPck.GUID = CharacterId;
                 EntPck.Build();
-                From.SendSerialized(EntPck);
+                From.SendSerialized(EntPck);*/
             }
 
             WorldServerMOTD Motd = new WorldServerMOTD();
-            Motd.Text = "Welcome to SiennaCore Server";
+            Motd.Text = ConfigMgr.GetConfig<WorldConfig>().ServerMOTD;
             From.SendSerialized(Motd);
         }
     }

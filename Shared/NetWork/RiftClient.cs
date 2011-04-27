@@ -158,7 +158,14 @@ namespace Shared
 
                 ISerializablePacket Pack = PacketProcessor.ReadPacket(ref Packet);
                 if (Pack != null)
+                {
                     Pack.OnRead(this);
+
+                    List<CacheEntry> Entries = CacheMgr.Instance.GetBinCache(Pack.Opcode, true);
+
+                    foreach (CacheEntry Entry in Entries)
+                        SendCache(Entry.Type, (uint)Entry.CacheId);
+                }
 
                 return true;
             }
@@ -193,7 +200,14 @@ namespace Shared
 
                     ISerializablePacket Pack = PacketProcessor.ReadPacket(ref Packet);
                     if (Pack != null)
+                    {
                         Pack.OnRead(this);
+
+                        List<CacheEntry> Entries = CacheMgr.Instance.GetBinCache(Pack.Opcode, true);
+
+                        foreach (CacheEntry Entry in Entries)
+                            SendCache(Entry.Type, (uint)Entry.CacheId);
+                    }
                 }
             }
 
@@ -269,7 +283,12 @@ namespace Shared
 
             byte[] ToSend = Out.ToArray();
             SendTCP(ToSend);
-        }
+
+            List<CacheEntry> Entries = CacheMgr.Instance.GetBinCache(Packet.Opcode, false);
+
+            foreach (CacheEntry Entry in Entries)
+                SendCache(Entry.Type, (uint)Entry.CacheId);
+         }
 
         public void SendTCP(byte[] ToSend)
         {

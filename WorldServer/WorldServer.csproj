@@ -54,8 +54,9 @@
   <ItemGroup>
     <Compile Include="Configs\WorldConfig.cs" />
     <Compile Include="NetWork\Authentification\WorldAuthenticationRequest.cs" />
-    <Compile Include="NetWork\Authentification\WorldCacheUpdated.cs" />
     <Compile Include="NetWork\World\Channels\WorldChannelJoinned.cs" />
+    <Compile Include="NetWork\World\Channels\WorldChatMessage.cs" />
+    <Compile Include="NetWork\World\Movements\WorldServerPositionUpdate.cs" />
     <Compile Include="NetWork\World\WorldCanConnect.cs" />
     <Compile Include="NetWork\World\WorldEntityUpdate.cs" />
     <Compile Include="NetWork\World\WorldMapLoaded.cs" />

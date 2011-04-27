@@ -52,6 +52,11 @@ namespace CharacterServer
             if (CharacterMgr.CharacterDB == null)
                 WaitAndExit();
 
+            new CacheMgr();
+            CacheMgr.CharacterDB = DBManager.Start(Config.CharactersDB.Total(), ConnectionType.DATABASE_MYSQL, "Characters");
+            if (CacheMgr.CharacterDB == null)
+                WaitAndExit();
+
             CharacterMgr.Instance.LoadRealms();
             CharacterMgr.Instance.LoadRandomNames();
 

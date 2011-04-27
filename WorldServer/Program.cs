@@ -43,6 +43,7 @@ namespace WorldServer
             // Creating Remote objects
             AccountMgr.Instance = new AccountMgr();
             CharacterMgr.Instance = new CharacterMgr();
+            CacheMgr.Instance = new CacheMgr();
 
             // Listening Client
             if (!TCPManager.Listen<RiftServer>(Config.WorldServerPort, "WorldServer"))

@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Shared.Database;
 
 namespace Shared
 {
-    [ISerializableAttribute((long)Opcodes.WorldMapInfo)]
-    public class WorldMapInfo : ISerializablePacket
+    [ISerializableAttribute((long)Opcodes.WorldTextEntry)]
+    [Serializable]
+    public class WorldTextEntry : ISerializablePacket
     {
         [Raw4Bit(0)]
-        public uint MapId;
+        public long Entry;
 
         [ArrayBit(1)]
         public string Text;

@@ -23,7 +23,7 @@ namespace Shared
         [Raw4Bit(5)]
         public uint Field5 = 1065772646;
 
-        [ListBit(4)]
+        [ListBit(8)]
         public List<uint> Field8 = new List<uint>() { 1149965263, 1147537926, 1152778324 }; // Unk
     }
 }
