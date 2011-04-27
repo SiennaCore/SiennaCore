@@ -56,7 +56,9 @@
     <Compile Include="NetWork\Authentification\WorldAuthenticationRequest.cs" />
     <Compile Include="NetWork\World\Channels\WorldChannelJoinned.cs" />
     <Compile Include="NetWork\World\Channels\WorldChatMessage.cs" />
+    <Compile Include="NetWork\World\Movements\WorldPorticulumTeleport.cs" />
     <Compile Include="NetWork\World\Movements\WorldServerPositionUpdate.cs" />
+    <Compile Include="NetWork\World\Movements\WorldTeleport.cs" />
     <Compile Include="NetWork\World\WorldCanConnect.cs" />
     <Compile Include="NetWork\World\WorldEntityUpdate.cs" />
     <Compile Include="NetWork\World\WorldMapLoaded.cs" />

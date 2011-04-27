@@ -89,6 +89,20 @@ namespace Shared
                 for (int i = 0; i < Values.Count; ++i)
                     PacketProcessor.WriteField(ref Data, EPacketFieldType.Raw4Bytes, (uint)Values[i]);
             }
+            else if (val is List<float>)
+            {
+                List<float> Values = val as List<float>;
+
+                /*if (Values.Count <= 0)
+                    return false;*/
+
+                long ListData;
+                PacketOutStream.Encode2Parameters(out ListData, (int)EPacketFieldType.Raw4Bytes, Values.Count);
+                Data.WriteEncoded7Bit(ListData);
+
+                for (int i = 0; i < Values.Count; ++i)
+                    PacketProcessor.WriteField(ref Data, EPacketFieldType.Raw4Bytes, Values[i]);
+            }
             else if (val is List<string>)
             {
                 List<string> Strs = val as List<string>;

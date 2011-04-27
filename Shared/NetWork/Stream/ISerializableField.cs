@@ -62,6 +62,19 @@ namespace Shared
             return 0;
         }
 
+        public float GetFloat()
+        {
+            if (val is byte[])
+            {
+                byte[] Data = val as byte[];
+                return Marshal.ConvertToFloat(Data[3], Data[2], Data[1], Data[0]);
+            }
+            else if (val is float)
+                return (float)val;
+
+            return 0;
+        }
+
         public byte[] GetBytes()
         {
             if (val is byte[])

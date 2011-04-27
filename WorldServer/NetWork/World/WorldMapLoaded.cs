@@ -82,6 +82,7 @@ namespace WorldServer
                 byte[] data = CharacterMgr.Instance.GetBuild(359021332923844977);
                 PacketInStream ps = new PacketInStream(data, data.Length);
                 From.SendTCPWithSize(data);
+
                 /*ISerializablePacket pack = PacketProcessor.ReadPacket(ref ps);
                 pack.AddField(0, EPacketFieldType.Raw8Bytes, BitConverter.GetBytes(CharacterId));
                 From.SendSerialized(pack);

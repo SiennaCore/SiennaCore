@@ -35,6 +35,8 @@ namespace Shared
                 Data.Write(BitConverter.GetBytes((uint)val));
             else if (val is Int32)
                 Data.WriteInt32((Int32)val);
+            else if (val is float)
+                Data.WriteFloat((float)val);
             else if (val is byte[])
                 Data.Write((byte[])val);
             else

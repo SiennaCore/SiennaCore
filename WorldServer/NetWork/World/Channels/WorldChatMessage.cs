@@ -13,8 +13,17 @@ namespace WorldServer
         [ArrayBit(0)]
         public string ChannelName;
 
+        [ArrayBit(2)]
+        public string PlayerName;
+
         [ArrayBit(3)]
         public string Message;
+
+        [Unsigned7Bit(7)]
+        public long Unk1;
+
+        [Unsigned7Bit(9)]
+        public long Unk2;
 
         public override void OnRead(RiftClient From)
         {
@@ -37,7 +46,53 @@ namespace WorldServer
                 WPos.Orientation.Add(0.0f);
                 WPos.Orientation.Add(0.0f);
 
-                From.SendSerialized(WPos);
+                /*if (long.Parse(pos[3]) != 676)
+                {
+                    WorldTeleport WorldPort = new WorldTeleport();
+                    WorldPort.MapId = long.Parse(pos[3]);
+                    WorldPort.DestinationData = new List<ISerializablePacket>();
+
+                    ISerializablePacket Packet = new ISerializablePacket();
+                    Packet.Opcode = 0x11CE;
+                    Packet.AddField(0, EPacketFieldType.Unsigned7BitEncoded, (long)100);
+                    Packet.AddField(1, EPacketFieldType.ByteArray, "tm_Sanctum_SanctumOfTheVigil");
+                    Packet.AddField(2, EPacketFieldType.Raw8Bytes, (UInt64)9223372039941789842);
+
+                    WorldPort.DestinationData.Add(Packet);
+
+                    From.SendSerialized(Packet);
+
+                    WorldZoneInfo ZoneInfo = CacheMgr.Instance.GetZoneInfoCache("Capital1");
+                    From.SendSerialized(ZoneInfo);
+
+                    WorldStartingPosition StartPos = new WorldStartingPosition();
+                    StartPos.MapName = "world";
+
+                    From.SendSerialized(StartPos);
+
+                    WorldPositionExtra StartPos2 = new WorldPositionExtra();
+                    StartPos2.MapName = "world";
+                    StartPos2.MapId = 2;
+                    StartPos2.Position = WPos.Position;
+
+                    List<float> QuaternionBase = new List<float>(WPos.Orientation.ToArray());
+                    QuaternionBase.Add(0.0f);
+
+                    StartPos2.Field4 = QuaternionBase;
+                    StartPos2.Field8 = WPos.Position;
+
+                    From.SendSerialized(StartPos2);
+
+                }
+                else*/
+                    From.SendSerialized(WPos);
+            }
+            else
+            {
+                PlayerName = "Magetest";
+                Unk1 = 2551;
+                Unk2 = 2551;
+                From.SendSerialized(this);
             }
         }
     }
