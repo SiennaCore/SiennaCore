@@ -32,7 +32,7 @@ namespace WorldServer
 
         public void Build()
         {
-            Packets = new List<ISerializablePacket>();
+            /*Packets = new List<ISerializablePacket>();
 
             // Unk Packet
             ISerializablePacket UnkPck = new ISerializablePacket();
@@ -48,7 +48,7 @@ namespace WorldServer
 
             Packets.Add(UnkPck);
             Packets.Add(CreateJunk(0x025A));
-            Packets.Add(WorldPos);
+            Packets.Add(WorldPos);*/
 
             // Dic
             Packets.Add(CreateJunk(0x026B));
