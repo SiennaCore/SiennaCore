@@ -165,6 +165,28 @@ namespace Shared
             }
         }
 
+        public byte[] GetBuild(long GUID)
+        {
+            try
+            {
+                FileStream Ft = new FileStream("BuildData/" + GUID + ".cache", FileMode.Open);
+                if (Ft == null || !Ft.CanRead)
+                {
+                    Log.Error("GetBuild", "Invalid Build Data : GUID=" + GUID);
+                    return null;
+                }
+
+                byte[] Result = new byte[Ft.Length];
+                Ft.Read(Result, 0, (int)Result.Length);
+                return Result;
+            }
+            catch (Exception e)
+            {
+                Log.Error("GetCache", "Invalid Build Data : GUID=" + GUID);
+                return null;
+            }
+        }
+
         #endregion
 
         public override void Disconnected(int Id)
