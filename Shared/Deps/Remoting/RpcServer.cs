@@ -15,6 +15,8 @@ namespace Shared
     {
         #region Manager
 
+        static public TcpChannel _Channel;
+
         static private Dictionary<int, RpcServer> _Rs = new Dictionary<int, RpcServer>();
         static public bool InitRpcServer(string Name, string Key, int Port)
         {
@@ -33,7 +35,6 @@ namespace Shared
 
         #endregion
 
-        private TcpChannel _Channel;
         private string _Name;
         public string _Key;
         private int _Port;
@@ -65,8 +66,13 @@ namespace Shared
             try
             {
                 Log.Info("RpcServer", "Starting... " + _Port);
-                _Channel = new TcpChannel(_Port);
-                ChannelServices.RegisterChannel(_Channel, false);
+
+                if (_Channel == null)
+                {
+                    _Channel = new TcpChannel(_Port);
+                    ChannelServices.RegisterChannel(_Channel, false);
+                }
+
                 Load();
             }
             catch (Exception e)

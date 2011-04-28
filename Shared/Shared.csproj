@@ -81,6 +81,7 @@
     <Compile Include="Database\Accounts\Account.cs" />
     <Compile Include="Database\Accounts\Account_Banned.cs" />
     <Compile Include="Database\Characters\Info\Cache_Info.cs" />
+    <Compile Include="Database\Characters\Info\Map_Info.cs" />
     <Compile Include="Database\Characters\Info\Text_Info.cs" />
     <Compile Include="Database\Characters\Characters\Character.cs" />
     <Compile Include="Database\Characters\Characters\Character_Info.cs" />

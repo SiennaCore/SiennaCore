@@ -7,7 +7,7 @@ using Shared;
 
 namespace WorldServer
 {
-    [ISerializableAttribute((long)Opcodes.WorldChannelJoinned)]
+    [ISerializableAttribute((long)Opcodes.WorldPorticulumTeleport)]
     public class WorldPorticulumTeleport : ISerializablePacket
     {
         [ArrayBit(0)]

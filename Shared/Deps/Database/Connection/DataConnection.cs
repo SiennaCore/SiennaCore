@@ -524,6 +524,9 @@ namespace Shared.Database
                     }
                 }
 
+                string ColumnName = table.TableName + "_ID";
+                ExecuteNonQuery("UPDATE `" + table.TableName + "` SET " + ColumnName + " = uuid() WHERE " + ColumnName + " = ''");
+
                 if (alterRemoveColumnDefs.Count > 0)
                 {
                     foreach (string Column in alterRemoveColumnDefs)

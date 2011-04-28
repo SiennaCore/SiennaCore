@@ -15,7 +15,17 @@ namespace Shared
     {
         #region Manager
 
-        static private TcpChannel _Channel;
+        static private TcpChannel _Channel
+        {
+            get
+            {
+                return RpcServer._Channel;
+            }
+            set
+            {
+                RpcServer._Channel = value;
+            }
+        }
 
         static private Dictionary<string, RpcClient> _Rc = new Dictionary<string, RpcClient>();
         static public bool InitRpcClient(string Name, string Key, string Ip, int Port)
