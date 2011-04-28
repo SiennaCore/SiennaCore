@@ -12,6 +12,6 @@ namespace Shared
         public string MapName;
 
         [ListBit(1)]
-        public List<uint> Position = new List<uint>() { 1149965263,1147537926,1152778324}; // X,Y,Z
+        public List<float> Position = new List<float>() { 1113.03967f, 920.1114f, 1444.58533f }; // X,Y,Z
     }
 }

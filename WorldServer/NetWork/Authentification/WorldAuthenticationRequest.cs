@@ -38,6 +38,8 @@ namespace WorldServer
             Updated.GUID = CharacterId;
             From.SendSerialized(Updated);
 
+            /**** One of them seem to delete object ***/
+
             ISerializablePacket Packet1 = new ISerializablePacket();
             Packet1.Opcode = 0x03F6;
             Packet1.AddField(0, EPacketFieldType.Raw4Bytes, new byte[4] { 0x00, 0x0C, 0xE8, 0x40 });
@@ -56,13 +58,14 @@ namespace WorldServer
             ISerializablePacket Packet3 = new ISerializablePacket();
             Packet3.Opcode = 0x2D7F;
             From.SendSerialized(Packet3);
+
+            /********************************************/
             
             WorldZoneInfo ZoneInfo = CacheMgr.Instance.GetZoneInfoCache("Mathosia1");
             From.SendSerialized(ZoneInfo);
 
             WorldStartingPosition StartPosition = new WorldStartingPosition();
             StartPosition.MapName = "guardian_map";
-            StartPosition.Position = new List<uint>() { 1149965263, 1147537926, 1152778324 };
             From.SendSerialized(StartPosition);
 
             WorldPositionExtra ExtraPosition = new WorldPositionExtra();

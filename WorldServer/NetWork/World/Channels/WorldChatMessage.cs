@@ -25,6 +25,8 @@ namespace WorldServer
         [Unsigned7Bit(9)]
         public long Unk2;
 
+        public static long CurrentMapId = 676;
+
         public override void OnRead(RiftClient From)
         {
             if (Message.StartsWith(".teleport"))
@@ -46,7 +48,7 @@ namespace WorldServer
                 WPos.Orientation.Add(0.0f);
                 WPos.Orientation.Add(0.0f);
 
-                if (long.Parse(pos[3]) != 676)
+                if (long.Parse(pos[3]) != CurrentMapId)
                 {
                     WorldTeleport WorldPort = WorldTeleport.FromPorticulum(long.Parse(pos[3]), 1, 0, "tm_Sanctum_SanctumOfTheVigil");
                     From.SendSerialized(WorldPort);
@@ -56,6 +58,7 @@ namespace WorldServer
 
                     WorldStartingPosition StartPos = new WorldStartingPosition();
                     StartPos.MapName = "world";
+                    StartPos.Position = new List<float>(WPos.Position.ToArray());
 
                     From.SendSerialized(StartPos);
 
@@ -66,11 +69,19 @@ namespace WorldServer
                     StartPos2.Position = new List<float>(WPos.Position.ToArray());
                     StartPos2.Position2 = new List<float>(WPos.Position.ToArray());
 
-                    PacketContainer.Opcode = 0x03ED;
+                    PacketContainer.Opcode = (long)Opcodes.WorldStartingPositionExtra;
                     PacketContainer.AddField(0, EPacketFieldType.Packet, StartPos2);
 
                     From.SendSerialized(PacketContainer);
-                    From.SendSerialized(WPos);
+                    
+                    CurrentMapId = long.Parse(pos[3]);
+
+                    List<Cache_Info> CacheData = CacheMgr.Instance.GetBinCache(11319, false);
+
+                    foreach (Cache_Info ci in CacheData)
+                        From.SendCache(ci.Type, (uint)ci.CacheId);
+
+                    //From.SendSerialized(WPos);
 
                 }
                 else
