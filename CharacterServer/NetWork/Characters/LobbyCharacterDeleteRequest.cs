@@ -13,7 +13,7 @@ using Shared.NetWork;
 namespace CharacterServer
 {
     [ISerializableAttribute((long)Opcodes.LobbyCharacterDeleteRequest)]
-    public class LobbyCharacterDeleteRequest : ISerializablePacket
+    public class LobbyCharacterDelete : ISerializablePacket
     {
         [ArrayBit(0)]
         public string UnkText;
@@ -23,17 +23,19 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
-            // Client requested delete character with guid
+            Character[] Chars = CharacterMgr.Instance.GetCharacters(From.Acct.Id, From.Realm.RealmId);
 
-            Log.Dump("LobbyCharacterDelete", "GUID = " + GUID + ",Text = " + UnkText);
+            long pGUID = ByteOperations.ByteSwap.Swap(GUID);
 
-            Character Char = CharacterMgr.Instance.GetCharacter((int)GUID);
-            if (Char != null)
-                CharacterMgr.Instance.RemoveObject(Char);
+            foreach (Character charac in Chars)
+                if (charac.Id == pGUID)
+                    CharacterMgr.Instance.RemoveObject(charac);
 
-            ISerializablePacket Packet = new ISerializablePacket();
-            Packet.Opcode = (long)Opcodes.LobbyCharacterDeleteResponse;
-            From.SendSerialized(Packet);
+            ISerializablePacket DeleteResult = new ISerializablePacket();
+            DeleteResult.Opcode = (long)Opcodes.LobbyCharacterDeleteResponse;
+            DeleteResult.AddField(0, EPacketFieldType.Unsigned7BitEncoded, (long)0); // Result, 15 Error must wait logout, 0 OK
+
+            From.SendSerialized(DeleteResult);
         }
     }
 }
