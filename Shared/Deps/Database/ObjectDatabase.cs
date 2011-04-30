@@ -311,6 +311,7 @@ namespace Shared.Database
                         table.Columns.Add(myMembers[i].Name, ((FieldInfo)myMembers[i]).FieldType);
 
                     table.Columns[myMembers[i].Name].AutoIncrement = ((PrimaryKey)myAttributes[0]).AutoIncrement;
+                    table.Columns[myMembers[i].Name].AutoIncrementSeed = ((PrimaryKey)myAttributes[0]).IncrementValue;
 
                     var index = new DataColumn[1];
                     index[0] = table.Columns[myMembers[i].Name];

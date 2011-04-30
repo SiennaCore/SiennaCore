@@ -9,7 +9,7 @@ using Shared.Database;
 [Serializable]
 public class Character : DataObject
 {
-    [PrimaryKey(AutoIncrement = true)]
+    [PrimaryKey(AutoIncrement = true,IncrementValue = 3)]
     public int Id;
 
     [DataElement]

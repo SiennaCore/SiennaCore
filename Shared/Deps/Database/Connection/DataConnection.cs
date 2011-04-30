@@ -350,6 +350,8 @@ namespace Shared.Database
                     primaryKeys[table.PrimaryKey[i].ColumnName] = table.PrimaryKey[i];
                 }
 
+                long IncrementSeed = 0;
+
                  List<string> columnDefs = new List<string>();
                  List<string> alterAddColumnDefs = new List<string>();
                 for (int i = 0; i < table.Columns.Count; i++)
@@ -441,6 +443,7 @@ namespace Shared.Database
                     if (table.Columns[i].AutoIncrement)
                     {
                         column += " AUTO_INCREMENT";
+                        IncrementSeed = table.Columns[i].AutoIncrementSeed;
                     }
 
                     columnDefs.Add(column);
@@ -494,7 +497,7 @@ namespace Shared.Database
                         columndef += ", INDEX (`" + table.Columns[i].ColumnName + "`)";
                     }
                 }
-                sb.Append("CREATE TABLE IF NOT EXISTS `" + table.TableName + "` (" + columndef + ")");
+                sb.Append("CREATE TABLE IF NOT EXISTS `" + table.TableName + "` (" + columndef + ") AUTO_INCREMENT=" + IncrementSeed);
 
                 try
                 {
