@@ -69,16 +69,16 @@ namespace Shared
                 }
             }
 
-            FieldsTypes.Add(EPacketFieldType.ByteArray, new ArrayBitField());
             FieldsTypes.Add(EPacketFieldType.True, new BoolBitField());
             FieldsTypes.Add(EPacketFieldType.False, new BoolBitField());
             FieldsTypes.Add(EPacketFieldType.List, new ListBitField());
             FieldsTypes.Add(EPacketFieldType.Packet, new PacketBitField());
+            FieldsTypes.Add(EPacketFieldType.ByteArray, new ArrayBitField());
             FieldsTypes.Add(EPacketFieldType.Raw4Bytes, new Raw4BitField());
             FieldsTypes.Add(EPacketFieldType.Raw8Bytes, new Raw8BitBitField());
+            FieldsTypes.Add(EPacketFieldType.Dictionary, new DicBitField());
             FieldsTypes.Add(EPacketFieldType.Signed7BitEncoded, new Encoded7BitField());
             FieldsTypes.Add(EPacketFieldType.Unsigned7BitEncoded, new Unsigned7BitField());
-            FieldsTypes.Add(EPacketFieldType.Dictionary, new DicBitField());
         }
 
         public static PacketHandlerDefinition GetPacketHandler(long Opcode)
@@ -99,8 +99,12 @@ namespace Shared
         {
             ISerializableField Field;
             FieldsTypes.TryGetValue(Type, out Field);
-            if(Field != null)
-                return Activator.CreateInstance(Field.GetType()) as ISerializableField;
+            if (Field != null)
+            {
+                ISerializableField IField = Activator.CreateInstance(Field.GetType()) as ISerializableField;
+                IField.PacketType = Type;
+                return IField;
+            }
 
             Log.Error("PacketProcessor", "Unhandled Field Type : " + Type);
             return null;
@@ -214,7 +218,10 @@ namespace Shared
         public static bool WritePacket(ref PacketOutStream Stream,ISerializablePacket Packet, bool WithSize = true , bool WithTerminator = true, bool WithOpcode = true)
         {
             if (Packet == null)
+            {
+                Log.Error("WritePacket", "Packet == null");
                 return false;
+            }
 
             Packet.ConvertToField();
 

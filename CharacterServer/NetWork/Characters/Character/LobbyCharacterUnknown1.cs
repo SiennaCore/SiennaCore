@@ -37,7 +37,7 @@ namespace CharacterServer
         // Change Corp
 
         [Raw4Bit(6)]
-        public uint Field6 = 3;
+        public uint Field6 = 1798083889;
         // Change Corp
         // 33 = Mathosien Homme
         // 1231885383 = HautElf Homme
@@ -98,7 +98,7 @@ namespace CharacterServer
         public List<ISerializablePacket> Field25 = new List<ISerializablePacket>();
 
         [Unsigned7Bit(26)]
-        public long Field26 = 60006;
+        public long Field26 = 80000;
         // Mathosien = (Homme 80008) && (Femme 60006)
         // Haut Elf =   (Homme 80000) && (Femme 80008)
         // Nain =       80000

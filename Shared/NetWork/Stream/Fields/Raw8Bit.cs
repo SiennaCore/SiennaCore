@@ -34,7 +34,7 @@ namespace Shared
             if (val is byte[])
                 Data.Write((byte[])val);
             else if (val is long)
-                Data.WriteInt64((long)val);
+                Data.WriteInt64R((long)val);
             else if (val is UInt64)
                 Data.WriteUInt64R((UInt64)val);
             else
@@ -48,7 +48,10 @@ namespace Shared
             if (Field.Equals(typeof(byte[])))
                 Info.SetValue(Packet, (byte[])val);
             else if (Field.Equals(typeof(long)))
+            {
+                Array.Reverse((val as byte[]));
                 Info.SetValue(Packet, BitConverter.ToInt64((byte[])val, 0));
+            }
         }
     }
 }

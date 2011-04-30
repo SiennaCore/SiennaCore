@@ -32,9 +32,9 @@ namespace Shared
         public override bool Serialize(ref PacketOutStream Data)
         {
             if (val is UInt32)
-                Data.Write(BitConverter.GetBytes((uint)val));
+                Data.WriteUInt32R((UInt32)val);
             else if (val is Int32)
-                Data.WriteInt32((Int32)val);
+                Data.WriteInt32R((Int32)val);
             else if (val is float)
                 Data.WriteFloat((float)val);
             else if (val is byte[])

@@ -23,13 +23,6 @@ namespace CharacterServer
             LobbyCharacterListResponse Rp = new LobbyCharacterListResponse();
             foreach (Character Char in Chars)
             {
-                Log.Debug("Data", Char.Data);
-
-                XmlSerializer xs = new XmlSerializer(typeof(LobbyCharacterCustom));
-                MemoryStream memoryStream = new MemoryStream(StringToUTF8ByteArray(Char.Data));
-                XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-                LobbyCharacterCustom Custom = xs.Deserialize(memoryStream) as LobbyCharacterCustom;
-
                 LobbyCharacterEntry Entry = new LobbyCharacterEntry();
                 Entry.AccountId = Char.AccountId;
                 Entry.Email = "email@hotmail.com";
@@ -43,7 +36,10 @@ namespace CharacterServer
 
                 Entry.Field5.AddField(15, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Class);
                 Entry.Field5.AddField(9, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Level);
-                Entry.Field5.Custom = Custom;
+
+                byte[] CustomData = StringToUTF8ByteArray(Char.Data);
+                PacketInStream CustomStream = new PacketInStream(CustomData,CustomData.Length);
+                Entry.Field5.Custom = PacketProcessor.ReadPacket(ref CustomStream) as LobbyCharacterCustom;
 
                 // 2 = Main Gauche
                 // 3 = Bouclier
@@ -76,7 +72,7 @@ namespace CharacterServer
                     // Header
                     LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
                     Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)1530909831);
-                    Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)2);
+                    Test.AddField(7, EPacketFieldType.Unsigned7BitEncoded, (long)2);
                     Test.Field8 = new LobbyCharacterUnknown3();
                     Test.Field8.CacheIdentifier = 768949022;
 
@@ -131,10 +127,10 @@ namespace CharacterServer
                 {
                     // Hairs
                     LobbyCharacterUnknown2 Test = new LobbyCharacterUnknown2();
-                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)864322278);
+                    Test.AddField(4, EPacketFieldType.Raw4Bytes, (uint)216751187);
                     Test.AddField(7, EPacketFieldType.Raw4Bytes, (uint)1785712051);
                     Test.Field8 = new LobbyCharacterUnknown3();
-                    Test.Field8.CacheIdentifier = 807819347;
+                    Test.Field8.CacheIdentifier = 662740452;
 
                     Entry.Field5.Field7.Add((long)46, Test);
                 }
@@ -145,11 +141,12 @@ namespace CharacterServer
             From.SendSerialized(Rp);
         }
 
-        private Byte[] StringToUTF8ByteArray(String pXmlString)
+        static public byte[] StringToUTF8ByteArray(string data)
         {
-            UTF8Encoding encoding = new UTF8Encoding();
-            Byte[] byteArray = encoding.GetBytes(pXmlString);
-            return byteArray;
+            List<byte> bytes = new List<byte>();
+            foreach (string Str in data.Split(' '))
+                bytes.Add(byte.Parse(Str));
+            return bytes.ToArray();
         } 
 
     }

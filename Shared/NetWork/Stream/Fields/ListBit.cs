@@ -47,6 +47,7 @@ namespace Shared
         public override bool Serialize(ref PacketOutStream Data)
         {
             Log.Success("WriteList", "Serialize : " + val);
+
             if (val is List<ISerializablePacket>)
             {
                 List<ISerializablePacket> Packets = val as List<ISerializablePacket>;
@@ -106,7 +107,6 @@ namespace Shared
             else if (val is List<string>)
             {
                 List<string> Strs = val as List<string>;
-                Log.Success("ListBit", "Writing String : Count=" + Strs.Count);
 
                 /*if (Strs.Count <= 0)
                     return false;*/
@@ -117,6 +117,24 @@ namespace Shared
 
                 for (int i = 0; i < Strs.Count; ++i)
                     PacketProcessor.WriteField(ref Data, EPacketFieldType.ByteArray, (string)Strs[i]);
+
+                return true;
+            }
+            else if (val is List<ISerializableField>)
+            {
+                List<ISerializableField> Strs = val as List<ISerializableField>;
+
+                if (Strs.Count <= 0)
+                    return false;
+
+                ISerializableField Field = Strs[0];
+
+                long ListData;
+                PacketOutStream.Encode2Parameters(out ListData, (int)Field.PacketType, Strs.Count);
+                Data.WriteEncoded7Bit(ListData);
+
+                for (int i = 0; i < Strs.Count; ++i)
+                    PacketProcessor.WriteField(ref Data, Strs[i].PacketType, Strs[i].val);
 
                 return true;
             }
@@ -148,6 +166,14 @@ namespace Shared
                 foreach (ISerializableField Value in (List<ISerializableField>)val)
                     Bools.Add((bool)Value.val);
                 Info.SetValue(Packet, Bools);
+            }
+            else if (Field.Equals(typeof(List<float>)))
+            {
+                List<float> floats = new List<float>();
+                foreach (ISerializableField Value in (List<ISerializableField>)val)
+                    floats.Add((float)Value.val);
+
+                Info.SetValue(Packet, floats);
             }
         }
     }
