@@ -23,7 +23,19 @@ namespace CharacterServer
 
         public override void OnRead(RiftClient From)
         {
-            // Client requested delete character with guid
+            Character[] Chars = CharacterMgr.Instance.GetCharacters(From.Acct.Id, From.Realm.RealmId);
+
+            long pGUID = ByteOperations.ByteSwap.Swap(GUID);
+
+            foreach (Character charac in Chars)
+                if (charac.Id == pGUID)
+                    CharacterMgr.Instance.RemoveObject(charac);
+
+            ISerializablePacket DeleteResult = new ISerializablePacket();
+            DeleteResult.Opcode = (long)Opcodes.LobbyCharacterDeleteOk;
+            DeleteResult.AddField(0, EPacketFieldType.Unsigned7BitEncoded, (long)0); // Result, 15 Error must wait logout, 0 OK
+
+            From.SendSerialized(DeleteResult);
         }
     }
 }

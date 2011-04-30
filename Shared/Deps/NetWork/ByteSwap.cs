@@ -48,6 +48,17 @@ namespace ByteOperations
             return BitConverter.ToSingle(tmpOut, 0);
         }
 
+        public static long Swap(long input)
+        {
+            byte[] tmpIn = BitConverter.GetBytes(input);
+            byte[] tmpOut = new byte[BitConverter.GetBytes(input).Length];
+
+            for (int i = 0; i < BitConverter.GetBytes(input).Length; i++)
+                tmpOut[i] = tmpIn[(BitConverter.GetBytes(input).Length - 1) - i];
+
+            return BitConverter.ToInt64(tmpOut, 0);
+        }
+
         public static ulong Swap(ulong input)
         {
             byte[] tmpIn = BitConverter.GetBytes(input);
