@@ -81,9 +81,6 @@ namespace CharacterServer
                 PacketOutStream Stream = new PacketOutStream();
                 PacketProcessor.WritePacket(ref Stream, Custom, false, true, true);
                 CustomData = Stream.ToArray();
-                Log.Dump("Stream", Stream.ToArray(), 0, (int)Stream.Length);
-
-                Console.ReadKey();
 
                 string Data = UTF8ByteArrayToString(CustomData);
                 
