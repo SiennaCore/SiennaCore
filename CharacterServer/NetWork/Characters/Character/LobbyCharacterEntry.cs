@@ -31,7 +31,7 @@ namespace CharacterServer
         public long Field4 = 3;
 
         [PacketBit(5)]
-        public LobbyCharacterUnknown1 Field5;
+        public LobbyCharacterInfoBase Field5;
 
         [BoolBit(6)]
         public bool Field6 = true;

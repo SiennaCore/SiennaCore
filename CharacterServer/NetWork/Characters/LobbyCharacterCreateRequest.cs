@@ -40,13 +40,13 @@ namespace CharacterServer
         public long Field2=0;
 
         [Raw4Bit(4)]
-        public uint Field4;
+        public uint HeadID;
 
         [Raw4Bit(5)]
-        public uint Field5;
+        public uint HairID;
 
-        [Raw4Bit(6)]
-        public uint Field6;
+        [BoolBit(6)]
+        public bool Field6;
 
         [Raw4Bit(10)]
         public uint Field10;
@@ -91,6 +91,8 @@ namespace CharacterServer
                 Char.Race = Field1;
                 Char.Sex = Field2;
                 Char.Class = Field13;
+                Char.HairModelID = HairID;
+                Char.HeadModelID = HeadID;
                 Char.Level = 1;
                 Char.Data = Data;
 

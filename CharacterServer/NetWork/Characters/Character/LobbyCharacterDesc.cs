@@ -12,10 +12,10 @@ using Shared.NetWork;
 
 namespace CharacterServer
 {
-    [ISerializableAttribute((long)Opcodes.LobbyCharacterUnknown3)]
-    public class LobbyCharacterUnknown3 : ISerializablePacket
+    [ISerializableAttribute((long)Opcodes.LobbyCharacterInfoDesc)]
+    public class LobbyCharacterDesc : ISerializablePacket
     {
-        [Raw4Bit(0)]
-        public uint CacheIdentifier;
+        [PacketBit(8)]
+        public LobbyCharacterInfoCache Field8;
     }
 }

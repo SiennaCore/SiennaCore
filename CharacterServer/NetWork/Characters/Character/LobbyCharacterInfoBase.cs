@@ -12,14 +12,14 @@ using Shared.NetWork;
 
 namespace CharacterServer
 {
-    [ISerializableAttribute((long)Opcodes.LobbyCharacterUnknown1)]
-    public class LobbyCharacterUnknown1 : ISerializablePacket
+    [ISerializableAttribute((long)Opcodes.LobbyCharacterInfoBase)]
+    public class LobbyCharacterInfoBase : ISerializablePacket
     {
         //[Raw4Bit(0)]
         //public uint Field0 = 0;
 
         [Unsigned7Bit(1)]
-        public long Field1 = 3;
+        public long Race = 1;
         // Race
         // 1 = Mathosien
         // 2 = Haut Elf
@@ -29,7 +29,7 @@ namespace CharacterServer
         //public bool Male = true;
 
         [Raw4Bit(4)]
-        public uint Field4 = 290412351;
+        public uint MapID = 290412351;
         // MapID
 
         [Raw4Bit(5)]
@@ -37,7 +37,7 @@ namespace CharacterServer
         // Change Corp
 
         [Raw4Bit(6)]
-        public uint Field6 = 1798083889;
+        public uint Field6 = 3;
         // Change Corp
         // 33 = Mathosien Homme
         // 1231885383 = HautElf Homme
@@ -98,7 +98,7 @@ namespace CharacterServer
         public List<ISerializablePacket> Field25 = new List<ISerializablePacket>();
 
         [Unsigned7Bit(26)]
-        public long Field26 = 80000;
+        public long Field26 = 60006;
         // Mathosien = (Homme 80008) && (Femme 60006)
         // Haut Elf =   (Homme 80000) && (Femme 80008)
         // Nain =       80000

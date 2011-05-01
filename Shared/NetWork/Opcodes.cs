@@ -27,9 +27,9 @@ public enum Opcodes
     LobbyCharacterDeleteResponse = 0x01E9,
 
     LobbyCharacterEntry = 0x01D7,
-    LobbyCharacterUnknown1 = 0x01DD,
-    LobbyCharacterUnknown2 = 0x0DBF,
-    LobbyCharacterUnknown3 = 0x0E10,
+    LobbyCharacterInfoBase = 0x01DD,
+    LobbyCharacterInfoDesc = 0x0DBF,
+    LobbyCharacterInfoCache = 0x0E10,
     LobbyCharacterCustom = 0x00DE,
 
     LobbyCharacterCreationCacheRequest = 0x01C2,

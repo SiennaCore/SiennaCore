@@ -78,9 +78,9 @@
     <Compile Include="Console\CreateRealm.cs" />
     <Compile Include="NetWork\Authentification\HandshakeVersion.cs" />
     <Compile Include="NetWork\Characters\Character\LobbyCharacterEntry.cs" />
-    <Compile Include="NetWork\Characters\Character\LobbyCharacterUnknown1.cs" />
-    <Compile Include="NetWork\Characters\Character\LobbyCharacterUnknown2.cs" />
-    <Compile Include="NetWork\Characters\Character\LobbyCharacterUnknown3.cs" />
+    <Compile Include="NetWork\Characters\Character\LobbyCharacterInfoBase.cs" />
+    <Compile Include="NetWork\Characters\Character\LobbyCharacterDesc.cs" />
+    <Compile Include="NetWork\Characters\Character\LobbyCharacterInfoCache.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterDeleteRequest.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterCreateRequest.cs" />
     <Compile Include="NetWork\Characters\LobbyCharacterCreationCacheRequest.cs" />

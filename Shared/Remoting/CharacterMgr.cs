@@ -104,6 +104,18 @@ namespace Shared
         {
             return CharacterDB.SelectObjects<Character>("Name='" + CharacterDB.Escape(Name) + "'").ToArray();
         }
+        public Model_Info[] GetModelsForRaceSex(long Race, long Sex)
+        {
+            return CharacterDB.SelectObjects<Model_Info>("Race=" + Race + " AND Sex=" + Sex + "").ToArray();
+        }
+        public Model_Info GetModelForCacheID(long CacheID)
+        {
+            return CharacterDB.SelectObject<Model_Info>("CacheID=" + CacheID);
+        }
+        public RaceSexMask_Info GetMaskForRaceSex(long Race, long Sex)
+        {
+            return CharacterDB.SelectObject<RaceSexMask_Info>("Race=" + Race + " AND Sex=" + Sex + "");
+        }
 
         public void AddObject(DataObject Char)
         {
