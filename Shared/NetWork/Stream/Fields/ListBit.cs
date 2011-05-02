@@ -171,7 +171,7 @@ namespace Shared
             {
                 List<float> floats = new List<float>();
                 foreach (ISerializableField Value in (List<ISerializableField>)val)
-                    floats.Add((float)Value.val);
+                    floats.Add(BitConverter.ToSingle((byte[])Value.val,0));
 
                 Info.SetValue(Packet, floats);
             }

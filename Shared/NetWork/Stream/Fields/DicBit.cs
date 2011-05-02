@@ -31,9 +31,12 @@ namespace Shared
             int Count;
             PacketInStream.Decode3Parameters(DicData, out KeyType, out ValueType, out Count);
             Dictionary<ISerializableField, ISerializableField> Dic = new Dictionary<ISerializableField, ISerializableField>();
+            Log.Debug("DicBit", "KeyType="+KeyType+",ValueType="+ValueType+",Count="+Count);
             for (int i = 0; i < Count; ++i)
             {
-                ISerializableField Key = PacketProcessor.ReadField(ref Data,i,ValueType);
+                Log.Debug("DicBit", "Deserialise : Index=" + i + ",Type=" + KeyType);
+
+                ISerializableField Key = PacketProcessor.ReadField(ref Data,i,KeyType);
                 ISerializableField Value = PacketProcessor.ReadField(ref Data, i, ValueType);
 
                 if (Key != null && Value != null)

@@ -97,6 +97,11 @@ namespace Shared
 
         public static ISerializableField GetFieldType(EPacketFieldType Type)
         {
+            if (Type == null)
+                return null;
+
+            Log.Info("GetFieldType", "Type = " + Type);
+
             ISerializableField Field;
             FieldsTypes.TryGetValue(Type, out Field);
             if (Field != null)
@@ -134,7 +139,19 @@ namespace Shared
 
         public static ISerializablePacket ReadPacket(ref PacketInStream Stream)
         {
-            return (ISerializablePacket)ReadField(ref Stream, 0, (int)EPacketFieldType.Packet).val;
+            try
+            {
+                ISerializableField Field = ReadField(ref Stream, 0, (int)EPacketFieldType.Packet);
+                if (Field == null)
+                    return null;
+
+                return Field.val as ISerializablePacket;
+            }
+            catch (Exception e)
+            {
+                Log.Error("ReadPacket", e.ToString());
+                return null;
+            }
         }
 
         public static ISerializableField ReadField(ref PacketInStream Stream)
@@ -156,6 +173,12 @@ namespace Shared
         {
             if (FieldType == (int)EPacketFieldType.Terminator)
                 return null;
+
+            if (!Enum.IsDefined(typeof(EPacketFieldType), FieldType))
+            {
+                Log.Error("Field", "Not Defined : " + FieldType);
+                return null;
+            }
 
             ISerializableField Field = GetFieldType((EPacketFieldType)FieldType);
             if (Field == null)
