@@ -92,11 +92,24 @@ namespace CharacterServer
                 Char.Sex = Field2;
                 Char.Class = Field13;
                 Char.HairModelID = HairID;
-                Char.HeadModelID = HeadID;
                 Char.Level = 1;
                 Char.Data = Data;
 
                 CharacterMgr.Instance.AddObject(Char);
+                Character CharEntry = CharacterMgr.Instance.GetCharacter(CharacterMgr.CharacterDB.Escape(Name));
+
+                Character_StartItems[] StartItems = CharacterMgr.Instance.GetStartItems(Field1, Field2, Field13);
+
+                foreach (Character_StartItems Item in StartItems)
+                {
+                    Character_Item It = new Character_Item();
+                    It.ItemID = Item.ItemID;
+                    It.Bag = 0;
+                    It.Equiped = 1;
+                    It.GUID = CharEntry.Id;
+
+                    CharacterMgr.Instance.AddObject(It);
+                }
             }
             From.SendSerialized(Rp);
         }

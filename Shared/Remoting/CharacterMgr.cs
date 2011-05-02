@@ -104,13 +104,35 @@ namespace Shared
         {
             return CharacterDB.SelectObjects<Character>("Name='" + CharacterDB.Escape(Name) + "'").ToArray();
         }
-        public Model_Info[] GetModelsForRaceSex(long Race, long Sex)
+        public Model_Info GetItemModel(long ModelID, long Race, long Sex)
         {
-            return CharacterDB.SelectObjects<Model_Info>("Race=" + Race + " AND Sex=" + Sex + "").ToArray();
+            return CharacterDB.SelectObject<Model_Info>("ModelID=" + ModelID + " AND Race=" + Race + " AND Sex=" + Sex + "");
+        }
+        public Items_Template GetItemTemplate(long ItemID)
+        {
+            return CharacterDB.SelectObject<Items_Template>("Id=" + ItemID);
         }
         public Model_Info GetModelForCacheID(long CacheID)
         {
             return CharacterDB.SelectObject<Model_Info>("CacheID=" + CacheID);
+        }
+        public Character_StartItems[] GetStartItems(long Race, long Sex, long Class)
+        {
+            return CharacterDB.SelectObjects<Character_StartItems>("(Race=" + Race + " OR Race= -1) AND (Sex=" + Sex + " OR Sex= -1) AND (Class=" + Class + " OR Class= -1)").ToArray();
+        }
+        public Character_Item[] GetPlayerItems(long GUID)
+        {
+            return CharacterDB.SelectObjects<Character_Item>("GUID=" + GUID).ToArray();
+        }
+        public Items_Template[] GetEquipedItems(long GUID)
+        {
+            Character_Item[] Items = CharacterDB.SelectObjects<Character_Item>("GUID=" + GUID + " AND Equiped=1").ToArray();
+            Items_Template[] Ret = new Items_Template[Items.Length];
+
+            for (int i = 0; i < Items.Length; i++)
+                Ret[i] = GetItemTemplate(Items[i].ItemID);
+
+            return Ret;
         }
         public RaceSexMask_Info GetMaskForRaceSex(long Race, long Sex)
         {

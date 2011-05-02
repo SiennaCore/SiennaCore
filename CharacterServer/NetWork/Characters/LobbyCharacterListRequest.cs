@@ -44,17 +44,23 @@ namespace CharacterServer
                 PacketInStream CustomStream = new PacketInStream(CustomData,CustomData.Length);
                 Entry.Field5.Custom = PacketProcessor.ReadPacket(ref CustomStream) as LobbyCharacterCustom;
 
-                foreach(Model_Info model in CharacterMgr.Instance.GetModelsForRaceSex(Char.Race, Char.Sex))
+                Items_Template[] Templates = CharacterMgr.Instance.GetEquipedItems(Char.Id);
+
+                foreach (Items_Template Template in Templates)
                 {
-                    // Don't add hair now
-                    if (model.SlotID == 46)
-                        continue;
+                    Model_Info model = CharacterMgr.Instance.GetItemModel(Template.ModelEntry, Char.Race, Char.Sex);
 
                     LobbyCharacterDesc Desc = new LobbyCharacterDesc();
 
                     Desc.AddField(4, EPacketFieldType.Raw4Bytes, (uint)model.Field_4);
 
-                    if(model.SlotID == 10)
+                    if (model.Field_5 != 0)
+                        Desc.AddField(5, EPacketFieldType.Raw4Bytes, model.Field_5);
+
+                    if (model.Field_6 != 0)
+                        Desc.AddField(6, EPacketFieldType.Raw4Bytes, model.Field_6);
+
+                    if (Template.Slot == 10)
                         Desc.AddField(7, EPacketFieldType.Unsigned7BitEncoded, (long)model.Field_7);
                     else
                         Desc.AddField(7, EPacketFieldType.Raw4Bytes, (uint)model.Field_7);
@@ -62,7 +68,7 @@ namespace CharacterServer
                     Desc.Field8 = new LobbyCharacterInfoCache();
                     Desc.Field8.CacheIdentifier = (uint)model.CacheID;
 
-                    Entry.Field5.Field7.Add((long)model.SlotID, Desc);
+                    Entry.Field5.Field7.Add((long)Template.Slot, Desc);
                 }
 
                 Model_Info HairEntry = CharacterMgr.Instance.GetModelForCacheID(Char.HairModelID);
@@ -79,22 +85,6 @@ namespace CharacterServer
 
                     Entry.Field5.Field7.Add((long)46, DescHair);
                 }
-
-                // Same head for race / sex pair
-                /*Model_Info HeadEntry = CharacterMgr.Instance.GetModelForCacheID(Char.HeadModelID);
-
-                if (HeadEntry != null)
-                {
-                    LobbyCharacterDesc DescHead = new LobbyCharacterDesc();
-
-                    DescHead.AddField(4, EPacketFieldType.Raw4Bytes, (uint)HeadEntry.Field_4);
-                    DescHead.AddField(7, EPacketFieldType.Unsigned7BitEncoded, (long)HeadEntry.Field_7);
-
-                    DescHead.Field8 = new LobbyCharacterInfoCache();
-                    DescHead.Field8.CacheIdentifier = (uint)HeadEntry.CacheID;
-
-                    Entry.Field5.Field7.Add((long)10, DescHead);
-                }*/
 
                 Rp.Characters.Add(Entry);
             }

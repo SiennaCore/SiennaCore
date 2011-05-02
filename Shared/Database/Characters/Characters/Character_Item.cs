@@ -9,9 +9,15 @@ using Shared.Database;
 [Serializable]
 public class Character_Item : DataObject
 {
-    [DataElement()]
-    public int Id;
+    [DataElement]
+    public long GUID;
 
-    [DataElement()]
+    [DataElement]
     public long ItemID;
+
+    [DataElement]
+    public long Bag;
+
+    [DataElement]
+    public long Equiped;
 }

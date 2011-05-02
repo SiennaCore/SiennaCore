@@ -10,19 +10,22 @@ using Shared.Database;
 public class Model_Info : DataObject
 {
     [DataElement]
+    public long ModelID;
+
+    [DataElement]
     public long Race;
 
     [DataElement]
     public long Sex;
 
     [DataElement]
-    public long SlotID;
-
-    [DataElement]
     public long Field_4;
 
     [DataElement]
     public long Field_5;
+
+    [DataElement]
+    public long Field_6;
 
     [DataElement]
     public long Field_7;

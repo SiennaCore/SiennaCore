@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Database\Accounts\Account.cs" />
     <Compile Include="Database\Accounts\Account_Banned.cs" />
+    <Compile Include="Database\Characters\Characters\Character_StartItems.cs" />
     <Compile Include="Database\Characters\Info\Cache_Info.cs" />
     <Compile Include="Database\Characters\Info\ItemCache_Info.cs" />
     <Compile Include="Database\Characters\Info\Map_Info.cs" />
@@ -213,6 +214,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\World\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\Characters\Items\Items_Template.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

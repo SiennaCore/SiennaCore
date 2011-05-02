@@ -25,9 +25,6 @@ namespace CharacterServer
         // 2 = Haut Elf
         // 3 = Nain
 
-        //[BoolBit(2)]
-        //public bool Male = true;
-
         [Raw4Bit(4)]
         public uint MapID = 290412351;
         // MapID

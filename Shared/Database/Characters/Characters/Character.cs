@@ -33,9 +33,6 @@ public class Character : DataObject
     [DataElement()]
     public long Sex;
 
-    [DataElement]
-    public long HeadModelID;
-
     [DataElement()]
     public long HairModelID;
     
