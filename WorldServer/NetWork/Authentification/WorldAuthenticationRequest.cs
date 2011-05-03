@@ -37,8 +37,8 @@ namespace WorldServer
 
             if (SessionTicket == 0)
                Acct = AccountMgr.Instance.GetAccount(Email.ToUpper());
-            else
-               Acct = AccountMgr.Instance.GetAccountBySessionTicket(SessionTicket);
+             else
+                Acct = AccountMgr.Instance.GetAccountBySessionTicket(SessionTicket);
 
              if (Acct == null)
              {
@@ -65,6 +65,20 @@ namespace WorldServer
             WorldCacheUpdated Updated = new WorldCacheUpdated();
             Updated.GUID = PlrInfo.Id;
             From.SendSerialized(Updated);
+
+            /////////////////////////////////////////////////////////////////////
+            // Send Inventory
+            /////////////////////////////////////////////////////////////////////
+
+            WorldEntityUpdate Inventory = new WorldEntityUpdate();
+            Inventory.BuildInventory(From, From.Char);
+            From.SendSerialized(Inventory);
+
+            WorldEntityUpdate Item = new WorldEntityUpdate();
+            Item.BuildItem(From, From.Char);
+            From.SendSerialized(Item);
+
+            //////////////////////////////////////////////////////////////////////
 
             /**** One of them seem to delete object ***/
 

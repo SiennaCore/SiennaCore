@@ -22,7 +22,7 @@ namespace Shared
         public List<uint> Field4 = new List<uint>() { 2147483648, 3212777419, 2147483648, 3182182386 }; // Unk
 
         [Raw4Bit(5)]
-        public uint Field5 = 1065772646;
+        public uint Field5 = 1065688760;
 
         // Zone Offset ?
         [ListBit(8)]

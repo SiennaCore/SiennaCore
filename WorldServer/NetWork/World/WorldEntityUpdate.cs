@@ -21,14 +21,8 @@ namespace WorldServer
         [ListBit(1)]
         public List<ISerializablePacket> Packets;
 
-        [Unsigned7Bit(4)]
-        public long Unk = 1001;
-
         [BoolBit(5)]
         public bool Fixed1 = true;
-
-        [BoolBit(7)]
-        public bool Fixed2 = true;
 
         protected ISerializablePacket GetFieldByOpcode(long Opcode)
         {
@@ -39,8 +33,101 @@ namespace WorldServer
             return null;
         }
 
-        public void Build(Character Char)
+        protected void SetItemInBagSlot(ref Dictionary<long, ISerializablePacket> IInvDic, long Slot, long ItemGUID)
         {
+            ISerializablePacket ItemInfo = new ISerializablePacket();
+            ItemInfo.Opcode = 0x012E;
+            ItemInfo.AddField(0, EPacketFieldType.Raw8Bytes, ItemGUID);
+
+            IInvDic.Add(Slot, ItemInfo); 
+        }
+
+        public void BuildInventory(RiftClient From, Character Char)
+        {
+            GUID = 45875261658940;
+
+            // Cache Ref
+            this.AddField(4, EPacketFieldType.Raw4Bytes, (int)935832306);
+            this.AddField(6, EPacketFieldType.Raw8Bytes, (long)Char.Id);
+
+            // Unk, Equiped ?
+            this.AddField(7, EPacketFieldType.Unsigned7BitEncoded, (long)3);
+
+            Packets = new List<ISerializablePacket>();
+
+            ISerializablePacket ItemDatas = new ISerializablePacket();
+            ItemDatas.Opcode = 0x026C;
+
+            // Unk Slot ?
+            ItemDatas.AddField(1, EPacketFieldType.Unsigned7BitEncoded, (long)2);
+
+            CharacterInfoCache Cache = new CharacterInfoCache();
+            Cache.CacheIdentifier = 935832306;
+
+            ISerializablePacket IInventory = new ISerializablePacket();
+            IInventory.Opcode = 0x0291;
+            Dictionary<long, ISerializablePacket> Inventory = new Dictionary<long, ISerializablePacket>();
+
+            SetItemInBagSlot(ref Inventory, 0, 45875261658941);
+
+            IInventory.AddField(1, EPacketFieldType.Dictionary, Inventory);
+            Packets.Add(IInventory);
+
+            ItemDatas.AddField(10, EPacketFieldType.Packet, Cache);
+
+            From.SendCache(7310, 2007607340);
+            From.SendCache(623, 935832306);
+
+            Packets.Add(ItemDatas);
+        }
+
+        public void BuildItem(RiftClient From, Character Char)
+        {
+            GUID = 45875261658941;
+
+            // Cache Ref
+            this.AddField(4, EPacketFieldType.Raw4Bytes, (int)456805300);
+            this.AddField(6, EPacketFieldType.Raw8Bytes, (long)Char.Id);
+
+            // Unk, Equiped ?
+            this.AddField(7, EPacketFieldType.Unsigned7BitEncoded, (long)3);
+
+            Packets = new List<ISerializablePacket>();
+
+            ISerializablePacket DataList = new ISerializablePacket();
+
+            ISerializablePacket NullPck = new ISerializablePacket();
+            NullPck.Opcode = 0x026D;
+
+            ISerializablePacket NullPck2 = new ISerializablePacket();
+            NullPck2.Opcode = 0x033A;
+
+            Packets.Add(NullPck);
+            Packets.Add(NullPck2);
+
+            ISerializablePacket ItemDatas = new ISerializablePacket();
+            ItemDatas.Opcode = 0x026C;
+
+            // Unk Slot ?
+            ItemDatas.AddField(1, EPacketFieldType.Unsigned7BitEncoded, (long)2);
+
+            CharacterInfoCache Cache = new CharacterInfoCache();
+            Cache.CacheIdentifier = 456805300;
+
+            ItemDatas.AddField(10, EPacketFieldType.Packet, Cache);
+
+            From.SendCache(7310, 506516265);
+            From.SendCache(623, 456805300);
+
+            Packets.Add(ItemDatas);
+        }
+
+        public void BuildChar(Character Char)
+        {
+            // NO_CACHE_REF
+            this.AddField(4, EPacketFieldType.Unsigned7BitEncoded, (long)1001);
+            this.AddField(7, EPacketFieldType.True, true);
+
             GUID = Char.Id;
 
             if(Packets == null)
@@ -124,7 +211,7 @@ namespace WorldServer
         // 0x294 = STATS_DEFINITION ?
         protected void PrepareStatsInfo(Character Char, ref ISerializablePacket pck)
         {
-            // CHAR_CLASS ?
+            // CHAR_CLASS, CRASH CLIENT ...
             //pck.AddField(2, EPacketFieldType.Unsigned7BitEncoded, (long)Char.Class);    
 
             Items_Template[] Templates = CharacterMgr.Instance.GetEquipedItems(Char.Id);

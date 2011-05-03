@@ -190,6 +190,7 @@ namespace Shared
 
                 byte[] Result = new byte[Ft.Length];
                 Ft.Read(Result, 0, (int)Result.Length);
+                Ft.Close();
                 return Result;
             }
             catch (Exception e)
@@ -212,6 +213,7 @@ namespace Shared
 
                 byte[] Result = new byte[Ft.Length];
                 Ft.Read(Result, 0, (int)Result.Length);
+                Ft.Close();
                 return Result;
             }
             catch (Exception e)

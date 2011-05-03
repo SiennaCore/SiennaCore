@@ -55,7 +55,7 @@ namespace WorldServer
             {
                 WorldChannelJoinned Channel = new WorldChannelJoinned();
                 Channel.ChannelName = "Niveau 1-9";
-                Channel.CharacterName = "Magetest";
+                Channel.CharacterName = From.Char.Name;
                 Channel.Field2 = 5;
                 From.SendSerialized(Channel);
             }
@@ -63,7 +63,7 @@ namespace WorldServer
             {
                 WorldChannelJoinned Channel = new WorldChannelJoinned();
                 Channel.ChannelName = "Mathosia";
-                Channel.CharacterName = "Magetest";
+                Channel.CharacterName = From.Char.Name;
                 Channel.Field2 = 2;
                 From.SendSerialized(Channel);
             }
@@ -82,7 +82,7 @@ namespace WorldServer
                 byte[] data = CharacterMgr.Instance.GetBuild(1);
                 PacketInStream ps = new PacketInStream(data, data.Length);
                 WorldEntityUpdate EntPck = (WorldEntityUpdate)PacketProcessor.ReadPacket(ref ps); //new WorldEntityUpdate();
-                EntPck.Build(From.Char);
+                EntPck.BuildChar(From.Char);
                 From.SendSerialized(EntPck);
             }
 
