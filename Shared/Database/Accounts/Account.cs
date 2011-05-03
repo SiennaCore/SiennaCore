@@ -22,10 +22,16 @@ public class Account : DataObject
     public string SessionKey;
 
     [DataElement]
+    public long SessionTicket;
+
+    [DataElement]
     public string Email;
 
     [DataElement]
     public int GmLevel;
+
+    [DataElement]
+    public long PendingCharacter;
 
     [Relation(AutoDelete = true, AutoLoad = true, LocalField = "Id", RemoteField = "Id")]
     public Account_banned[] Bans;

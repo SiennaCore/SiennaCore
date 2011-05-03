@@ -24,6 +24,11 @@ namespace Shared
             return AccountDB.SelectObject<Account>("SessionKey='" + AccountDB.Escape(SessionKey).ToUpper() + "'");
         }
 
+        public Account GetAccountBySessionTicket(long SessionTicket)
+        {
+            return AccountDB.SelectObject<Account>("SessionTicket=" + SessionTicket + "");
+        }
+
         public Account GetAccountByPassword(string Username, string Sha_Password)
         {
             return AccountDB.SelectObject<Account>("Username='" + AccountDB.Escape(Username).ToUpper() + "' AND Sha_Password='" + AccountDB.Escape(Sha_Password).ToUpper() + "'");
@@ -31,7 +36,7 @@ namespace Shared
 
         public Account GetAccount(string Username)
         {
-            return AccountDB.SelectObject<Account>("SessionKey='" + AccountDB.Escape(Username).ToUpper() + "'");
+            return AccountDB.SelectObject<Account>("Username='" + AccountDB.Escape(Username).ToUpper() + "'");
         }
 
         public Account GetAccount(int AccountID)

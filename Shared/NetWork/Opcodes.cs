@@ -28,9 +28,9 @@ public enum Opcodes
 
     LobbyCharacterEntry = 0x01D7,
     LobbyCharacterInfoBase = 0x01DD,
-    LobbyCharacterInfoDesc = 0x0DBF,
-    LobbyCharacterInfoCache = 0x0E10,
-    LobbyCharacterCustom = 0x00DE,
+    CharacterInfoDesc = 0x0DBF,
+    CharacterInfoCache = 0x0E10,
+    CharacterCustom = 0x00DE,
 
     LobbyCharacterCreationCacheRequest = 0x01C2,
     LobbyCharacterCreationCacheResponse = 0x01C3,
@@ -62,6 +62,9 @@ public enum Opcodes
     WorldAuthenticationRequest = 0x03E8,
     WorldAuthenticationResponse = 0x03E9,
     WorldCacheUpdated = 0x03EA,
+
+    // Friend List
+    WorldGUIDUpdateUnk = 0x02B2,
 
     WorldZoneInfo = 0x0080,
     WorldMapInfo = 0x1E17,

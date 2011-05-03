@@ -25,7 +25,7 @@ namespace CharacterServer
             {
                 LobbyCharacterEntry Entry = new LobbyCharacterEntry();
                 Entry.AccountId = Char.AccountId;
-                Entry.Email = "email@hotmail.com";
+                Entry.Email = From.Acct.Email;
                 Entry.CharacterId = Char.Id;
                 Entry.CharacterName = Char.Name;
 
@@ -40,9 +40,9 @@ namespace CharacterServer
 
                 Entry.Field5.Field6 = (uint)CharacterMgr.Instance.GetMaskForRaceSex(Char.Race, Char.Sex).Mask;
 
-                byte[] CustomData = StringToUTF8ByteArray(Char.Data);
+                byte[] CustomData = Shared.NetWork.Marshal.StringToUTF8ByteArray(Char.Data);
                 PacketInStream CustomStream = new PacketInStream(CustomData,CustomData.Length);
-                Entry.Field5.Custom = PacketProcessor.ReadPacket(ref CustomStream) as LobbyCharacterCustom;
+                Entry.Field5.Custom = PacketProcessor.ReadPacket(ref CustomStream) as CharacterCustom;
 
                 Items_Template[] Templates = CharacterMgr.Instance.GetEquipedItems(Char.Id);
 
@@ -50,7 +50,7 @@ namespace CharacterServer
                 {
                     Model_Info model = CharacterMgr.Instance.GetItemModel(Template.ModelEntry, Char.Race, Char.Sex);
 
-                    LobbyCharacterDesc Desc = new LobbyCharacterDesc();
+                    CharacterDesc Desc = new CharacterDesc();
 
                     Desc.AddField(4, EPacketFieldType.Raw4Bytes, (uint)model.Field_4);
 
@@ -65,7 +65,7 @@ namespace CharacterServer
                     else
                         Desc.AddField(7, EPacketFieldType.Raw4Bytes, (uint)model.Field_7);
 
-                    Desc.Field8 = new LobbyCharacterInfoCache();
+                    Desc.Field8 = new CharacterInfoCache();
                     Desc.Field8.CacheIdentifier = (uint)model.CacheID;
 
                     Entry.Field5.Field7.Add((long)Template.Slot, Desc);
@@ -75,12 +75,12 @@ namespace CharacterServer
 
                 if (HairEntry != null)
                 {
-                    LobbyCharacterDesc DescHair = new LobbyCharacterDesc();
+                    CharacterDesc DescHair = new CharacterDesc();
 
                     DescHair.AddField(4, EPacketFieldType.Raw4Bytes, (uint)HairEntry.Field_4);
                     DescHair.AddField(7, EPacketFieldType.Raw4Bytes, (uint)HairEntry.Field_7);
 
-                    DescHair.Field8 = new LobbyCharacterInfoCache();
+                    DescHair.Field8 = new CharacterInfoCache();
                     DescHair.Field8.CacheIdentifier = (uint)HairEntry.CacheID;
 
                     Entry.Field5.Field7.Add((long)46, DescHair);
@@ -92,13 +92,7 @@ namespace CharacterServer
             From.SendSerialized(Rp);
         }
 
-        static public byte[] StringToUTF8ByteArray(string data)
-        {
-            List<byte> bytes = new List<byte>();
-            foreach (string Str in data.Split(' '))
-                bytes.Add(byte.Parse(Str));
-            return bytes.ToArray();
-        } 
+        
 
     }
 }

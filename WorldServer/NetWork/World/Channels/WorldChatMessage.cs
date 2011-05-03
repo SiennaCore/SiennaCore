@@ -36,7 +36,7 @@ namespace WorldServer
 
                 WorldServerPositionUpdate WPos = new WorldServerPositionUpdate();
 
-                WPos.GUID = 123456;
+                WPos.GUID = From.Char.Id;
 
                 WPos.Position = new List<float>();
                 WPos.Position.Add(float.Parse(pos[0]));

@@ -12,7 +12,7 @@ namespace Shared
         public string MapName;
 
         [Unsigned7Bit(2)]
-        public long MapId = 177;
+        public long MapId = 676;
 
         [ListBit(3)]
         public List<float> Position = new List<float>() { 1113.03967f, 920.1114f, 1444.58533f }; // X,Y,Z

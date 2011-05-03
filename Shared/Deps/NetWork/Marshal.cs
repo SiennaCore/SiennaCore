@@ -20,6 +20,14 @@ namespace Shared.NetWork
             return UTF8Encoding.UTF8.GetString(cstyle);
 		}
 
+        public static byte[] StringToUTF8ByteArray(string data)
+        {
+            List<byte> bytes = new List<byte>();
+            foreach (string Str in data.Split(' '))
+                bytes.Add(byte.Parse(Str));
+            return bytes.ToArray();
+        } 
+
 		public static int ConvertToInt32(byte[] val)
 		{
 			return ConvertToInt32(val, 0);

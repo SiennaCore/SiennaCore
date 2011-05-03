@@ -23,31 +23,62 @@ namespace WorldServer
         [ArrayBit(0)]
         public string Email;
 
-        [Unsigned7Bit(1)]
-        public long CharacterId=123456;
+        [Raw8Bit(1)]
+        public long SessionTicket;
 
         public override void OnRead(RiftClient From)
         {
-            Log.Success("Authentification", "Email = " + Email);
+            Log.Success("Authentification", "Email = " + Email + " SessionTicket = " + SessionTicket);
+
+            // TMP, Client must ALLWAYS provide SessionTicket, not sended because an invalid certificate probably
+            Character PlrInfo = null;
+ 
+            Account Acct = null;
+
+            if (SessionTicket == 0)
+               Acct = AccountMgr.Instance.GetAccount(Email.ToUpper());
+            else
+               Acct = AccountMgr.Instance.GetAccountBySessionTicket(SessionTicket);
+
+             if (Acct == null)
+             {
+                 Log.Error("Authentification", "Invalid WORLD_AUTH_REQUEST");
+                 From.Disconnect();
+                 return;
+             }
+
+            PlrInfo = CharacterMgr.Instance.GetCharacter((int)Acct.PendingCharacter);
+
+            if (PlrInfo == null)
+            {
+                Log.Error("Authentification", "Invalid WORLD_AUTH_REQUEST");
+                From.Disconnect();
+                return;
+            }
+
+            From.Char = PlrInfo;
 
             WorldAuthenticationResponse Rp = new WorldAuthenticationResponse();
             Rp.AddField(0, EPacketFieldType.True, (bool)true);
             From.SendSerialized(Rp);
 
             WorldCacheUpdated Updated = new WorldCacheUpdated();
-            Updated.GUID = CharacterId;
+            Updated.GUID = PlrInfo.Id;
             From.SendSerialized(Updated);
 
             /**** One of them seem to delete object ***/
 
             ISerializablePacket Packet1 = new ISerializablePacket();
             Packet1.Opcode = 0x03F6;
-            Packet1.AddField(0, EPacketFieldType.Raw4Bytes, new byte[4] { 0x00, 0x0C, 0xE8, 0x40 });
+            Packet1.AddField(0, EPacketFieldType.Raw4Bytes, new byte[4] { 0x20, 0xB1, 0x59, 0x41 });
             Packet1.AddField(1, EPacketFieldType.ByteArray, new byte[] { 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
                                                                              00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
                                                                              00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 });
 
-            Packet1.AddField(2, EPacketFieldType.Raw8Bytes, new byte[8] { 0xCB, 0x34, 0x3D, 0x94, 0x23, 0x04, 0xCC, 0x01 });
+            byte[] UnkGuid = new byte[8] { 0xCB, 0x34, 0x3D, 0x94, 0x23, 0x04, 0xCC, 0x01 };
+            //Array.Reverse(UnkGuid);
+
+            Packet1.AddField(2, EPacketFieldType.Raw8Bytes, UnkGuid);
             From.SendSerialized(Packet1);
 
             ISerializablePacket Packet2 = new ISerializablePacket();

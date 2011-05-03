@@ -54,7 +54,12 @@ namespace CharacterServer
             else
             {
                 HandshakeAuthenticationResponse Rp = new HandshakeAuthenticationResponse();
-                Rp.Success = new byte[] { 0x5D, 0x46, 0x7C, 0x07, 0x12, 0xC1, 0xA5, 0x30 };
+                Rp.SessionTicket = (long)BitConverter.ToUInt64(Guid.NewGuid().ToByteArray(), 0);
+
+                From.Acct.SessionTicket = Rp.SessionTicket;
+                From.Acct.Dirty = true;
+                AccountMgr.AccountDB.SaveObject(From.Acct);
+
                 From.SendSerialized(Rp);
             }
         }

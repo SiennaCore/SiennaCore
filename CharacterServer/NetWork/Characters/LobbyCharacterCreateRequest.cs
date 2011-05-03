@@ -19,13 +19,6 @@ namespace CharacterServer
     }
 
     [Serializable]
-    [ISerializableAttribute((long)Opcodes.LobbyCharacterCustom)]
-    public class LobbyCharacterCustom : ISerializablePacket
-    {
-
-    }
-
-    [Serializable]
     [ISerializableAttribute((long)Opcodes.LobbyCharacterCreateRequest)]
     public class LobbyCharacterCreateRequest : ISerializablePacket
     {
@@ -55,7 +48,7 @@ namespace CharacterServer
         public long Field13=1; // Classe
 
         [PacketBit(28)]
-        public LobbyCharacterCustom Custom;
+        public CharacterCustom Custom;
 
         public byte[] CustomData;
 

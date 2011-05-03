@@ -23,11 +23,23 @@ namespace CharacterServer
     public class LobbyCharacterSelectRequest : ISerializablePacket
     {
         [Unsigned7Bit(0)]
-        public long Field0;
+        public long GUID;
 
         public override void OnRead(RiftClient From)
         {
-            Log.Success("SelectRequest","Enter on World : " + From.GetIp + ",Field="+Field0);
+            Log.Success("SelectRequest","Enter on World : " + From.GetIp + ",GUID=" + GUID);
+
+            Character Char = CharacterMgr.Instance.GetCharacter((int)GUID);
+
+            if (Char.AccountId != From.Acct.Id)
+            {
+                From.Disconnect();
+                return;
+            }
+
+            From.Acct.PendingCharacter = GUID;
+            From.Acct.Dirty = true;
+            AccountMgr.AccountDB.SaveObject(From.Acct);
 
             LobbyCharacterSelectResponse Rp = new LobbyCharacterSelectResponse();
             if (From.Realm != null)

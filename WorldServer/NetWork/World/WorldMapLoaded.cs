@@ -12,7 +12,7 @@ namespace WorldServer
     {
         public override void OnRead(RiftClient From)
         {
-            long CharacterId=123456;
+            long CharacterId = From.Char.Id;
 
             {
                 WorldTemplateUpdate Update = new WorldTemplateUpdate();
@@ -79,18 +79,11 @@ namespace WorldServer
             }
 
             {
-                byte[] data = CharacterMgr.Instance.GetBuild(359021332923844977);
+                byte[] data = CharacterMgr.Instance.GetBuild(1);
                 PacketInStream ps = new PacketInStream(data, data.Length);
-                From.SendTCPWithSize(data);
-
-                /*ISerializablePacket pack = PacketProcessor.ReadPacket(ref ps);
-                pack.AddField(0, EPacketFieldType.Raw8Bytes, BitConverter.GetBytes(CharacterId));
-                From.SendSerialized(pack);
-                
-                /*WorldEntityUpdate EntPck = new WorldEntityUpdate();
-                EntPck.GUID = CharacterId;
-                EntPck.Build();
-                From.SendSerialized(EntPck);*/
+                WorldEntityUpdate EntPck = (WorldEntityUpdate)PacketProcessor.ReadPacket(ref ps); //new WorldEntityUpdate();
+                EntPck.Build(From.Char);
+                From.SendSerialized(EntPck);
             }
 
             WorldServerMOTD Motd = new WorldServerMOTD();

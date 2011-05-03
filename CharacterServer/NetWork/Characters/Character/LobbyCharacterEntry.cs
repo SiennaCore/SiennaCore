@@ -22,13 +22,13 @@ namespace CharacterServer
         public string Email;
 
         [Raw8Bit(2)]
-        public long CharacterId; // Character ID
+        public long CharacterId;
 
         [ArrayBit(3)]
         public string CharacterName;
 
         [Unsigned7Bit(4)]
-        public long Field4 = 3;
+        public long Field4 = 2;
 
         [PacketBit(5)]
         public LobbyCharacterInfoBase Field5;
@@ -37,6 +37,6 @@ namespace CharacterServer
         public bool Field6 = true;
 
         [Raw8Bit(7)]
-        public long Field7 = 129472084607000000;
+        public long Field7 = 129483019433300000;
     }
 }

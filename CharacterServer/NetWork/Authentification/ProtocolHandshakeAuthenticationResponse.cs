@@ -11,7 +11,7 @@ namespace CharacterServer
     public class HandshakeAuthenticationResponse : ISerializablePacket
     {
         [Raw8BitAttribute(0)]
-        public byte[] Success;
+        public long SessionTicket;
 
         public override void OnRead(RiftClient From)
         {

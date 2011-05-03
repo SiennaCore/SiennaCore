@@ -13,8 +13,8 @@ namespace CharacterServer
         [ListBit(1)]
         public List<ISerializablePacket> Characters = new List<ISerializablePacket>();
 
-        [Unsigned7Bit(2)]
-        public long Field2 = 2631;
+        /*[Unsigned7Bit(2)]
+        public long Field2 = 2631;*/
 
         [Unsigned7Bit(4)]
         public long Field4 = 100;

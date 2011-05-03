@@ -27,6 +27,7 @@ namespace Shared
             long Opcode = Data.ReadEncoded7Bit();
             PacketHandlerDefinition Handler = PacketProcessor.GetPacketHandler(Opcode);
             ISerializablePacket Packet = Activator.CreateInstance(Handler.GetClass()) as ISerializablePacket;
+            Packet.Opcode = Opcode;
 
             ISerializableField Field = null;
 

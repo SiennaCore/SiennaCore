@@ -29,6 +29,7 @@ namespace Shared
     public class RiftClient : BaseClient
     {
         public Account Acct = null;
+        public Character Char = null;
         public Realm Realm = null;
         public long ClientVersion;
 

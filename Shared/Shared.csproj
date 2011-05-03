@@ -160,6 +160,8 @@
     <Compile Include="NetWork\Handlers\Cache\WorldTextEntry.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NetWork\Handlers\Characters\CharacterCustom.cs" />
+    <Compile Include="NetWork\Handlers\Characters\CharacterDesc.cs" />
     <Compile Include="NetWork\Handlers\PingPong.cs">
       <SubType>Code</SubType>
     </Compile>

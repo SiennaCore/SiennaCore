@@ -82,7 +82,7 @@ namespace CharacterServer
         // 177 = Gardien Homme && Femme
 
         [PacketBit(21)]
-        public LobbyCharacterCustom Custom;
+        public CharacterCustom Custom;
 
         [ListBit(24)]
         public List<uint> Field24 = new List<uint>( new uint[] {1149965263, 1147537107, 1152778324} );
