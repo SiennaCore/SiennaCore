@@ -162,11 +162,11 @@ namespace Shared.NetWork
             return (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
-        private bool InitSocket(int port)
+        private bool InitSocket(IPAddress ip, int port)
         {
             try
             {
-                Listener = new TcpListener(port);
+                Listener = new TcpListener(ip, port);
                 Listener.Server.ReceiveBufferSize = BUF_SIZE;
                 Listener.Server.SendBufferSize = BUF_SIZE;
                 Listener.Server.NoDelay = false;
@@ -242,7 +242,7 @@ namespace Shared.NetWork
         {
             Log.Info("TCPManager", "Starting...");
 
-            if (!InitSocket(port))
+            if (!InitSocket(IPAddress.Parse("0.0.0.0"), port))
                 return false;
 
             try

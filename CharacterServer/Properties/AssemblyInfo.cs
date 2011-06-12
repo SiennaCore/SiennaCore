@@ -12,9 +12,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Sienna-LogonServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Sienna")]
 [assembly: AssemblyProduct("Sienna-LogonServer")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCopyright("Copyright © 2011 SiennaCore")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -97,9 +97,6 @@ namespace Shared
 
         public static ISerializableField GetFieldType(EPacketFieldType Type)
         {
-            if (Type == null)
-                return null;
-
             Log.Info("GetFieldType", "Type = " + Type);
 
             ISerializableField Field;

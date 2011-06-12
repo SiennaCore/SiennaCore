@@ -41,7 +41,7 @@ namespace CharacterServer
                     From.Acct = AccountMgr.Instance.GetAccountByPassword(Cert.Username, Cert.Hash);
 
             }
-            catch (Exception e)
+            catch
             {
                 From.Disconnect();
             }

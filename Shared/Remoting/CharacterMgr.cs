@@ -193,7 +193,7 @@ namespace Shared
                 Ft.Close();
                 return Result;
             }
-            catch (Exception e)
+            catch
             {
                 Log.Error("GetCache", "Invalid Cache Data : Type=" + CacheType + ",ID=" + ID);
                 return null;
@@ -216,7 +216,7 @@ namespace Shared
                 Ft.Close();
                 return Result;
             }
-            catch (Exception e)
+            catch
             {
                 Log.Error("GetCache", "Invalid Build Data : GUID=" + GUID);
                 return null;
