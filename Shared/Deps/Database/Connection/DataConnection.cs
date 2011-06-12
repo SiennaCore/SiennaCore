@@ -15,28 +15,28 @@ using MySql.Data.MySqlClient;
 namespace Shared.Database
 {
     // Appelé après une requète Mysql
-	// MySQL query
+    // MySQL query
     public delegate void QueryCallback(MySqlDataReader reader);
 
     // Toutes les fonctions de chargement et de requètes
-	// All loading functions and queries
+    // All loading functions and queries
     public class DataConnection
     {
         // Liste des connexions Mysql
-		// list Mysql connections
+        // list Mysql connections
         private readonly Queue<MySqlConnection> m_connectionPool = new Queue<MySqlConnection>();
 
         private string connString;
         private ConnectionType connType;
 
         // Construction d'une connexion , Type(Mysql,ODBC,etc..) + paramètre de la connexion
-		// Construction of a connection type (MySQL, ODBC, etc. ..) + parameter of the connection
+        // Construction of a connection type (MySQL, ODBC, etc. ..) + parameter of the connection
         public DataConnection(ConnectionType connType, string connString)
         {
             this.connType = connType;
 
             // Options de connexion pour Mysql
-			// Connection options for Mysql
+            // Connection options for Mysql
             if (!connString.Contains("Treat Tiny As Boolean"))
             {
                 connString += ";Treat Tiny As Boolean=False";
@@ -46,21 +46,21 @@ namespace Shared.Database
         }
 
         // Check si c'est une connexion Mysql
-		// Check Mysql connection
+        // Check Mysql connection
         public bool IsSQLConnection
         {
             get { return connType == ConnectionType.DATABASE_MYSQL; }
         }
 
         // Renvoi le type de la connexion
-		// Returns the connection type
+        // Returns the connection type
         public ConnectionType ConnectionType
         {
             get { return connType; }
         }
 
         // Supprimes les caractères non autorisé
-		// Replace unauthorized characters
+        // Replace unauthorized characters
         public string Escape(string s)
         {
             if (!IsSQLConnection)
@@ -78,7 +78,7 @@ namespace Shared.Database
         }
 
         // Renvoi une connexion mysql du pool
-		// Reference mysql connection pool
+        // Reference mysql connection pool
         private MySqlConnection GetMySqlConnection(out bool isNewConnection)
         {
             // Get connection from pool
@@ -114,7 +114,7 @@ namespace Shared.Database
 
 
         // Supprime la connexion Mysql du pool
-		// Closes Mysql connection
+        // Closes Mysql connection
         private void ReleaseConnection(MySqlConnection conn)
         {
             lock (m_connectionPool)
@@ -124,7 +124,7 @@ namespace Shared.Database
         }
 
         // Exécute une requète non bloquante (insert,delete,update)
-		// Performs a nonblocking request (insert, delete, update)
+        // Performs a nonblocking request (insert, delete, update)
         public int ExecuteNonQuery(string sqlcommand)
         {
             if (connType == ConnectionType.DATABASE_MYSQL)
@@ -174,7 +174,7 @@ namespace Shared.Database
         }
 
         // Gère les exeptions levé par la DB
-		// Manages exeptions lifted by DB
+        // Manages exeptions lifted by DB
         private static bool HandleException(Exception e)
         {
             bool ret = false;
@@ -216,7 +216,7 @@ namespace Shared.Database
         }
 
         // Exécute un Select (bloquand) et retourn le DataSet correspondant
-		// Execute a Select (bloquand) and returns the DataSet corresponding
+        // Execute a Select (bloquand) and returns the DataSet corresponding
         public void ExecuteSelect(string sqlcommand, QueryCallback callback, IsolationLevel isolation)
         {
             if (connType == ConnectionType.DATABASE_MYSQL)
@@ -327,7 +327,7 @@ namespace Shared.Database
         }
 
         // Vérifi ou créer la table a partir d'une DataTable
-		// Verification or create the table from a DataTable
+        // Verification or create the table from a DataTable
         public void CheckOrCreateTable(System.Data.DataTable table)
         {
             List<string> alterRemoveColumnDefs = new List<string>();
@@ -463,7 +463,7 @@ namespace Shared.Database
                     columnDefs.Add(column);
 
                     // Si une colonne n'existe pas dans la table , on l'alter
-					// If a column does not exist in the table, the alter
+                    // If a column does not exist in the table, the alter
                     if (currentTableColumns.Count > 0 && !currentTableColumns.Contains(table.Columns[i].ColumnName.ToLower()))
                     {
                         Log.Debug("DataConnecion", "Add alteration " + table.Columns[i].ColumnName.ToLower());
@@ -493,7 +493,7 @@ namespace Shared.Database
                     columndef += ")";
                 }
 
-                // Index Unique			
+                // Index Unique            
                 for (int i = 0; i < table.Columns.Count; i++)
                 {
                     if (table.Columns[i].Unique && !primaryKeys.ContainsKey(table.Columns[i].ColumnName))
@@ -633,7 +633,7 @@ namespace Shared.Database
         }
 
         // Sauvegarde tous les changements effectué dans le dataset
-		// Saves all changes made ​​in the dataset
+        // Saves all changes made ​​in the dataset
         public void SaveDataSet(string tableName, DataSet dataSet)
         {
             if (dataSet.HasChanges() == false)
@@ -742,7 +742,7 @@ namespace Shared.Database
         }
 
         // Affiche les erreur du dataset
-		// Displays the error in the dataset
+        // Displays the error in the dataset
         public void PrintDatasetErrors(DataSet dataset)
         {
             if (dataset.HasErrors)

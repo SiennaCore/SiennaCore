@@ -44,15 +44,15 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 namespace Shared.zlib
 {
-	
-	
-	public class ZStreamException:System.IO.IOException
-	{
-		public ZStreamException():base()
-		{
-		}
-		public ZStreamException(System.String s):base(s)
-		{
-		}
-	}
+    
+    
+    public class ZStreamException:System.IO.IOException
+    {
+        public ZStreamException():base()
+        {
+        }
+        public ZStreamException(System.String s):base(s)
+        {
+        }
+    }
 }

@@ -13,7 +13,7 @@ namespace Shared.NetWork
     public class BaseClient
     {
         // Appeler lorsque le client recoit des données
-		// Call when the client receives data
+        // Call when the client receives data
         private static readonly AsyncCallback ReceiveCallback = OnReceiveHandler;
         static public bool DisconnectOnNullByte = true;
 
@@ -341,99 +341,99 @@ namespace Shared.NetWork
             }
         }
 
-		#region TCP
+        #region TCP
 
         // Buffer en train d'être envoyé
-		// Buffer being sent
-		protected byte[] m_tcpSendBuffer;
+        // Buffer being sent
+        protected byte[] m_tcpSendBuffer;
 
         // Liste des packets a sender
-		// List of packets to sender
-		protected readonly Queue<byte[]> m_tcpQueue = new Queue<byte[]>(256);
+        // List of packets to sender
+        protected readonly Queue<byte[]> m_tcpQueue = new Queue<byte[]>(256);
 
         // True si un send est en cours
-		// True if a send os in progress
-		protected bool m_sendingTcp;
+        // True if a send os in progress
+        protected bool m_sendingTcp;
 
         // Envoi un packet
-		// Send packet
-		public void SendTCP(PacketOut packet)
-		{
-			//Fix the packet size
-			packet.WritePacketLength();
+        // Send packet
+        public void SendTCP(PacketOut packet)
+        {
+            //Fix the packet size
+            packet.WritePacketLength();
             packet = Crypt(packet);
 
-			//Get the packet buffer
-			byte[] buf = packet.ToArray(); //packet.WritePacketLength sets the Capacity
+            //Get the packet buffer
+            byte[] buf = packet.ToArray(); //packet.WritePacketLength sets the Capacity
 
-			//Send the buffer
-			SendTCP(buf);
-		}
+            //Send the buffer
+            SendTCP(buf);
+        }
 
-		public void SendTCP(byte[] buf)
-		{
-			if (m_tcpSendBuffer == null)
-				return;
+        public void SendTCP(byte[] buf)
+        {
+            if (m_tcpSendBuffer == null)
+                return;
 
-			//Check if client is connected
-			if (Socket.Connected)
-			{
-				try
-				{
-					lock (m_tcpQueue)
-					{
-						if (m_sendingTcp)
-						{
-							m_tcpQueue.Enqueue(buf);
-							return;
-						}
-						
-						m_sendingTcp = true;
-					}
+            //Check if client is connected
+            if (Socket.Connected)
+            {
+                try
+                {
+                    lock (m_tcpQueue)
+                    {
+                        if (m_sendingTcp)
+                        {
+                            m_tcpQueue.Enqueue(buf);
+                            return;
+                        }
+                        
+                        m_sendingTcp = true;
+                    }
 
                     if (m_crypts.Count <= 0)
                         Log.Tcp("SendTCP", buf, 0, buf.Length);
                     else
                         Log.Tcp("Crypted", buf, 0, buf.Length);
 
-					Buffer.BlockCopy(buf, 0, m_tcpSendBuffer, 0, buf.Length);
+                    Buffer.BlockCopy(buf, 0, m_tcpSendBuffer, 0, buf.Length);
 
-					int start = Environment.TickCount;
+                    int start = Environment.TickCount;
 
-					Socket.BeginSend(m_tcpSendBuffer, 0, buf.Length, SocketFlags.None, m_asyncTcpCallback, this);
+                    Socket.BeginSend(m_tcpSendBuffer, 0, buf.Length, SocketFlags.None, m_asyncTcpCallback, this);
 
-					int took = Environment.TickCount - start;
-					if (took > 100)
-						Log.Notice("BaseClient","SendTCP.BeginSend took "+ took);
-				}
-				catch (Exception e)
-				{
-					// assure that no exception is thrown into the upper layers and interrupt game loops!
+                    int took = Environment.TickCount - start;
+                    if (took > 100)
+                        Log.Notice("BaseClient","SendTCP.BeginSend took "+ took);
+                }
+                catch (Exception e)
+                {
+                    // assure that no exception is thrown into the upper layers and interrupt game loops!
                     Log.Error("BaseClient", "SendTCP : " + e.ToString());
-	    			_srvr.Disconnect(this);
-				}
-			}
-		}
+                    _srvr.Disconnect(this);
+                }
+            }
+        }
 
-		protected static readonly AsyncCallback m_asyncTcpCallback = AsyncTcpSendCallback;
+        protected static readonly AsyncCallback m_asyncTcpCallback = AsyncTcpSendCallback;
 
-		protected static void AsyncTcpSendCallback(IAsyncResult ar)
-		{
-			if (ar == null)
-			{
-				Log.Error("BaseClient","AsyncSendCallback: ar == null");
-				return;
-			}
+        protected static void AsyncTcpSendCallback(IAsyncResult ar)
+        {
+            if (ar == null)
+            {
+                Log.Error("BaseClient","AsyncSendCallback: ar == null");
+                return;
+            }
 
             BaseClient client = (BaseClient)ar.AsyncState;
 
-			try
-			{
+            try
+            {
                 Queue<byte[]> q = client.m_tcpQueue;
 
-				int sent = client.Socket.EndSend(ar);
+                int sent = client.Socket.EndSend(ar);
 
-				int count = 0;
+                int count = 0;
                 byte[] data = client.m_tcpSendBuffer;
 
                 if (data == null)
@@ -442,74 +442,74 @@ namespace Shared.NetWork
                     return;
                 }
 
-				lock (q)
-				{
-					if (q.Count > 0)
-					{
-						count = CombinePackets(data, q, data.Length, client);
-					}
-					if (count <= 0)
-					{
+                lock (q)
+                {
+                    if (q.Count > 0)
+                    {
+                        count = CombinePackets(data, q, data.Length, client);
+                    }
+                    if (count <= 0)
+                    {
                         client.m_sendingTcp = false;
-						return;
-					}
-				}
+                        return;
+                    }
+                }
 
-				int start = Environment.TickCount;
+                int start = Environment.TickCount;
 
                 if (client.m_crypts.Count <= 0)
                     Log.Tcp("SendTCPAs", data, 0, count);
                 else
                     Log.Tcp("CryptedAs", data, 0, count);
 
-				client.Socket.BeginSend(data, 0, count, SocketFlags.None, m_asyncTcpCallback, client);
+                client.Socket.BeginSend(data, 0, count, SocketFlags.None, m_asyncTcpCallback, client);
 
-				int took = Environment.TickCount - start;
+                int took = Environment.TickCount - start;
 
             }
-			catch (ObjectDisposedException)
-			{
+            catch (ObjectDisposedException)
+            {
                 client._srvr.Disconnect(client);
-			}
-			catch (SocketException)
-			{
+            }
+            catch (SocketException)
+            {
                 client._srvr.Disconnect(client);
-			}
-			catch (Exception)
-			{
+            }
+            catch (Exception)
+            {
                 client._srvr.Disconnect(client);
-			}
-		}
+            }
+        }
 
-		private static int CombinePackets(byte[] buf, Queue<byte[]> q, int length, BaseClient client)
-		{
-			int i = 0;
-			do
-			{
-				var pak = q.Peek();
-				if (i + pak.Length > buf.Length)
-				{
-					if (i == 0)
-					{
-						q.Dequeue();
-						continue;
-					}
-					break;
-				}
+        private static int CombinePackets(byte[] buf, Queue<byte[]> q, int length, BaseClient client)
+        {
+            int i = 0;
+            do
+            {
+                var pak = q.Peek();
+                if (i + pak.Length > buf.Length)
+                {
+                    if (i == 0)
+                    {
+                        q.Dequeue();
+                        continue;
+                    }
+                    break;
+                }
 
-				Buffer.BlockCopy(pak, 0, buf, i, pak.Length);
-				i += pak.Length;
+                Buffer.BlockCopy(pak, 0, buf, i, pak.Length);
+                i += pak.Length;
 
-				q.Dequeue();
-			} while (q.Count > 0);
+                q.Dequeue();
+            } while (q.Count > 0);
 
-			return i;
-		}
+            return i;
+        }
 
-		public void SendTCPRaw(PacketOut packet)
-		{
-			SendTCP((byte[]) packet.GetBuffer().Clone());
-		}
+        public void SendTCPRaw(PacketOut packet)
+        {
+            SendTCP((byte[]) packet.GetBuffer().Clone());
+        }
 
         #endregion
 

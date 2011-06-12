@@ -140,7 +140,7 @@ public class Realm : DataObject
                 Name = "Steampike";
                 RiftId = 2503;
                 return;
-			case 23:
+            case 23:
                 Name = "Icewatch";
                 RiftId = 2511;
                 return;

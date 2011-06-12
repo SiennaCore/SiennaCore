@@ -14,19 +14,19 @@ namespace Shared.Database
         }
         
         // Relation entre plusieurs champs de table différente
-		// Relationship between several different table fields
+        // Relationship between several different table fields
         public string LocalField { get; set; }
 
         // Supprime la relation
-		// Removes the relationship
+        // Removes the relationship
         public string RemoteField { get; set; }
 
         // Chargement automatique de la table
-		// Automatic loading table
+        // Automatic loading table
         public bool AutoLoad { get; set; }
 
         // Suppression de l'objet automatiquement lorsque l'objet est supprimé dans le core
-		// Deleting the object automatically when the object is removed from the core
+        // Deleting the object automatically when the object is removed from the core
         public bool AutoDelete { get; set; }
     }
 }

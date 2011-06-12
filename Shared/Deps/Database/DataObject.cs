@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Shared.Database
 {
     // Classe de base de tous les DataObject
-	// Base class of all DataObject
+    // Base class of all DataObject
     [Serializable]
     public abstract class DataObject : ICloneable
     {
@@ -12,7 +12,7 @@ namespace Shared.Database
         bool m_allowDelete = true;
 
         // Génération d'un objet unique pour chaque DataObject
-		// Generating a unique object for each DataObject
+        // Generating a unique object for each DataObject
         protected DataObject()
         {
             ObjectId = IDGenerator.GenerateID();
@@ -23,7 +23,7 @@ namespace Shared.Database
         }
 
         // Nom de la table dont l'objet provient
-		// Table name from which the object
+        // Table name from which the object
         [Browsable(false)]
         public virtual string TableName
         {
@@ -35,7 +35,7 @@ namespace Shared.Database
         }
 
         // Chargement en cache ou non de l'objet
-		// Loading cached or otherwise of the object
+        // Loading cached or otherwise of the object
         [Browsable(false)]
         public virtual bool UsesPreCaching
         {
@@ -47,12 +47,12 @@ namespace Shared.Database
         }
 
         // Objet Valide ?
-		// Valid object?
+        // Valid object?
         [Browsable(false)]
         public bool IsValid { get; set; }
 
         // Peut être ou non ajouté a la DB
-		// May or may not be added to the DB
+        // May or may not be added to the DB
         [Browsable(false)]
         public virtual bool AllowAdd
         {
@@ -61,7 +61,7 @@ namespace Shared.Database
         }
 
         // Peut être ou non supprimé de la DB
-		// May or may not be added to the DB
+        // May or may not be added to the DB
         [Browsable(false)]
         public virtual bool AllowDelete
         {
@@ -70,17 +70,17 @@ namespace Shared.Database
         }
 
         // Numéro de l'objet dans la table
-		// Item number in the table
+        // Item number in the table
         [Browsable(false)]
         public string ObjectId { get; set; }
 
         // Objet différent ke celui de la table ?
-		// Item number in the table
+        // Item number in the table
         [Browsable(false)]
         public virtual bool Dirty { get; set; }
 
         // Cette objet a été delete de la table ?
-		// This object has been deleted from the table?
+        // This object has been deleted from the table?
         [Browsable(false)]
         public virtual bool IsDeleted { get; set; }
 
@@ -88,7 +88,7 @@ namespace Shared.Database
         #region ICloneable Member
 
         // Créer un clone de l'objet
-		// Create a clone of the object
+        // Create a clone of the object
         public object Clone()
         {
             var obj = (DataObject)MemberwiseClone();
@@ -99,7 +99,7 @@ namespace Shared.Database
         #endregion
 
         // Récupère la table name en lisant les attributs
-		// Retrieves the table name by reading the attributes
+        // Retrieves the table name by reading the attributes
         public static string GetTableName(Type myType)
         {
             object[] attri = myType.GetCustomAttributes(typeof(DataTable), true);
@@ -131,7 +131,7 @@ namespace Shared.Database
         }
 
         // Précache au démarrage ?
-		// Precache start
+        // Precache start
         public static bool GetPreCachedFlag(Type myType)
         {
             object[] attri = myType.GetCustomAttributes(typeof(DataTable), true);

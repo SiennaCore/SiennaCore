@@ -2,15 +2,15 @@
 namespace Shared.Database
 {
     // Liste des connexions supportées
-	// List of connections supported
+    // List of connections supported
     public enum ConnectionType
     {
         // Mysql Serveur
-		// Mysql Server
+        // Mysql Server
         DATABASE_MYSQL,
 
         // MicroSoft SQL Serveur
-		// MicroSoft SQL Server
+        // MicroSoft SQL Server
         DATABASE_MSSQL,
 
        // ODBC database serveur
@@ -18,7 +18,7 @@ namespace Shared.Database
         DATABASE_ODBC,
 
         // OLE database serveur
-		// OLE database server
+        // OLE database server
         DATABASE_OLEDB
     }
 }

@@ -8,7 +8,7 @@ namespace Shared.NetWork
     public class PacketIn : MemoryStream
     {
         // Opcode du packet
-		// Opcode of packet
+        // Opcode of packet
         private UInt64 _Opcode = 0;
         private UInt64 _Size = 0;
 
@@ -229,7 +229,7 @@ namespace Shared.NetWork
         public PacketIn DecryptMythicRC4(byte[] Key)
         {
             // Putin ... j'en ai chié pour réussir a faire sa...
-			// Putin ... I have shit to do to succeed his ... (?)
+            // Putin ... I have shit to do to succeed his ... (?)
             try
             {
                 byte[] Packet = new byte[Length];

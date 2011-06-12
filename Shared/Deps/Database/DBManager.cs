@@ -7,7 +7,7 @@ using System.IO;
 namespace Shared.Database
 {
     // Classe permettant facilement d'assembler les tables et de lancer une connexion
-	// Class to easily assemble the tables and launches a connection
+    // Class to easily assemble the tables and launches a connection
     public class DBManager
     {
 

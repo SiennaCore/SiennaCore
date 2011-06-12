@@ -115,7 +115,7 @@ namespace Shared
         }
 
         public static void Enter() // Saute une ligne
-								   // Step one line
+                                   // Step one line
         {
             lock (_config)
             {
