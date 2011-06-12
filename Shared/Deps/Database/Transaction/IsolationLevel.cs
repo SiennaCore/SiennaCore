@@ -3,6 +3,7 @@
 namespace Shared.Database
 {
     // Niveau d'isolation des Transactions
+	// Transaction Isolation Level
     public enum IsolationLevel
     {
         DEFAULT,

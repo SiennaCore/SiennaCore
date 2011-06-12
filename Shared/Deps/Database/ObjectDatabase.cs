@@ -183,6 +183,7 @@ namespace Shared.Database
         #region Public API
 
         // Ajoute un nouvel objet dans la DB et le sauvegarde
+		// Adds a new object in DB and backup
         public bool AddObject(DataObject dataObject)
         {
             if (dataObject.AllowAdd)
@@ -197,6 +198,7 @@ namespace Shared.Database
         }
 
         // Sauvegarde l'objet dans la db
+		// Saves the object in the db
         public void SaveObject(DataObject dataObject)
         {
             if (dataObject.Dirty)
@@ -206,6 +208,7 @@ namespace Shared.Database
         }
 
         // Supprime l'objet de la DB
+		// Removes the object from the DB
         public void DeleteObject(DataObject dataObject)
         {
             if (dataObject.AllowDelete)
@@ -236,6 +239,7 @@ namespace Shared.Database
 
 
         // Sélectionne un objet , si il y en a plusieurs , le premier et retourné
+		// Selects an object, if there are several, the first and returned
         public TObject SelectObject<TObject>(string whereExpression)
             where TObject : DataObject
         {
@@ -243,6 +247,7 @@ namespace Shared.Database
         }
 
         // Sélectionne un objet , si il y en a plusieurs , le premier et retourné
+		// Selects an object, if there are several, the first and returned
         public TObject SelectObject<TObject>(string whereExpression, IsolationLevel isolation)
             where TObject : DataObject
         {
@@ -406,25 +411,32 @@ namespace Shared.Database
         #region Implementation
 
         // Ajoute un objet a la database , true = Success
+		// Adds an object to the database, true = Success
         protected abstract bool AddObjectImpl(DataObject dataObject);
 
         // Sauvegarde un Objet dans la Database
+		// Save an Object in the Database
         protected abstract void SaveObjectImpl(DataObject dataObject);
 
         // Supprime un objet de la database
+		// Find an object from its primaryKey
         protected abstract void DeleteObjectImpl(DataObject dataObject);
 
         // Trouve un objet a partir de sa primaryKey
+		// Find an object from its primaryKey
         protected abstract TObject FindObjectByKeyImpl<TObject>(object key)
             where TObject : DataObject;
 
         // Trouve un objet a partir de sa primaryKey
+		// Find an object from its primaryKey
         protected abstract DataObject FindObjectByKeyImpl(Type objectType, object key);
 
         // Sélectionne un objet a partir d'une table et des paramètres
+		// Select an object from a table and parameters
         protected abstract DataObject[] SelectObjectsImpl(Type objectType, string whereClause, IsolationLevel isolation);
 
         // Sélectionne un objet a partir d'une table et des paramètres
+		// Select an object from a table and parameters
         protected abstract IList<TObject> SelectObjectsImpl<TObject>(string whereClause, IsolationLevel isolation)
             where TObject : DataObject;
 
@@ -433,6 +445,7 @@ namespace Shared.Database
             where TObject : DataObject;
 
         // Retourn le nombre d'objet dans la database
+		// Returns the number of objects in the database
         protected abstract int GetObjectCountImpl<TObject>(string where)
             where TObject : DataObject;
 
@@ -736,6 +749,7 @@ namespace Shared.Database
         }
 
         // Met a jour ou ajoute un objet dans la DB
+		// Updates or adds an object in the DB
         public bool UpdateInCache<TObject>(object key)
             where TObject : DataObject
         {
@@ -837,6 +851,7 @@ namespace Shared.Database
         }
 
         // Lecture de la clef primaire
+		// Reading the primary key
         public static string GetTableOrViewName(Type objectType)
         {
             string name = DataObject.GetViewName(objectType);

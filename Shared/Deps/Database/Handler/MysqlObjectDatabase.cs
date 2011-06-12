@@ -19,6 +19,7 @@ namespace Shared.Database
         #region SQL implementation
 
         // Ajoute un nouvel objet a la DB
+		// Adds a new object DB
         protected override bool AddObjectImpl(DataObject dataObject)
         {
             try
@@ -147,6 +148,7 @@ namespace Shared.Database
         }
 
         // Persiste l'objet dans la DB
+		// Persists the object in the DB
         protected override void SaveObjectImpl(DataObject dataObject)
         {
             try
@@ -278,6 +280,7 @@ namespace Shared.Database
         }
 
         // Supprime un objet de la DB
+		// Deletes an object from the DB
         protected override void DeleteObjectImpl(DataObject dataObject)
         {
             try
@@ -352,6 +355,7 @@ namespace Shared.Database
         }
 
         // Retourne l'objet a partir de sa primary key
+		// Returns the object from its primary key
         protected override TObject FindObjectByKeyImpl<TObject>(object key)
         {
             MemberInfo[] members = typeof(TObject).GetMembers();
@@ -397,6 +401,7 @@ namespace Shared.Database
         }
 
         // Sélectionne tous les objets d'une table
+		// Selects all objects in a table
         protected override DataObject[] SelectObjectsImpl(Type objectType, string whereClause, IsolationLevel isolation)
         {
             string tableName = GetTableOrViewName(objectType);
@@ -570,6 +575,7 @@ namespace Shared.Database
         }
 
         // Sélectionne tous les objets d'une table
+		// Selects all objects in a table
         protected override IList<TObject> SelectObjectsImpl<TObject>(string whereClause, IsolationLevel isolation)
         {
             string tableName = GetTableOrViewName(typeof(TObject));
@@ -729,6 +735,7 @@ namespace Shared.Database
         }
 
         // Sélectionne tous les objets d'une table
+		// Selects all objects in a table
         protected override IList<TObject> SelectAllObjectsImpl<TObject>(IsolationLevel isolation)
         {
             return SelectObjectsImpl<TObject>("", isolation);
@@ -756,6 +763,7 @@ namespace Shared.Database
         }
 
         // Execute une Requète non bloquante
+		// Execute a query nonblocking
         protected override bool ExecuteNonQueryImpl(string rawQuery)
         {
             try

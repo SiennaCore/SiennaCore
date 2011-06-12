@@ -10,12 +10,14 @@ namespace Shared.Database
         #region ICache Members
 
         // Retourne toutes les clef enregitré dans la collection
+		// Return all key registered in the collection
         public ICollection Keys
         {
             get { return _cache.Keys; }
         }
 
         // Ajoute ou récupère un objet a partir de sa clef
+		// Return all key stored in the collection
         public object this[object key]
         {
             get

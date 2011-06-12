@@ -99,6 +99,7 @@ namespace Shared.NetWork
         #region Clients
 
         // Liste des clients connectés
+		// List of connected clients
         static public int MAX_CLIENT = 65000;
         public BaseClient[] Clients = new BaseClient[MAX_CLIENT];
         public int GetClientCount()
@@ -315,12 +316,15 @@ namespace Shared.NetWork
         #region Packet buffer pool
 
         // Taille maximal des packets
+		// Maximum Packet Size
         public int BUF_SIZE = 65536;
 
         // Taille minimal du buffer pool
+		// mimimum size of the buffer pool
         public int POOL_SIZE = 300;
 
         // Liste des packets
+		// List of Packets
         private Queue<byte[]> m_packetBufPool;
 
         public int PacketPoolSize
@@ -329,6 +333,7 @@ namespace Shared.NetWork
         }
 
         //  Allocation d'un nouveau packet
+		// Allocate a new packet
         private bool AllocatePacketBuffers()
         {
             m_packetBufPool = new Queue<byte[]>(POOL_SIZE);
@@ -343,6 +348,7 @@ namespace Shared.NetWork
         }
 
         // Demande d'un nouveau packet
+		// Application of a new packet
         public byte[] AcquirePacketBuffer()
         {
             lock (m_packetBufPool)
@@ -357,6 +363,7 @@ namespace Shared.NetWork
         }
 
         // Relachement d'un packet
+		// Relaxation of a packet (lol? bad traslation...)
         public void ReleasePacketBuffer(byte[] buf)
         {
             if (buf == null)
@@ -427,6 +434,7 @@ namespace Shared.NetWork
             catch
             {
                 if (sock != null) // Ne pas laisser le socket ouvert
+								  // Do not let the open socket
                 {
                     try
                     {
@@ -440,6 +448,7 @@ namespace Shared.NetWork
             finally
             {
                 if (Listener != null) // Quoi qu'il arrive on continu d'écouter le socket
+									  // Whatever happens we continued to listen to the socket
                 {
                     Listener.BeginAcceptSocket(_asyncAcceptCallback, this);
                 }
@@ -497,7 +506,8 @@ namespace Shared.NetWork
             }
         }
 
-        //Charge les systemes de cryptographie
+        // Charge les systemes de cryptographie
+		// Support systems of cryptography
         public void LoadCryptHandler()
         {
             Log.Info("TCPManager", "Loading Crypt Handler");
@@ -535,6 +545,7 @@ namespace Shared.NetWork
         }
 
         // Enregistre un handler
+		// Registers a handler
         public void RegisterPacketHandler(int packetCode, PacketFunction handler)
         {
             m_packetHandlers[packetCode] = handler;

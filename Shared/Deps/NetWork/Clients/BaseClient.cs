@@ -13,6 +13,7 @@ namespace Shared.NetWork
     public class BaseClient
     {
         // Appeler lorsque le client recoit des données
+		// Call when the client receives data
         private static readonly AsyncCallback ReceiveCallback = OnReceiveHandler;
         static public bool DisconnectOnNullByte = true;
 
@@ -343,15 +344,19 @@ namespace Shared.NetWork
 		#region TCP
 
         // Buffer en train d'être envoyé
+		// Buffer being sent
 		protected byte[] m_tcpSendBuffer;
 
         // Liste des packets a sender
+		// List of packets to sender
 		protected readonly Queue<byte[]> m_tcpQueue = new Queue<byte[]>(256);
 
         // True si un send est en cours
+		// True if a send os in progress
 		protected bool m_sendingTcp;
 
         // Envoi un packet
+		// Send packet
 		public void SendTCP(PacketOut packet)
 		{
 			//Fix the packet size
