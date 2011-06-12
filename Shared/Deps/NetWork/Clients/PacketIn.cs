@@ -276,7 +276,7 @@ namespace Shared.NetWork
             }
             catch(Exception e)
             {
-                Log.Error("PacketIn","DecryptMythicRC4 : Failled !" + e.ToString());
+                Log.Error("PacketIn","DecryptMythicRC4 : Failed !" + e.ToString());
             }
 
             return null;

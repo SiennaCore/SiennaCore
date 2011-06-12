@@ -8,15 +8,17 @@ namespace Shared
     [ISerializableAttribute((long)Opcodes.ProtocolHandshakeServerKey)]
     public class HandshakeServerKey : ISerializablePacket
     {
-        [Unsigned7BitAttribute(0)]
-        public long Nid;
+        [Encoded7BitAttribute(0)]
+        public long Algorithm;
 
-        [ArrayBit(1)]
-        public byte[] ServerKey;
+        [Encoded7BitAttribute(1)]
+        public long ServerKey;
+
+        [ArrayBit(2)]
+        public byte[] Unknown;
 
         public override void OnRead(RiftClient From)
         {
-
         }
     }
 }
