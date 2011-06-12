@@ -16,6 +16,7 @@ namespace Shared.Database
             Decimal = 10;
         }
 
+		// Indique si la var peut être null
         // Indicates whether the var can = null
         public bool AllowDbNull { get; set; }
 
