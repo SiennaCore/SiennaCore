@@ -13,7 +13,7 @@ namespace Shared
 
         public override void OnRead(RiftClient From)
         {
-            Log.Success("HanshakeCompression", "Client Compression : " + Enabled);
+            Log.Success("HandshakeCompression", "Client Compression : " + Enabled);
             From.EnableReceiveCompress();
         }
     }
