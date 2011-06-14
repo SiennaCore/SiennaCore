@@ -108,6 +108,15 @@ namespace Launcher
                     process.StartInfo.FileName = "rift.exe";
                     process.StartInfo.Arguments = "-u " + Username + " -k " + cert + @"\SiennaCert.pfx -l " + Lang + " -s " + RemoteServer;
                     process.Start();
+                    
+                    //If ollydbg is not present in the directory the launcher is in it won't start
+                    if(File.Exists("ollydbg.exe"))
+                    {
+                        Process ollydbg = new Process();
+                        ollydbg.StartInfo.FileName = "ollydbg.exe";
+                        ollydbg.StartInfo.Arguments = "-p " + process.Id;
+                        ollydbg.Start();
+                    }
                 }
                 catch (Exception)
                 {
