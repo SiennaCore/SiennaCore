@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap
+END
+PcapDeviceCaptureLoop.cs
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapDeviceCaptureLoop.cs
+END
+Pcap.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Pcap.cs
+END
+Version.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Version.cs
+END
+PcapAddress.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapAddress.cs
+END
+Sockaddr.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Sockaddr.cs
+END
+PcapHeader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapHeader.cs
+END
+PcapStatistics.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapStatistics.cs
+END
+PcapDeviceList.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapDeviceList.cs
+END
+PcapSendQueue.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapSendQueue.cs
+END
+PcapException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapException.cs
+END
+PcapEventArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapEventArgs.cs
+END
+PcapDevice.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapDevice.cs
+END
+PcapInterface.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapInterface.cs
+END
+PcapOfflineDevice.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapOfflineDevice.cs
+END
+PcapUnmanagedStructures.cs
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/PcapUnmanagedStructures.cs
+END
+SafeNativeMethods.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/SafeNativeMethods.cs
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Packets/Util
+END
+ArrayHelper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Packets/Util/ArrayHelper.cs
+END
+Timeval.cs
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Packets/Util/Timeval.cs
+END
+ChecksumUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Packets/Util/ChecksumUtils.cs
+END
+HexHelper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Packets/Util/HexHelper.cs
+END
+AnsiEscapeSequences.cs
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/SharpPcap/Packets/Util/AnsiEscapeSequences.cs
+END

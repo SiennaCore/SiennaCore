@@ -1,0 +1,281 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking
+END
+DockOutlineBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockOutlineBase.cs
+END
+AutoHideStripBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/AutoHideStripBase.cs
+END
+VS2005DockPaneCaption.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/VS2005DockPaneCaption.cs
+END
+Interfaces.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Interfaces.cs
+END
+DockWindowCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockWindowCollection.cs
+END
+Measures.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Measures.cs
+END
+NestedDockingStatus.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/NestedDockingStatus.cs
+END
+Resources.resx
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Resources.resx
+END
+Enums.cs
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Enums.cs
+END
+DockContentCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockContentCollection.cs
+END
+DockPanel.Persistor.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.Persistor.cs
+END
+DockPanel.AutoHideWindow.cs
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.AutoHideWindow.cs
+END
+DockContentEventArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockContentEventArgs.cs
+END
+DockPaneCaptionBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPaneCaptionBase.cs
+END
+DockPanelExtender.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanelExtender.cs
+END
+DockPaneCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPaneCollection.cs
+END
+DragForm.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DragForm.cs
+END
+DockPanel.SplitterDragHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.SplitterDragHandler.cs
+END
+SplitterBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/SplitterBase.cs
+END
+NestedPaneCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/NestedPaneCollection.cs
+END
+DockWindow.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockWindow.cs
+END
+FloatWindowCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/FloatWindowCollection.cs
+END
+DockContentHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockContentHandler.cs
+END
+Resources.Designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Resources.Designer.cs
+END
+DockPanel.MdiClientController.cs
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.MdiClientController.cs
+END
+DockContent.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockContent.cs
+END
+DockPanel.DockDragHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.DockDragHandler.cs
+END
+DockWindow.SplitterControl.cs
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockWindow.SplitterControl.cs
+END
+VisibleNestedPaneCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/VisibleNestedPaneCollection.cs
+END
+DockPane.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPane.cs
+END
+DockPanelSkin.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanelSkin.cs
+END
+VS2005DockPaneStrip.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/VS2005DockPaneStrip.cs
+END
+Localization.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Localization.cs
+END
+Strings.Designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Strings.Designer.cs
+END
+DockPane.SplitterControl.cs
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPane.SplitterControl.cs
+END
+DummyControl.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DummyControl.cs
+END
+FloatWindow.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/FloatWindow.cs
+END
+DockPanel.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.cs
+END
+DockPaneStripBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPaneStripBase.cs
+END
+DockAreasEditor.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockAreasEditor.cs
+END
+VS2005AutoHideStrip.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/VS2005AutoHideStrip.cs
+END
+Strings.resx
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/Strings.resx
+END
+InertButtonBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/InertButtonBase.cs
+END
+DockPanel.bmp
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.bmp
+END
+DockPanel.FocusManager.cs
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.FocusManager.cs
+END
+DockPanel.DragHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/allprivateserver/!svn/ver/104/Rift/Branches/Tools/rift-dev-RiftShark-9515eee/Docking/DockPanel.DragHandler.cs
+END

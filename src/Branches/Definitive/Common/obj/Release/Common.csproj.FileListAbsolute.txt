@@ -1,0 +1,5 @@
+C:\Users\Logan\Desktop\APS-RIFT\src\Branches\Definitive\bin\Common.dll
+C:\Users\Logan\Desktop\APS-RIFT\src\Branches\Definitive\bin\Common.pdb
+C:\Users\Logan\Desktop\APS-RIFT\src\Branches\Definitive\Common\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Logan\Desktop\APS-RIFT\src\Branches\Definitive\Common\obj\Release\Common.dll
+C:\Users\Logan\Desktop\APS-RIFT\src\Branches\Definitive\Common\obj\Release\Common.pdb

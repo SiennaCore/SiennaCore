@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/allprivateserver/!svn/ver/110/FrameWork/NetWork/Clients
+END
+IPacketHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/allprivateserver/!svn/ver/110/FrameWork/NetWork/Clients/IPacketHandler.cs
+END
+PacketIn.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/allprivateserver/!svn/ver/110/FrameWork/NetWork/Clients/PacketIn.cs
+END
+PacketOut.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/allprivateserver/!svn/ver/110/FrameWork/NetWork/Clients/PacketOut.cs
+END
+BaseClient.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/allprivateserver/!svn/ver/110/FrameWork/NetWork/Clients/BaseClient.cs
+END
+PacketHandlerAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/allprivateserver/!svn/ver/110/FrameWork/NetWork/Clients/PacketHandlerAttribute.cs
+END

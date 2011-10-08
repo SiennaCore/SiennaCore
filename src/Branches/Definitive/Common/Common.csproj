@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2045BAA2-435E-442E-8387-A2884E2E3413}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>.\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Org.Mentalis.SecurityServices">
+      <HintPath>.\Org.Mentalis.SecurityServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\Accounts\Account.cs" />
+    <Compile Include="Database\Accounts\Account_Banned.cs" />
+    <Compile Include="Database\Accounts\Realm.cs" />
+    <Compile Include="Database\Characters\Character.cs" />
+    <Compile Include="Database\Characters\CharacterInfo.cs" />
+    <Compile Include="Database\Characters\RandomName.cs" />
+    <Compile Include="Database\RiftConstant.cs" />
+    <Compile Include="Database\World\CacheData.cs" />
+    <Compile Include="Database\World\CacheTemplate.cs" />
+    <Compile Include="Database\World\TextInfo.cs" />
+    <Compile Include="NetWork\Handlers\Characters\LobbyCharacterCreateRequest.cs" />
+    <Compile Include="NetWork\Handlers\Characters\LobbyCharacterCustom.cs" />
+    <Compile Include="NetWork\Handlers\World\CacheUpdate.cs" />
+    <Compile Include="NetWork\Handlers\Characters\LobbyCharacterListResponse.cs" />
+    <Compile Include="NetWork\Handlers\Crypto\HandshakeClientKey.cs" />
+    <Compile Include="NetWork\Handlers\Crypto\HandshakeCompression.cs" />
+    <Compile Include="NetWork\Handlers\Crypto\HanshakeServerKey.cs" />
+    <Compile Include="NetWork\Handlers\PingPong.cs" />
+    <Compile Include="NetWork\Opcodes.cs" />
+    <Compile Include="NetWork\RiftClient.cs" />
+    <Compile Include="NetWork\RiftServer.cs" />
+    <Compile Include="NetWork\Stream\Fields\ArrayBit.cs" />
+    <Compile Include="NetWork\Stream\Fields\BoolBit.cs" />
+    <Compile Include="NetWork\Stream\Fields\DicBit.cs" />
+    <Compile Include="NetWork\Stream\Fields\Encoded7Bit.cs" />
+    <Compile Include="NetWork\Stream\Fields\ListBit.cs" />
+    <Compile Include="NetWork\Stream\Fields\PacketBit.cs" />
+    <Compile Include="NetWork\Stream\Fields\Raw4Bit.cs" />
+    <Compile Include="NetWork\Stream\Fields\Raw8Bit.cs" />
+    <Compile Include="NetWork\Stream\Fields\Unsigned7Bit.cs" />
+    <Compile Include="NetWork\Stream\ISerializableAttribute.cs" />
+    <Compile Include="NetWork\Stream\ISerializableField.cs" />
+    <Compile Include="NetWork\Stream\ISerializablePacket.cs" />
+    <Compile Include="NetWork\Stream\PacketInStream.cs" />
+    <Compile Include="NetWork\Stream\PacketOutStream.cs" />
+    <Compile Include="NetWork\Stream\PacketProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Remoting\AccountMgr.cs" />
+    <Compile Include="Remoting\ChannelMgr.cs" />
+    <Compile Include="Remoting\CharactersMgr.cs" />
+    <Compile Include="Remoting\MapMgr.cs" />
+    <Compile Include="Remoting\Maps\MapServerInfo.cs" />
+    <Compile Include="Remoting\WorldMgr.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\FrameWork\FrameWork.csproj">
+      <Project>{D5C98F3A-D5D2-4AED-A5A7-06D2DE095095}</Project>
+      <Name>FrameWork</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

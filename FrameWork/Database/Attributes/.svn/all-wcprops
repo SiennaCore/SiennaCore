@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/allprivateserver/!svn/ver/110/FrameWork/Database/Attributes
+END
+PrimaryKey.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/allprivateserver/!svn/ver/110/FrameWork/Database/Attributes/PrimaryKey.cs
+END
+ReadOnly.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/allprivateserver/!svn/ver/110/FrameWork/Database/Attributes/ReadOnly.cs
+END
+Relation.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/allprivateserver/!svn/ver/110/FrameWork/Database/Attributes/Relation.cs
+END
+DataTable.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/allprivateserver/!svn/ver/110/FrameWork/Database/Attributes/DataTable.cs
+END
+DataElement.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/allprivateserver/!svn/ver/110/FrameWork/Database/Attributes/DataElement.cs
+END
