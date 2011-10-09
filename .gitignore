@@ -3,14 +3,11 @@
 bin/
 *.com
 *.class
-*.dll
 *.exe
 *.o
 *.so
 *.pdb
 *.config
-
-
 # OS generated files #
 ######################
 .DS_Store?
